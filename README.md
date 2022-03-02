@@ -1,0 +1,3 @@
+Ej 
+Co
+Chujów sto
