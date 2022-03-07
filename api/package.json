@@ -1,0 +1,39 @@
+{
+  "name": "anytravel-api",
+  "version": "1.0.0",
+  "description": "Api for AnyTravel application",
+  "main": "source/server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon source/server.ts"
+  },
+  "keywords": [
+    "api",
+    "travel"
+  ],
+  "author": "Janiszyn, Michalski, Zdanowicz, Rusek",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.2.4",
+    "multer": "^1.4.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/body-parser": "^1.19.2",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/lodash": "^4.14.179",
+    "@types/mongoose": "^5.11.97",
+    "@types/multer": "^1.4.7",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "eslint": "^8.10.0"
+  }
+}
