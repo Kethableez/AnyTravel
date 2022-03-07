@@ -1,4 +1,5 @@
-Ej 
-Co
-Chujów sto
-twoja stara 
+### Po ściągnięciu najnowszych zmian
+
+##### Folder 'api'
+
+npm install
