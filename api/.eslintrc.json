@@ -16,10 +16,19 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-console": 2,
+
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
         "quotes": [
             "error",
-            "single"
+            "single",
+            { "allowTemplateLiterals": true }
         ],
         "semi": [
             "error",
