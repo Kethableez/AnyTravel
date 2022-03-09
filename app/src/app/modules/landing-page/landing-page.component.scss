@@ -1,0 +1,52 @@
+.background {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/assets/images/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.level {
+  padding: 2rem 0;
+}
+
+.navbar-brand {
+  .navbar-item {
+    background: url(/assets/images/logo.png) no-repeat center center;
+    background-size: cover;
+    width: 300px;
+  }
+}
+
+majk-login, majk-register {
+  margin: 0 auto;
+  min-width: 30em;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.bg {
+  background-color: #fafafa;
+}
+
+.px-700 {
+  max-width: 700px;
+}
+
+.text-wht {
+  color: #fff;
+}

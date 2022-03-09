@@ -1,0 +1,46 @@
+<section class="hero is-fullheight background">
+  <div class="navbar my-3" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <div class="navbar-item"></div>
+        <div role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="navbar-menu" id="navbarMenu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <div class="button is-white" [ngClass]="{ 'is-outlined' : !isRegisterFormActive }" (click)="toggleRegister()"> Zarejestruj się </div>
+              <div class="button is-white" [ngClass]="{ 'is-outlined' : !isLoginFormActive }" (click)="toggleLogin()"> Zaloguj się </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="container w-50">
+      <h1 class="title is-1 text-wht">Nieodłączny element każdej podróży!</h1>
+
+      <h5 class="subtitle is-5 text-wht">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptatibus ipsum reiciendis amet ipsam
+        mollitia iure. Adipisci delectus obcaecati laboriosam ex doloremque, est ipsa doloribus quasi autem, dolorum
+        blanditiis quos? Aspernatur corrupti officiis error laborum quaerat tempora dolor reprehenderit expedita enim
+        voluptate ex, unde beatae magnam impedit, culpa veniam mollitia ipsum exercitationem, rerum corporis dolorem
+        eaque nihil ullam? Rerum, blanditiis.
+      </h5>
+    </div>
+    <div class="container flex">
+      <majk-login *ngIf="isLoginFormActive"></majk-login>
+      <majk-register *ngIf="isRegisterFormActive"></majk-register>
+    </div>
+  </div>
+  <div class="hero-foot text-wht">
+    <div class="content has-text-centered">
+      <p><strong class="text-wht">AnyTravel</strong> by A.Janiszyn, J.Michalski, K.Zdanowicz, M.Rusek</p>
+    </div>
+  </div>
+</section>

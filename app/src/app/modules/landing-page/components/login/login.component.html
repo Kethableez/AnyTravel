@@ -1,0 +1,21 @@
+<div class="box">
+  <form [formGroup]="loginForm">
+    <div class="field">
+      <label class="label">Nazwa użytkownika</label>
+      <div class="control">
+        <input class="input" [ngClass]="isUsernameValid()" formControlName="username" type="text" placeholder="Nazwa użytkownika">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Hasło</label>
+      <div class="control">
+        <input class="input" [ngClass]="isPasswordValid()" formControlName="password" type="password" placeholder="Hasło">
+      </div>
+    </div>
+
+    <div class="control has-text-centered">
+      <button class="button is-primary center" [disabled]="loginForm.invalid">Zaloguj się</button>
+    </div>
+  </form>
+</div>
