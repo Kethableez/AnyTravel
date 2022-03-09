@@ -3,14 +3,14 @@
     <div class="field">
       <label class="label">Nazwa użytkownika</label>
       <div class="control">
-        <input class="input" [ngClass]="isUsernameValid()" formControlName="username" type="text" placeholder="Nazwa użytkownika">
+        <input class="input" [ngClass]="isFieldValid('username')" formControlName="username" type="text" placeholder="Nazwa użytkownika">
       </div>
     </div>
 
     <div class="field">
       <label class="label">Hasło</label>
       <div class="control">
-        <input class="input" [ngClass]="isPasswordValid()" formControlName="password" type="password" placeholder="Hasło">
+        <input class="input" [ngClass]="isFieldValid('password')" formControlName="password" type="password" placeholder="Hasło">
       </div>
     </div>
 

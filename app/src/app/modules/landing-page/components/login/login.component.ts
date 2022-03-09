@@ -1,38 +1,22 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FormService } from 'src/app/core/services/form.service';
 
 @Component({
   selector: 'majk-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [FormService]
 })
 export class LoginComponent {
-  constructor(private builder: FormBuilder) {}
+  constructor(private builder: FormBuilder, protected formService: FormService) {}
 
   loginForm = this.builder.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
   });
 
-  get username() {
-    return this.loginForm.get('username');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
-  }
-
-  isPasswordValid() {
-    if (this.password?.touched) {
-      return this.password.valid ? 'is-primary' : 'is-danger';
-    }
-    return '';
-  }
-
-  isUsernameValid() {
-    if (this.username?.touched) {
-      return this.username.valid ? 'is-primary' : 'is-danger';
-    }
-    return '';
+  isFieldValid(fieldName: string) {
+    return this.formService.isFieldValid(fieldName, this.loginForm);
   }
 }

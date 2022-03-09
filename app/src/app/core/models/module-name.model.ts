@@ -1,5 +1,5 @@
 //
-export enum Modules {
+export enum ModuleName {
   AUTH = 'auth',
   USER = 'user'
 }

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FormService } from 'src/app/core/services/form.service';
 
 @Component({
   selector: 'majk-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers: [FormService]
 })
 export class RegisterComponent {
-  constructor(private builder: FormBuilder) {}
+  constructor(private builder: FormBuilder, protected formService: FormService) {}
 
   registerForm = this.builder.group({
     firstName: ['', Validators.required],
@@ -19,11 +21,6 @@ export class RegisterComponent {
   });
 
   isFieldValid(fieldName: string) {
-    const field = this.registerForm.get(fieldName);
-
-    if (field?.touched) {
-      return field.valid ? 'is-primary' : 'is-danger';
-    }
-    return '';
+    return this.formService.isFieldValid(fieldName, this.registerForm);
   }
 }

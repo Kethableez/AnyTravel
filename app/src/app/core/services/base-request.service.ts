@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Modules } from 'src/app/core/models/modules.model';
+import { ModuleName } from 'src/app/core/models/module-name.model';
 import { environment } from 'src/environments/environment';
 import { ParametersInjectorService } from './parameters-injector.service';
 
@@ -14,7 +14,7 @@ export abstract class BaseRequestService {
 
   readonly baseUrl = environment.baseUrl;
 
-  protected abstract get moduleName(): Modules;
+  protected abstract get moduleName(): ModuleName;
 
   get<T>(url: string): Observable<T> {
     return this.http.get<T>(url);
