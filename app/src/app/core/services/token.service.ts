@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
+const TOKEN_KEY = 'authToken';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  readonly tokenKey = environment.tokenKey;
+  readonly tokenKey = TOKEN_KEY;
 
   removeToken(): void {
     window.sessionStorage.clear();
