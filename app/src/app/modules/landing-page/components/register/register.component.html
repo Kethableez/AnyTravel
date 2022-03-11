@@ -1,6 +1,19 @@
 <div class="box">
   <form [formGroup]="registerForm">
+    <div class="field">
+      <label class="label">Nazwa użytkownika</label>
+      <div class="control">
+        <input class="input" [ngClass]="isFieldValid('username')" formControlName="username" type="text" placeholder="Nazwa użytkownika">
+      </div>
+    </div>
 
+
+    <div class="field">
+      <label class="label">Adres e-mail</label>
+      <div class="control">
+        <input class="input" [ngClass]="isFieldValid('email')" formControlName="email" type="email" placeholder="Adres e-mail">
+      </div>
+    </div>
 
   <div class="field">
     <label class="label">Imię</label>
@@ -16,22 +29,12 @@
     </div>
   </div>
 
-
   <div class="field">
-    <label class="label">Nazwa użytkownika</label>
+    <label class="label">Data urodzenia</label>
     <div class="control">
-      <input class="input" [ngClass]="isFieldValid('username')" formControlName="username" type="text" placeholder="Nazwa użytkownika">
+      <input class="input" [ngClass]="isFieldValid('birthdate')" formControlName="birthdate" type="date">
     </div>
   </div>
-
-
-  <div class="field">
-    <label class="label">Adres e-mail</label>
-    <div class="control">
-      <input class="input" [ngClass]="isFieldValid('email')" formControlName="email" type="email" placeholder="Adres e-mail">
-    </div>
-  </div>
-
 
   <div class="field">
     <label class="label">Hasło</label>
@@ -46,9 +49,14 @@
       <input class="input" [ngClass]="isFieldValid('confirmPassword')" formControlName="confirmPassword" type="password" placeholder="Powtórz hasło">
     </div>
   </div>
-
+  <div class="field">
+  <label class="checkbox">
+    <input type="checkbox" formControlName="isSubscribed">
+      Chcę się zapisać do newslettera
+  </label>
+  </div>
   <div class="control has-text-centered">
-    <button class="button is-primary center" [disabled]="registerForm.invalid">Zarejestruj się</button>
+    <button class="button is-primary center" (click)="register()" [disabled]="registerForm.invalid">Zarejestruj się</button>
   </div>
 </form>
 </div>

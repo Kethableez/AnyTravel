@@ -86,7 +86,24 @@ const login = async (req: Request, res: Response) => {
   });
 };
 
+const getUserData = (req: Request, res: Response) => {
+  const userId = res.locals.jwt.id;
+
+  User.findById(userId)
+    .exec()
+    .then((user) => {
+      return res.status(200).json(user);
+    })
+    .catch((error) => {
+      return res.status(401).json({
+        message: error.message,
+        error
+      });
+    });
+};
+
 export default {
   createUser,
-  login
+  login,
+  getUserData
 };

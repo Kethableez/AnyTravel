@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const ObjectId = mongoose.Types.ObjectId;
 
 const idValidator = (req: Request, res: Response, next: NextFunction) => {
-  const { userId } = req.body;
+  const userId = req.body.userId ? req.body.userId : req.params.userId;
 
   if (ObjectId.isValid(userId)) {
     next();
