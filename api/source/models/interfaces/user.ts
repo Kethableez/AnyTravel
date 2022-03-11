@@ -6,6 +6,7 @@ interface IUser extends Document {
   password: string;
   firstName: string;
   lastName: string;
+  avatar: string;
   role: string;
   birthdate: Date;
   isActive: boolean;

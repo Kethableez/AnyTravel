@@ -2,8 +2,11 @@ import http from 'http';
 import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+
 import config from './config/config';
 import logger from './config/logger';
+
+import userRoutes from './routes/user';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -56,6 +59,8 @@ router.use((req, res, next) => {
 
   next();
 });
+
+router.use('/api/user', userRoutes);
 
 router.use((req, res) => {
   const error = new Error('Not found');
