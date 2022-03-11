@@ -68,5 +68,9 @@ router.use((req, res) => {
 const httpServer = http.createServer(router);
 
 httpServer.listen(config.server.port, () =>
-  logger.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`)
+  logger.info(
+    NAMESPACE,
+    process.env.NODE_ENV as string,
+    `Server is running ${config.server.hostname}:${config.server.port}`
+  )
 );
