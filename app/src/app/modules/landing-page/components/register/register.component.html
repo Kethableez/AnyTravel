@@ -1,0 +1,54 @@
+<div class="box">
+  <form [formGroup]="registerForm">
+
+
+  <div class="field">
+    <label class="label">Imię</label>
+    <div class="control">
+      <input class="input" [ngClass]="isFieldValid('firstName')" formControlName="firstName" type="text" placeholder="Imię">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Nazwisko</label>
+    <div class="control">
+      <input class="input" [ngClass]="isFieldValid('lastName')" formControlName="lastName" type="text" placeholder="Nazwisko">
+    </div>
+  </div>
+
+
+  <div class="field">
+    <label class="label">Nazwa użytkownika</label>
+    <div class="control">
+      <input class="input" [ngClass]="isFieldValid('username')" formControlName="username" type="text" placeholder="Nazwa użytkownika">
+    </div>
+  </div>
+
+
+  <div class="field">
+    <label class="label">Adres e-mail</label>
+    <div class="control">
+      <input class="input" [ngClass]="isFieldValid('email')" formControlName="email" type="email" placeholder="Adres e-mail">
+    </div>
+  </div>
+
+
+  <div class="field">
+    <label class="label">Hasło</label>
+    <div class="control">
+      <input class="input" [ngClass]="isFieldValid('password')" formControlName="password" type="password" placeholder="Hasło">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Powtórz hasło</label>
+    <div class="control">
+      <input class="input" [ngClass]="isFieldValid('confirmPassword')" formControlName="confirmPassword" type="password" placeholder="Powtórz hasło">
+    </div>
+  </div>
+
+  <div class="control has-text-centered">
+    <button class="button is-primary center" [disabled]="registerForm.invalid">Zarejestruj się</button>
+  </div>
+</form>
+</div>
