@@ -9,15 +9,15 @@ export class TokenService {
   readonly tokenKey = TOKEN_KEY;
 
   removeToken(): void {
-    window.sessionStorage.clear();
+    window.localStorage.removeItem(this.tokenKey);
   }
 
   saveToken(token: string): void {
-    window.sessionStorage.removeItem(this.tokenKey);
-    window.sessionStorage.setItem(this.tokenKey, token);
+    window.localStorage.removeItem(this.tokenKey);
+    window.localStorage.setItem(this.tokenKey, token);
   }
 
   getToken(): string {
-    return sessionStorage.getItem(this.tokenKey) as string;
+    return localStorage.getItem(this.tokenKey) as string;
   }
 }

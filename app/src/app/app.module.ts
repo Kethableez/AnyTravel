@@ -12,6 +12,8 @@ import { metaReducers } from './core/store/app.states';
 import { HydrationEffects } from './core/store/hydration/hydration.effects';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { AppComponent } from './main/app.component';
+import { AuthStateModule } from './core/store/auth';
+import { UserStateModule } from './core/store/user';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +22,8 @@ import { AppComponent } from './main/app.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AuthStateModule,
+    UserStateModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([HydrationEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
