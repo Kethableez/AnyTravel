@@ -14,5 +14,14 @@
         "editor.renderWhitespace": "all",
         "editor.acceptSuggestionOnEnter": "off"
     },
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "auth": "Bearer ",
+            "contentType": "application/json"
+        },
+        "local": {
+            "baseUrl": "http://localhost:9000/api"
+        }
+    }
 }
