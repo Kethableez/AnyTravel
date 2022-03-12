@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 export enum StyleSelector {
   DEFAULT = '',
@@ -33,5 +33,18 @@ export class FormService {
         control.classList.remove(loading);
       } else control.classList.add(loading);
     }
+  }
+
+  errorEnabled(fieldName: string, form: FormGroup): boolean {
+    const field = form.controls[fieldName];
+
+    return field.touched && !field.valid;
+  }
+  getErrorKey(fieldName: string, form: FormGroup): string[] {
+    const errors = form.controls[fieldName].errors as ValidationErrors;
+    if (errors) {
+      return Object.keys(errors);
+    }
+    return [];
   }
 }

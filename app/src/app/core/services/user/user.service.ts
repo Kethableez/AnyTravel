@@ -17,6 +17,10 @@ enum UserActions {
   AVAILABILITY = 'availability'
 }
 
+interface CheckResponse {
+  available: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,10 +51,10 @@ export class UserService extends BaseRequestService {
     return this.get<User>(url);
   }
 
-  doCheckAvailability(body: AvailabilityPayload): Observable<any> {
+  doCheckAvailability(body: AvailabilityPayload): Observable<boolean> {
     const url = this.getUrl(UserActions.AVAILABILITY);
-    return this.post<any>(url, body).pipe(
-      delay(5000),
+    return this.post<CheckResponse>(url, body).pipe(
+      delay(2000),
       map((res) => res.available)
     );
   }

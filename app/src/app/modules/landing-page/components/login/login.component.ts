@@ -28,4 +28,12 @@ export class LoginComponent {
 
     this.store$.dispatch(AuthActions.login({ loginPayload: payload }));
   }
+
+  isErrorEnabled(fieldName: string) {
+    return this.formService.errorEnabled(fieldName, this.loginForm);
+  }
+
+  getError(fieldName: string): string[] {
+    return this.formService.getErrorKey(fieldName, this.loginForm);
+  }
 }
