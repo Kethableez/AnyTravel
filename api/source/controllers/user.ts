@@ -1,6 +1,6 @@
 import bcryptjs from 'bcryptjs';
 import { Request, Response } from 'express';
-import { head } from 'lodash';
+import { head, isEmpty } from 'lodash';
 import logger from '../config/logger';
 import signJWT from '../functions/sign-jwt';
 import IUser from '../models/interfaces/user';
@@ -102,8 +102,51 @@ const getUserData = (req: Request, res: Response) => {
     });
 };
 
+const getQuery = (selector: string, value: string) => {
+  const queryList = [
+    {
+      email: value
+    },
+    {
+      username: value
+    }
+  ];
+  const index = selector === 'email' ? 0 : 1;
+
+  return queryList[index];
+};
+
+const availability = (req: Request, res: Response) => {
+  const { selector, value } = req.body;
+
+  console.log(req.body);
+
+  const query = getQuery(selector, value);
+
+  User.find(query)
+    .exec()
+    .then((result) => {
+      if (isEmpty(result)) {
+        return res.status(200).json({
+          available: true
+        });
+      } else {
+        return res.status(200).json({
+          available: false
+        });
+      }
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        message: error.message,
+        error
+      });
+    });
+};
+
 export default {
   createUser,
   login,
-  getUserData
+  getUserData,
+  availability
 };

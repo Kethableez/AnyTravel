@@ -10,7 +10,7 @@
 
     <div class="field">
       <label class="label">Adres e-mail</label>
-      <div class="control">
+      <div class="control" id="email">
         <input class="input" [ngClass]="isFieldValid('email')" formControlName="email" type="email" placeholder="Adres e-mail">
       </div>
     </div>
@@ -58,5 +58,9 @@
   <div class="control has-text-centered">
     <button class="button is-primary center" (click)="register()" [disabled]="registerForm.invalid">Zarejestruj się</button>
   </div>
+
+  <pre>
+    {{ registerForm.controls['email'].status}}
+  </pre>
 </form>
 </div>
