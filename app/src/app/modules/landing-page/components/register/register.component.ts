@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { AvailabilityValidator } from 'src/app/core/services/availability.validator';
 import { FormService } from 'src/app/core/services/form.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 import { RootState } from 'src/app/core/store/app.states';
 import { AuthActions } from 'src/app/core/store/auth';
 
@@ -12,11 +14,30 @@ import { AuthActions } from 'src/app/core/store/auth';
   providers: [FormService]
 })
 export class RegisterComponent {
-  constructor(private builder: FormBuilder, protected formService: FormService, private store$: Store<RootState>) {}
+  constructor(
+    private builder: FormBuilder,
+    protected formService: FormService,
+    private store$: Store<RootState>,
+    private userService: UserService
+  ) {}
 
   registerForm = this.builder.group({
-    username: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    username: [
+      '',
+      {
+        Validators: [Validators.required],
+        asyncValidators: [AvailabilityValidator('username', this.userService, this.formService)],
+        updateOn: 'blur'
+      }
+    ],
+    email: [
+      '',
+      {
+        Validators: [Validators.required],
+        asyncValidators: [AvailabilityValidator('email', this.userService, this.formService)],
+        updateOn: 'blur'
+      }
+    ],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     birthdate: ['', Validators.required],
@@ -32,5 +53,25 @@ export class RegisterComponent {
   register() {
     const payload = this.registerForm.value;
     this.store$.dispatch(AuthActions.register({ registerPayload: payload }));
+  }
+
+  isErrorEnabled(fieldName: string) {
+    return this.formService.errorEnabled(fieldName, this.registerForm);
+  }
+
+  getError(fieldName: string): string[] {
+    return this.formService.getErrorKey(fieldName, this.registerForm);
+  }
+
+  isPasswordMatch() {
+    const password = this.getControl('password').value;
+    const confirmPassword = this.getControl('confirmPassword').value;
+    if (password !== confirmPassword) {
+      this.getControl('confirmPassword').setErrors({ mustMatch: true });
+    }
+  }
+
+  getControl(controlName: string) {
+    return this.registerForm.controls[controlName];
   }
 }

@@ -2,61 +2,120 @@
   <form [formGroup]="registerForm">
     <div class="field">
       <label class="label">Nazwa użytkownika</label>
-      <div class="control">
-        <input class="input" [ngClass]="isFieldValid('username')" formControlName="username" type="text" placeholder="Nazwa użytkownika">
+      <div class="control"  id="username">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('username')"
+          formControlName="username"
+          type="text"
+          placeholder="Nazwa użytkownika"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('username')">
+          <div *ngFor="let error of getError('username')"> {{error | formError}}</div>
+        </div>
       </div>
     </div>
-
 
     <div class="field">
       <label class="label">Adres e-mail</label>
-      <div class="control">
-        <input class="input" [ngClass]="isFieldValid('email')" formControlName="email" type="email" placeholder="Adres e-mail">
+      <div class="control" id="email">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('email')"
+          formControlName="email"
+          type="email"
+          placeholder="Adres e-mail"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('email')">
+          <div *ngFor="let error of getError('email')">{{error | formError}}</div>
+        </div>
       </div>
     </div>
 
-  <div class="field">
-    <label class="label">Imię</label>
-    <div class="control">
-      <input class="input" [ngClass]="isFieldValid('firstName')" formControlName="firstName" type="text" placeholder="Imię">
+    <div class="field">
+      <label class="label">Imię</label>
+      <div class="control">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('firstName')"
+          formControlName="firstName"
+          type="text"
+          placeholder="Imię"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('firstName')">
+          <div *ngFor="let error of getError('firstName')">{{error | formError}}</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="field">
-    <label class="label">Nazwisko</label>
-    <div class="control">
-      <input class="input" [ngClass]="isFieldValid('lastName')" formControlName="lastName" type="text" placeholder="Nazwisko">
+    <div class="field">
+      <label class="label">Nazwisko</label>
+      <div class="control">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('lastName')"
+          formControlName="lastName"
+          type="text"
+          placeholder="Nazwisko"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('lastName')">
+          <div *ngFor="let error of getError('lastName')">{{error | formError}}</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="field">
-    <label class="label">Data urodzenia</label>
-    <div class="control">
-      <input class="input" [ngClass]="isFieldValid('birthdate')" formControlName="birthdate" type="date">
+    <div class="field">
+      <label class="label">Data urodzenia</label>
+      <div class="control">
+        <input class="input" [ngClass]="isFieldValid('birthdate')" formControlName="birthdate" type="date" />
+        <div class="help is-danger" *ngIf="isErrorEnabled('birthdate')">
+          <div *ngFor="let error of getError('birthdate')"> {{error | formError}}</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="field">
-    <label class="label">Hasło</label>
-    <div class="control">
-      <input class="input" [ngClass]="isFieldValid('password')" formControlName="password" type="password" placeholder="Hasło">
+    <div class="field">
+      <label class="label">Hasło</label>
+      <div class="control">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('password')"
+          formControlName="password"
+          type="password"
+          placeholder="Hasło"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('password')">
+          <div *ngFor="let error of getError('password')">{{error | formError}}</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="field">
-    <label class="label">Powtórz hasło</label>
-    <div class="control">
-      <input class="input" [ngClass]="isFieldValid('confirmPassword')" formControlName="confirmPassword" type="password" placeholder="Powtórz hasło">
+    <div class="field">
+      <label class="label">Powtórz hasło</label>
+      <div class="control">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('confirmPassword')"
+          (change)="isPasswordMatch()"
+          formControlName="confirmPassword"
+          type="password"
+          placeholder="Powtórz hasło"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('confirmPassword')">
+          <div *ngFor="let error of getError('confirmPassword')">{{error | formError}}</div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="field">
-  <label class="checkbox">
-    <input type="checkbox" formControlName="isSubscribed">
-      Chcę się zapisać do newslettera
-  </label>
-  </div>
-  <div class="control has-text-centered">
-    <button class="button is-primary center" (click)="register()" [disabled]="registerForm.invalid">Zarejestruj się</button>
-  </div>
-</form>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="isSubscribed" />
+        Chcę się zapisać do newslettera
+      </label>
+    </div>
+    <div class="control has-text-centered">
+      <button class="button is-primary center" (click)="register()" [disabled]="!registerForm.valid">
+        Zarejestruj się
+      </button>
+    </div>
+  </form>
 </div>

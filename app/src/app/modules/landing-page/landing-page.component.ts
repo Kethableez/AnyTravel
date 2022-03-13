@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LandingPageComponent {
   isLoginFormActive = false;
-  isRegisterFormActive = false;
+  isRegisterFormActive = true;
 
   toggleLogin() {
     this.isLoginFormActive = !this.isLoginFormActive;
