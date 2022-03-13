@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from 'src/app/core/store/user';
 import { RootState } from 'src/app/core/store/app.states';
-import { User } from 'src/app/core/models/user/user.model';
-
+import { selectUserData } from 'src/app/core/store/user/user.selectors';
 
 @Component({
   selector: 'majk-profile',
@@ -11,13 +9,9 @@ import { User } from 'src/app/core/models/user/user.model';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  constructor(private store$: Store<RootState>) {}
 
-  constructor(private store$: Store<RootState>, private currentUser: Store<User>) { }
+  currentUser$ = this.store$.select(selectUserData);
 
-  ngOnInit(): void {
-    this.getUserData();
-  }
-
-  getUserData(): void { this.store$.dispatch(UserActions.getData()); }
-
+  ngOnInit(): void {}
 }

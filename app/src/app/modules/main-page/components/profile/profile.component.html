@@ -1,10 +1,10 @@
-<div class="box">
+<div class="box" *ngIf="(currentUser$ | async) as currentUser">
     <div class="field">
-      <label class="label">Nazwa użytkownika</label>
+      <label class="label"> {{ currentUser.username }} </label>
     </div>
 
     <div class="field">
-      <label class="label">Adres e-mail</label>
+      <label class="label"> {{ currentUser.username }} </label>
     </div>
 
     <div class="field">
