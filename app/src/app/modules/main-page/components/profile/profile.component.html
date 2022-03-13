@@ -1,22 +1,37 @@
+<majk-navigation></majk-navigation>
+
+<div>
+  <button class="button is-white"><a [routerLink]="['/home']">Back</a></button>
+</div>
+
 <div class="box" *ngIf="(currentUser$ | async) as currentUser">
-    <div class="field">
-      <label class="label"> {{ currentUser.username }} </label>
-    </div>
 
-    <div class="field">
-      <label class="label"> {{ currentUser.username }} </label>
-    </div>
+  <div class="field">
+    <label class="label">User name:  {{ currentUser.firstName + " " + currentUser.lastName }} </label>
+  </div>
 
-    <div class="field">
-      <label class="label">Imię</label>
-    </div>
+  <div class="field">
+    <label class="label"> {{ currentUser.username }} </label>
+  </div>
 
-    <div class="field">
-      <label class="label">Nazwisko</label>
-    </div>
+  <div class="field">
+    <label class="label">{{ currentUser.birthdate }}</label>
+  </div>
 
-    <div class="field">
-      <label class="label">Data urodzenia</label>
-    </div>
+  <div class="field">
+    <label class="label">{{ currentUser.email }}</label>
+  </div>
 
+  <div class="field">
+    <label class="label">{{currentUser.role}}</label>
+  </div>
+
+
+  <div>
+    <button class="button is-link is-rounded">Edit User Data</button>
+  </div>
+</div>
+
+<div>
+  <button class="button is-danger">Delete User</button>
 </div>
