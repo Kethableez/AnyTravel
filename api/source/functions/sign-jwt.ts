@@ -1,34 +1,20 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config/config';
 import IUser from '../models/interfaces/user';
 
-const signJWT = (user: IUser, callback: (error: Error | null | unknown, token: string | null) => void): void => {
-  const timeSinceEpoch = new Date().getTime();
-  const expirationTime = timeSinceEpoch + Number(config.server.token.expireTime) * 100000;
-  const expirationTimeInSec = Math.floor(expirationTime / 1000);
-
-  try {
-    jwt.sign(
-      {
-        id: user._id
-      },
-      config.server.token.secret,
-      {
-        issuer: config.server.token.issuer,
-        algorithm: 'HS256',
-        expiresIn: expirationTimeInSec
-      },
-      (error, token) => {
-        if (error) {
-          callback(error, null);
-        } else if (token) {
-          callback(null, token);
-        }
-      }
-    );
-  } catch (error) {
-    callback(error, null);
-  }
+export const createToken = (user: IUser): string => {
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET as jwt.Secret, {
+    issuer: config.server.token.issuer,
+    algorithm: 'HS256',
+    expiresIn: '1h'
+  });
 };
 
-export default signJWT;
+export const validateToken = async (token: string): Promise<jwt.VerifyErrors | jwt.JwtPayload> => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.JWT_SECRET as jwt.Secret, (err, paylaod) => {
+      if (err) return reject(err);
+      resolve(paylaod as JwtPayload);
+    });
+  });
+};
