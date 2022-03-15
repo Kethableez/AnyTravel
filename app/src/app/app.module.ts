@@ -14,6 +14,7 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { AppComponent } from './main/app.component';
 import { AuthStateModule } from './core/store/auth';
 import { UserStateModule } from './core/store/user';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,8 @@ import { UserStateModule } from './core/store/user';
     UserStateModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([HydrationEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    BrowserAnimationsModule
   ],
   providers: [
     {
