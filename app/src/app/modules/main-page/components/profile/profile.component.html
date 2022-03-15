@@ -1,11 +1,5 @@
 <majk-navigation></majk-navigation>
 
-<div>
-  <button class="button is-white"><a [routerLink]="['/home']">
-      <h1 style="color:black; font-size:30px">&larr;</h1>
-    </a>
-  </button>
-</div>
 
 <div class="columns is-mobile is-centered" *ngIf="(currentUser$ | async) as currentUser">
   <div class="column is-one-quarter">
