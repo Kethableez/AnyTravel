@@ -87,17 +87,17 @@ class UserService {
     }
   }
 
-  public async removeUser(userId: string, payload: { password: string }): Promise<BaseResponse | Error> {
+  public async deleteUser(userId: string, payload: { password: string }): Promise<BaseResponse | Error> {
     try {
-      const userToRemove = await this.userSchema.findById(userId);
+      const userToDelete = await this.userSchema.findById(userId);
 
-      if (!userToRemove) throw new Error('Invalid ID');
+      if (!userToDelete) throw new Error('Invalid ID');
 
-      if (!(await bcrypt.compare(payload.password, userToRemove.password))) throw new Error('Invalid password');
+      if (!(await bcrypt.compare(payload.password, userToDelete.password))) throw new Error('Invalid password');
 
       await this.userSchema.findByIdAndDelete(userId);
 
-      return { message: 'Removed' };
+      return { message: 'Deleted' };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
