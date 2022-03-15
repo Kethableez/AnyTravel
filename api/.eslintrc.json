@@ -13,9 +13,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "unused-imports"
     ],
     "rules": {
+        "unused-imports/no-unused-imports": "error",
         "indent": [
             "error",
             2, { "SwitchCase": 1 }

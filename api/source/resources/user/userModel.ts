@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-interface IUser extends Document {
+interface User extends Document {
   username: string;
   email: string;
   password: string;
@@ -13,4 +13,4 @@ interface IUser extends Document {
   isSubscribed: boolean;
 }
 
-export default IUser;
+export default User;

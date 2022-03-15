@@ -1,81 +1,72 @@
-import http from 'http';
 import bodyParser from 'body-parser';
-import express from 'express';
+import express, { Application } from 'express';
 import mongoose from 'mongoose';
-
 import config from './config/config';
-import logger from './config/logger';
+import morgan from 'morgan';
+import errorMiddleware from './middleware/errorMiddleware';
+import Controller from './utils/controllerModel';
 
-import userRoutes from './routes/user';
+class Server {
+  public express: Application;
+  public port: number;
 
-const NAMESPACE = 'Server';
-const router = express();
+  constructor(controllers: Controller[], port: number) {
+    this.express = express();
+    this.port = port;
 
-mongoose
-  .connect(config.mongo.url, config.mongo.options)
-  .then(() => {
-    logger.info(NAMESPACE, 'Mongo Connected!');
-  })
-  .catch((error) => {
-    logger.error(NAMESPACE, error.message, error);
-  });
-
-router.use((req, res, next) => {
-  logger.info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
-
-  res.on('finish', () => {
-    logger.info(
-      NAMESPACE,
-      `METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}] - IP: [${req.socket.remoteAddress}]`
-    );
-  });
-
-  next();
-});
-
-router.use((req, res, next) => {
-  logger.info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
-
-  res.on('finish', () => {
-    logger.info(
-      NAMESPACE,
-      `METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}] - IP: [${req.socket.remoteAddress}]`
-    );
-  });
-
-  next();
-});
-
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json());
-router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-
-  if (req.method == 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
+    this.initDBConnection();
+    this.initMiddleware();
+    this.initControllers(controllers);
+    this.initErrorHandling();
   }
 
-  next();
-});
+  public listen(): void {
+    this.express.listen(this.port, () => {
+      console.log(`App listening on the port ${this.port}`);
+    });
+  }
 
-router.use('/api/user', userRoutes);
+  private initDBConnection(): void {
+    mongoose
+      .connect(config.mongo.url, config.mongo.options)
+      .then(() => console.log('Mongo connected'))
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  }
 
-router.use((req, res) => {
-  const error = new Error('Not found');
+  private initMiddleware(): void {
+    this.express.use(bodyParser.urlencoded({ extended: true }));
+    this.express.use(bodyParser.json());
+    this.express.use((req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-  res.status(404).json({
-    message: error.message
-  });
-});
+      if (req.method == 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+      }
 
-const httpServer = http.createServer(router);
+      next();
+    });
+    this.express.use(morgan('dev'));
+  }
 
-httpServer.listen(config.server.port, () =>
-  logger.info(
-    NAMESPACE,
-    process.env.NODE_ENV as string,
-    `Server is running ${config.server.hostname}:${config.server.port}`
-  )
-);
+  private initControllers(controllers: Controller[]): void {
+    controllers.forEach((controller: Controller) => {
+      this.express.use('/api', controller.router);
+    });
+  }
+
+  private initErrorHandling(): void {
+    this.express.use(errorMiddleware);
+    this.express.use(function (req: express.Request, res: express.Response, next) {
+      next({ status: 404 });
+    });
+    this.express.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      res.status(err.status || 500).json({ message: err.message });
+    });
+  }
+}
+
+export default Server;
