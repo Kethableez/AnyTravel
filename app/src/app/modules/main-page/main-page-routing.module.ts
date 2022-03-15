@@ -4,11 +4,13 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MainPageComponent } from './main-page.component';
 
 const routes: Routes = [{
-  path: '', component: MainPageComponent
+  path: '', component: MainPageComponent,
+  children: [
+    {
+      path: 'profile', component: ProfileComponent
+    }]
 },
-{
-  path: 'profile', component: ProfileComponent
-}];
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
