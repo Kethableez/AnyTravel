@@ -1,9 +1,14 @@
+import bcrypt from 'bcryptjs';
+
+import { createToken } from '../../functions/token';
+import { isEmpty } from 'lodash';
+
+import userSchema from './userSchema';
+
 import LoginPayload from './payload/loginPayload';
 import LoginResponse from './payload/loginResponse';
 import RegisterPayload from './payload/registerPayload';
-import userSchema from './userSchema';
-import bcrypt from 'bcryptjs';
-import { createToken } from '../../functions/sign-jwt';
+import AvailabilityPayload from './payload/availabilityPayload';
 
 class UserService {
   private userSchema = userSchema;
@@ -18,8 +23,11 @@ class UserService {
       });
 
       return 'Created with success';
-    } catch (error: any) {
-      throw new Error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
     }
   }
 
@@ -28,7 +36,6 @@ class UserService {
       const { username, password } = payload;
 
       const user = await this.userSchema.findOne({ username });
-
       if (!user) {
         throw new Error('Invalid username');
       }
@@ -41,10 +48,96 @@ class UserService {
       } else {
         throw new Error('Invalid username or password');
       }
-    } catch (error: any) {
-      throw new Error('Unable to create user');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
     }
   }
+
+  public async editUser(userId: string, payload: EditPayload) {
+    try {
+      const userToEdit = await this.userSchema.findById(userId);
+
+      if (!userToEdit) throw new Error('Invalid ID');
+
+      if (payload.password && payload.oldPassword) {
+        if (!(await bcrypt.compare(payload.oldPassword, userToEdit.password))) {
+          payload.password = await bcrypt.hash(payload.password, 10);
+        } else throw new Error('Invalid password');
+      }
+
+      await this.userSchema.findByIdAndUpdate(userId, payload);
+
+      return 'Updated';
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  public async removeUser(userId: string, payload: { password: string }) {
+    try {
+      const userToRemove = await this.userSchema.findById(userId);
+
+      if (!userToRemove) throw new Error('Invalid ID');
+
+      if (!(await bcrypt.compare(payload.password, userToRemove.password))) throw new Error('Invalid password');
+
+      await this.userSchema.findByIdAndDelete(userId);
+
+      return 'User deleted';
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  public async checkAvailability(payload: AvailabilityPayload) {
+    try {
+      const query = this.availabilityQuery(payload);
+
+      const u = await this.userSchema.find(query).exec();
+      const response = {
+        available: isEmpty(u)
+      };
+      return response;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  private availabilityQuery = (payload: AvailabilityPayload) => {
+    const queryList = [
+      {
+        email: payload.value
+      },
+      {
+        username: payload.value
+      }
+    ];
+    const index = payload.selector === 'email' ? 0 : 1;
+
+    return queryList[index];
+  };
+}
+
+interface EditPayload {
+  oldPassword: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
+  avatar: string;
+  isSubscribed: boolean;
 }
 
 export default UserService;

@@ -3,8 +3,8 @@ import User from './userModel';
 import bcrypt from 'bcryptjs';
 
 const UserSchema = new Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
+  email: { type: String, required: true },
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -24,9 +24,5 @@ UserSchema.pre<User>('save', async function (next) {
 
   next();
 });
-
-UserSchema.methods.isValidPassword = async function (password: string): Promise<Error | boolean> {
-  return await bcrypt.compare(password, this.password);
-};
 
 export default mongoose.model<User>('User', UserSchema);
