@@ -14,6 +14,10 @@ class UserService {
   private userSchema = userSchema;
 
   public async register(payload: RegisterPayload): Promise<string | Error> {
+    const { username, email } = payload;
+
+    if (await this.checkIfUserExists({ username, email })) throw new Error('User already exists');
+
     try {
       await this.userSchema.create({
         ...payload,
@@ -113,6 +117,24 @@ class UserService {
       }
       throw new Error('Unexpected error');
     }
+  }
+
+  public async getUsers() {
+    try {
+      const users = await this.userSchema.find();
+      return users;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  private async checkIfUserExists(data: { username: string; email: string }) {
+    const result = await this.userSchema.find({ $or: [{ username: data.username }, { email: data.email }] }).exec();
+
+    return !isEmpty(result);
   }
 
   private availabilityQuery = (payload: AvailabilityPayload) => {

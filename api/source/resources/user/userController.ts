@@ -5,6 +5,10 @@ import { authMiddleware } from '../../middleware/authMiddleware';
 import Controller from '../../utils/controllerModel';
 import LoginResponse from './payload/loginResponse';
 import UserService from './userService';
+import validationMiddleware from '../../middleware/validationMiddleware';
+import userValidations from './userValidations';
+import User from './userModel';
+import { rolesMiddleware } from '../../middleware/rolesMiddleware';
 
 class UserController implements Controller {
   public path = '/user';
@@ -17,11 +21,26 @@ class UserController implements Controller {
 
   private initRoutes(): void {
     this.router.get(`${this.path}/data`, authMiddleware, this.getUserData);
-    this.router.post(`${this.path}/login`, this.login);
-    this.router.post(`${this.path}/register`, this.register);
-    this.router.post(`${this.path}/availability`, this.checkAvailability);
-    this.router.post(`${this.path}/edit`, authMiddleware, this.editUserData);
-    this.router.post(`${this.path}/remove`, authMiddleware, this.removeUser);
+    this.router.get(`${this.path}/all`, authMiddleware, rolesMiddleware('Admin'), this.getAll);
+    this.router.post(`${this.path}/login`, validationMiddleware(userValidations.login), this.login);
+    this.router.post(`${this.path}/register`, validationMiddleware(userValidations.register), this.register);
+    this.router.post(
+      `${this.path}/availability`,
+      validationMiddleware(userValidations.availability),
+      this.checkAvailability
+    );
+    this.router.post(
+      `${this.path}/edit`,
+      authMiddleware,
+      validationMiddleware(userValidations.edit),
+      this.editUserData
+    );
+    this.router.post(
+      `${this.path}/remove`,
+      authMiddleware,
+      validationMiddleware(userValidations.remove),
+      this.removeUser
+    );
   }
 
   private register = async (req: Request, res: Response): Promise<Response | void> => {
@@ -82,6 +101,15 @@ class UserController implements Controller {
       const payload = req.body;
       const response = await this.userService.checkAvailability(payload);
       res.status(200).json(response);
+    } catch (error: any) {
+      next(new HttpException(400, error.message));
+    }
+  };
+
+  private getAll = async (req: Request, res: Response, next: NextFunction): Promise<User[] | void> => {
+    try {
+      const users = await this.userService.getUsers();
+      res.status(200).json(users);
     } catch (error: any) {
       next(new HttpException(400, error.message));
     }
