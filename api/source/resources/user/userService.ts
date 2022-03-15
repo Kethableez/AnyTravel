@@ -6,14 +6,18 @@ import { isEmpty } from 'lodash';
 import userSchema from './userSchema';
 
 import LoginPayload from './payload/loginPayload';
-import LoginResponse from './payload/loginResponse';
 import RegisterPayload from './payload/registerPayload';
 import AvailabilityPayload from './payload/availabilityPayload';
+import LoginResponse from './userResponse';
+import EditPayload from './payload/editPayload';
+import BaseResponse from '../../utils/baseResponseModel';
+import AvailabilityResponse from './response/availabilityResponse';
+import User from './userModel';
 
 class UserService {
   private userSchema = userSchema;
 
-  public async register(payload: RegisterPayload): Promise<string | Error> {
+  public async register(payload: RegisterPayload): Promise<BaseResponse | Error> {
     const { username, email } = payload;
 
     if (await this.checkIfUserExists({ username, email })) throw new Error('User already exists');
@@ -26,7 +30,7 @@ class UserService {
         isActive: true
       });
 
-      return 'Created with success';
+      return { message: 'Created' };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -60,7 +64,7 @@ class UserService {
     }
   }
 
-  public async editUser(userId: string, payload: EditPayload) {
+  public async editUser(userId: string, payload: EditPayload): Promise<BaseResponse | Error> {
     try {
       const userToEdit = await this.userSchema.findById(userId);
 
@@ -74,7 +78,7 @@ class UserService {
 
       await this.userSchema.findByIdAndUpdate(userId, payload);
 
-      return 'Updated';
+      return { message: 'Updated' };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -83,7 +87,7 @@ class UserService {
     }
   }
 
-  public async removeUser(userId: string, payload: { password: string }) {
+  public async removeUser(userId: string, payload: { password: string }): Promise<BaseResponse | Error> {
     try {
       const userToRemove = await this.userSchema.findById(userId);
 
@@ -93,7 +97,7 @@ class UserService {
 
       await this.userSchema.findByIdAndDelete(userId);
 
-      return 'User deleted';
+      return { message: 'Removed' };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -102,12 +106,12 @@ class UserService {
     }
   }
 
-  public async checkAvailability(payload: AvailabilityPayload) {
+  public async checkAvailability(payload: AvailabilityPayload): Promise<AvailabilityResponse | Error> {
     try {
       const query = this.availabilityQuery(payload);
 
       const u = await this.userSchema.find(query).exec();
-      const response = {
+      const response: AvailabilityResponse = {
         available: isEmpty(u)
       };
       return response;
@@ -119,7 +123,7 @@ class UserService {
     }
   }
 
-  public async getUsers() {
+  public async getUsers(): Promise<User[] | Error> {
     try {
       const users = await this.userSchema.find();
       return users;
@@ -131,10 +135,17 @@ class UserService {
     }
   }
 
-  private async checkIfUserExists(data: { username: string; email: string }) {
-    const result = await this.userSchema.find({ $or: [{ username: data.username }, { email: data.email }] }).exec();
+  private async checkIfUserExists(data: { username: string; email: string }): Promise<boolean | Error> {
+    try {
+      const result = await this.userSchema.find({ $or: [{ username: data.username }, { email: data.email }] }).exec();
 
-    return !isEmpty(result);
+      return !isEmpty(result);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
   }
 
   private availabilityQuery = (payload: AvailabilityPayload) => {
@@ -150,16 +161,6 @@ class UserService {
 
     return queryList[index];
   };
-}
-
-interface EditPayload {
-  oldPassword: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  birthdate: string;
-  avatar: string;
-  isSubscribed: boolean;
 }
 
 export default UserService;

@@ -2,13 +2,15 @@
 import { Request, Response, NextFunction, Router } from 'express';
 import { HttpException } from '../../middleware/errorMiddleware';
 import { authMiddleware } from '../../middleware/authMiddleware';
+import { rolesMiddleware } from '../../middleware/rolesMiddleware';
 import Controller from '../../utils/controllerModel';
-import LoginResponse from './payload/loginResponse';
 import UserService from './userService';
 import validationMiddleware from '../../middleware/validationMiddleware';
 import userValidations from './userValidations';
 import User from './userModel';
-import { rolesMiddleware } from '../../middleware/rolesMiddleware';
+import LoginResponse from './userResponse';
+import BaseResponse from '../../utils/baseResponseModel';
+import AvailabilityResponse from './response/availabilityResponse';
 
 class UserController implements Controller {
   public path = '/user';
@@ -63,7 +65,7 @@ class UserController implements Controller {
     }
   };
 
-  private getUserData = async (req: Request, res: Response, next: NextFunction): Promise<LoginResponse | void> => {
+  private getUserData = async (req: Request, res: Response, next: NextFunction): Promise<User | void> => {
     try {
       const user = res.locals.user;
       res.status(200).send({ data: user });
@@ -72,7 +74,7 @@ class UserController implements Controller {
     }
   };
 
-  private editUserData = async (req: Request, res: Response, next: NextFunction) => {
+  private editUserData = async (req: Request, res: Response, next: NextFunction): Promise<BaseResponse | void> => {
     try {
       const userId = res.locals.user._id;
       const message = await this.userService.editUser(userId, req.body);
@@ -82,7 +84,7 @@ class UserController implements Controller {
     }
   };
 
-  private removeUser = async (req: Request, res: Response, next: NextFunction) => {
+  private removeUser = async (req: Request, res: Response, next: NextFunction): Promise<BaseResponse | void> => {
     try {
       const userId = res.locals.user._id;
       const message = await this.userService.removeUser(userId, req.body);
@@ -96,7 +98,7 @@ class UserController implements Controller {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<{ available: boolean } | void> => {
+  ): Promise<AvailabilityResponse | void> => {
     try {
       const payload = req.body;
       const response = await this.userService.checkAvailability(payload);
