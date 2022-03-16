@@ -3,8 +3,10 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { authMiddleware } from '../../middleware/authMiddleware';
 import { HttpException } from '../../middleware/errorMiddleware';
 import { rolesMiddleware } from '../../middleware/rolesMiddleware';
+import validationMiddleware from '../../middleware/validationMiddleware';
 import Controller from '../../utils/controllerModel';
 import GroupService from './groupService';
+import groupValidations from './groupValidations';
 import JoinPayload from './payload/joinPayload';
 import LeavePayload from './payload/leavePayload';
 
@@ -22,12 +24,37 @@ class GroupController implements Controller {
     this.router.get(`${this.path}/get/:groupId`, authMiddleware, this.getGroup);
     this.router.get(`${this.path}/user-groups`, authMiddleware, this.getUserGroups);
 
-    this.router.post(`${this.path}/create`, authMiddleware, this.createGroup);
-    this.router.post(`${this.path}/edit/:groupId`, authMiddleware, this.editGroup);
+    this.router.post(
+      `${this.path}/create`,
+      authMiddleware,
+      validationMiddleware(groupValidations.create),
+      this.createGroup
+    );
+    this.router.post(
+      `${this.path}/edit/:groupId`,
+      authMiddleware,
+      validationMiddleware(groupValidations.edit),
+      this.editGroup
+    );
     this.router.post(`${this.path}/delete/:groupId`, authMiddleware, this.removeGroup);
-    this.router.post(`${this.path}/add/:groupId`, authMiddleware, this.addToGroup);
-    this.router.post(`${this.path}/remove/:groupId`, authMiddleware, this.removeFromGroup);
-    this.router.post(`${this.path}/join/:groupId`, authMiddleware, this.joinToGroup);
+    this.router.post(
+      `${this.path}/add/:groupId`,
+      validationMiddleware(groupValidations.memberEmail),
+      authMiddleware,
+      this.addToGroup
+    );
+    this.router.post(
+      `${this.path}/remove/:groupId`,
+      validationMiddleware(groupValidations.memberId),
+      authMiddleware,
+      this.removeFromGroup
+    );
+    this.router.post(
+      `${this.path}/join/:groupId`,
+      validationMiddleware(groupValidations.invitationCode),
+      authMiddleware,
+      this.joinToGroup
+    );
     this.router.post(`${this.path}/leave/:groupId`, authMiddleware, this.leaveGroup);
   }
 
