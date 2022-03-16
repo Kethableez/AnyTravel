@@ -1,4 +1,5 @@
 //
 export enum ModuleName {
-  USER = 'user'
+  USER = 'user',
+  GROUP = 'group'
 }

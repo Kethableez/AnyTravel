@@ -87,7 +87,7 @@ class UserService {
     }
   }
 
-  public async removeUser(userId: string, payload: { password: string }): Promise<BaseResponse | Error> {
+  public async deleteUser(userId: string, payload: { password: string }): Promise<BaseResponse | Error> {
     try {
       const userToRemove = await this.userSchema.findById(userId);
 

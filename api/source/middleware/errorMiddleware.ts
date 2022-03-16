@@ -12,8 +12,6 @@ export class HttpException extends Error {
 }
 
 function errorMiddleware(error: HttpException, req: Request, res: Response): void {
-  // console.log(error.message);
-  console.log(error.message);
   const status = error.status || 500;
   const message = error.message || 'Something went wrong';
   res.status(status).send({

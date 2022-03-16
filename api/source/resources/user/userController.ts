@@ -38,10 +38,10 @@ class UserController implements Controller {
       this.editUserData
     );
     this.router.post(
-      `${this.path}/remove`,
+      `${this.path}/delete`,
       authMiddleware,
       validationMiddleware(userValidations.remove),
-      this.removeUser
+      this.deleteUser
     );
   }
 
@@ -84,10 +84,10 @@ class UserController implements Controller {
     }
   };
 
-  private removeUser = async (req: Request, res: Response, next: NextFunction): Promise<BaseResponse | void> => {
+  private deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<BaseResponse | void> => {
     try {
       const userId = res.locals.user._id;
-      const message = await this.userService.removeUser(userId, req.body);
+      const message = await this.userService.deleteUser(userId, req.body);
       res.status(200).json({ message });
     } catch (error: any) {
       next(new HttpException(400, error.message));
