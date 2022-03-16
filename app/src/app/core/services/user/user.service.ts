@@ -14,7 +14,10 @@ enum UserActions {
   REGISTER = 'register',
   LOGIN = 'login',
   GET_DATA = 'data',
-  AVAILABILITY = 'availability'
+  ALL = 'all',
+  AVAILABILITY = 'availability',
+  EDIT = 'edit',
+  DELETE = 'delete'
 }
 
 interface CheckResponse {

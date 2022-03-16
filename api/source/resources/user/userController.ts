@@ -45,13 +45,13 @@ class UserController implements Controller {
     );
   }
 
-  private register = async (req: Request, res: Response): Promise<Response | void> => {
+  private register = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
       const payload = req.body;
       const message = await this.userService.register(payload);
       res.status(200).json({ message });
     } catch (error: any) {
-      res.status(400).json({ errorMessage: error.message });
+      next(new HttpException(400, error.message));
     }
   };
 

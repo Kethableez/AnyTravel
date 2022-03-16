@@ -27,10 +27,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     res.locals.user = user;
 
     return next();
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
-    throw new Error('Unexpected error');
+  } catch (error: any) {
+    return next(new HttpException(401, error.message));
   }
 }
