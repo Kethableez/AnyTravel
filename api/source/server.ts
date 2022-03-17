@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import config from './config/config';
 import morgan from 'morgan';
 import errorMiddleware from './middleware/errorMiddleware';
-import Controller from './utils/controllerModel';
+import Controller from './utils/models/controllerModel';
 
 class Server {
   public express: Application;
