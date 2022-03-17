@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupService } from 'src/app/core/services/group/group.service';
+import { Store } from '@ngrx/store';
+import { RootState } from 'src/app/core/store/app.states';
+import { selectGroupData } from 'src/app/core/store/group';
 
 @Component({
   selector: 'majk-group',
@@ -8,7 +10,9 @@ import { GroupService } from 'src/app/core/services/group/group.service';
 })
 export class GroupComponent implements OnInit {
 
-  constructor(private _groupService: GroupService) { }
+  constructor(private store$: Store<RootState>) { }
+
+  userGroups$ = this.store$.select(selectGroupData);
 
   ngOnInit(): void {
   }
