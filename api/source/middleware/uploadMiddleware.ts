@@ -1,8 +1,7 @@
 import multer from 'multer';
-import path from 'path';
+import { getPath } from '../utils/pathParser';
 
 const MAX_SIZE = 10 * 1024 * 1024;
-const BASE_PATH = path.resolve('storage');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -14,10 +13,6 @@ const storage = multer.diskStorage({
     cb(null, filename);
   }
 });
-
-export const getPath = (selector: string, filename?: string) => {
-  return filename ? path.join(BASE_PATH, selector, filename) : path.join(BASE_PATH, selector);
-};
 
 export const uploadMiddleware = multer({
   storage: storage,
