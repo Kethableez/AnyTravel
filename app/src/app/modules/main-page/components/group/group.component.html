@@ -1,1 +1,29 @@
 <p>group works!</p>
+
+
+<div class="columns is-mobile is-centered" *ngIf="(userGroups$ | async) as userGroups">
+  <div *ngFor="let group of userGroups">
+      <li>
+        <span class="badge">{{group.name}}</span>
+      </li>
+  </div>
+</div>
+<form [formGroup]="newGroupForm" (ngSubmit) ="createNewGroup()" >
+
+  <div>
+    <label for="name">
+      Name
+    </label>
+    <input id="name" type="text" formControlName="name">
+  </div>
+
+  <div>
+    <label for="cover">
+      Cover
+    </label>
+    <input id="cover" type="text" formControlName="cover">
+  </div>
+
+  <button class="button" type="submit">Purchase</button>
+
+</form>

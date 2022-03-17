@@ -6,6 +6,8 @@ import { MainPageComponent } from './main-page.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { GroupComponent } from './components/group/group.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { GroupComponent } from './components/group/group.component';
   ],
   imports: [
     CommonModule,
-    MainPageRoutingModule
+    MainPageRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class MainPageModule { }
