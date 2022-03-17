@@ -4,7 +4,7 @@ import { authMiddleware } from '../../middleware/authMiddleware';
 import { HttpException } from '../../middleware/errorMiddleware';
 import { rolesMiddleware } from '../../middleware/rolesMiddleware';
 import validationMiddleware from '../../middleware/validationMiddleware';
-import Controller from '../../utils/controllerModel';
+import Controller from '../../utils/models/controllerModel';
 import GroupService from './groupService';
 import groupValidations from './groupValidations';
 import JoinPayload from './payload/joinPayload';
