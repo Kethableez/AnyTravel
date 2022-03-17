@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupService, GroupActions } from 'src/app/core/services/group/group.service';
+import { GroupService } from 'src/app/core/services/group/group.service';
 
 @Component({
   selector: 'majk-group',

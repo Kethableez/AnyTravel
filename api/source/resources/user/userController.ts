@@ -7,10 +7,10 @@ import UserService from './userService';
 import validationMiddleware from '../../middleware/validationMiddleware';
 import userValidations from './userValidations';
 import User from './userModel';
-import LoginResponse from './response/userResponse';
 import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import Controller from '../../utils/models/controllerModel';
+import { LoginResponse } from './response/loginResponse';
 
 class UserController implements Controller {
   public path = '/user';

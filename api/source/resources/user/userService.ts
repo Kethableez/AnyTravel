@@ -8,12 +8,12 @@ import userSchema from './userSchema';
 import LoginPayload from './payload/loginPayload';
 import RegisterPayload from './payload/registerPayload';
 import AvailabilityPayload from './payload/availabilityPayload';
-import LoginResponse from './response/userResponse';
 import EditPayload from './payload/editPayload';
 import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import User from './userModel';
 import { avatarPrefix } from '../../utils/filePrefix';
+import { LoginResponse } from './response/loginResponse';
 
 class UserService {
   private userSchema = userSchema;

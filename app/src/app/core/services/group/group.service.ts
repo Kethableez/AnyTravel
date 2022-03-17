@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ModuleName } from '../../models/module-name.model';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
-import { }
+import { Group } from '../../models/group/group.model';
+import { CreateGroupPayload } from '../../models/group/crate-group-payload';
 
 enum GroupActions {
   ALL = 'all',
@@ -31,9 +32,15 @@ export class GroupService extends BaseRequestService {
     return ModuleName.GROUP;
   }
 
-  doGetAllGroups(): Observable<Group[]> {
-    const url = this.getUrl(GroupActions.ALL);
+  doGetAllUserGroups(): Observable<Group[]> {
+    const url = this.getUrl(GroupActions.GET_USER_GROUPS);
 
-    return this.get(url);
+    return this.get<Group[]>(url);
+  }
+
+  doCreateGroup(body: CreateGroupPayload) {
+    const url = this.getUrl(GroupActions.CREATE_GROUP);
+
+    return this.post<CreateGroupPayload>(url, body);
   }
 }
