@@ -4,3 +4,5 @@ import * as formUser from './user.reducers';
 export const getUserState = createFeatureSelector<formUser.State>(formUser.userFeatureKey);
 
 export const selectUserData = createSelector(getUserState, (state) => state.user);
+
+export const selectUserRole = createSelector(getUserState, (state) => state.user?.role);

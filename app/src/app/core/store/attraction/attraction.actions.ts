@@ -1,0 +1,39 @@
+import { createAction, props } from '@ngrx/store';
+import { Attraction } from '../../models/attraction/attration.model';
+
+export const getAttractions = createAction('[Attraction] Get attraction list');
+
+export const getNewAttractions = createAction('[Attraction] Get new attraction');
+
+export const getAttractionsSuccess = createAction(
+  '[Attraction] Get attraction success',
+  props<{ attractions: Attraction[] }>()
+);
+
+export const getNewAttractionsSuccess = createAction(
+  '[Attraction] Get new attraction success',
+  props<{ attractions: Attraction[] }>()
+);
+
+export const approveAttraction = createAction('[Attraction] Approve attraction', props<{ attractionId: string }>());
+
+export const approveAttractionSuccess = createAction(
+  '[Attraction] Approve attraction success',
+  props<{ attraction: Attraction }>()
+);
+
+export const deleteAttraction = createAction('[Attraction] Delete attraction', props<{ attractionId: string }>());
+
+export const deleteAttractionSuccess = createAction(
+  '[Attraction] Delete attraction success',
+  props<{ attractionId: string }>()
+);
+
+export const addReview = createAction('[Attraction] Add review', props<{ attractionId: string; payload: any }>());
+
+export const addReviewSuccess = createAction(
+  '[Attraction] Add review success',
+  props<{ attractionId: string; payload: any }>()
+);
+
+export const attractionError = createAction('[Auth] Error', props<{ message: string }>());

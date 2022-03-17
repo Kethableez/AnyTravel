@@ -10,7 +10,7 @@
             <div class="button is-white"> Dashboard </div>
             <div class="button is-white"> Twoje grupy </div>
             <div class="button is-white"> Twoje wycieczki </div>
-            <div class="button is-white"> Atrakcje </div>
+            <div class="button is-white"><a [routerLink]="['/home/attraction']">Atrakcje</a></div>
             <div class="button is-white"><a [routerLink]="['/home/profile']">Profil</a></div>
             <div class="button is-white" (click)="logout()"> Wyloguj się </div>
           </div>
