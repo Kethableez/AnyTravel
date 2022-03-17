@@ -8,4 +8,4 @@ const routes: Routes = [{ path: '', component: LandingPageComponent }];
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LandingPageRoutingModule { }
+export class LandingPageRoutingModule {}
