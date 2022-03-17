@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction, Router } from 'express';
 import { HttpException } from '../../middleware/errorMiddleware';
-import { getPath, uploadMiddleware } from '../../middleware/uploadMiddleware';
+import { uploadMiddleware } from '../../middleware/uploadMiddleware';
 import fs from 'fs';
 import Controller from '../../utils/models/controllerModel';
+import { getPath } from '../../utils/pathParser';
 
 class FileController implements Controller {
   public path = '/file';
