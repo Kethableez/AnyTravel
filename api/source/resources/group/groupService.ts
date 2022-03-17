@@ -2,7 +2,8 @@
 import { includes } from 'lodash';
 import mongoose from 'mongoose';
 import { generateInvitationCode } from '../../functions/generators';
-import BaseResponse from '../../utils/baseResponseModel';
+import BaseResponse from '../../utils/models/baseResponseModel';
+import { groupPrefix } from '../../utils/filePrefix';
 import userSchema from '../user/userSchema';
 import Group from './groupModel';
 import { baseQuery, byGroupId, byUserId } from './groupQuery';
@@ -64,6 +65,7 @@ class GroupService {
     try {
       await this.groupSchema.create({
         ...payload,
+        cover: [groupPrefix(), payload.cover].join('/'),
         founder: new ObjectId(founderId),
         invitationCode: generateInvitationCode(),
         members: [],
@@ -85,6 +87,9 @@ class GroupService {
 
       if (!groupToEdit) throw new Error('Invalid group');
       if (groupToEdit.founder.toString() !== founderId.toString()) throw new Error('Insufficient priviliges');
+      if (payload.cover) {
+        payload.cover = [groupPrefix(), payload.cover].join('/');
+      }
 
       await this.groupSchema.findByIdAndUpdate(groupId, payload);
 

@@ -10,9 +10,10 @@ import RegisterPayload from './payload/registerPayload';
 import AvailabilityPayload from './payload/availabilityPayload';
 import LoginResponse from './userResponse';
 import EditPayload from './payload/editPayload';
-import BaseResponse from '../../utils/baseResponseModel';
+import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import User from './userModel';
+import { avatarPrefix } from '../../utils/filePrefix';
 
 class UserService {
   private userSchema = userSchema;
@@ -25,7 +26,7 @@ class UserService {
     try {
       await this.userSchema.create({
         ...payload,
-        avatar: 'default',
+        avatar: 'avatar/default.png',
         role: 'RegularUser',
         isActive: true
       });
@@ -74,6 +75,9 @@ class UserService {
         if (!(await bcrypt.compare(payload.oldPassword, userToEdit.password))) {
           payload.password = await bcrypt.hash(payload.password, 10);
         } else throw new Error('Invalid password');
+      }
+      if (payload.avatar) {
+        payload.avatar = [avatarPrefix(), payload.avatar].join('/');
       }
 
       await this.userSchema.findByIdAndUpdate(userId, payload);

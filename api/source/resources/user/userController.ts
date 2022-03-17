@@ -3,14 +3,14 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { HttpException } from '../../middleware/errorMiddleware';
 import { authMiddleware } from '../../middleware/authMiddleware';
 import { rolesMiddleware } from '../../middleware/rolesMiddleware';
-import Controller from '../../utils/controllerModel';
 import UserService from './userService';
 import validationMiddleware from '../../middleware/validationMiddleware';
 import userValidations from './userValidations';
 import User from './userModel';
 import LoginResponse from './userResponse';
-import BaseResponse from '../../utils/baseResponseModel';
+import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
+import Controller from '../../utils/models/controllerModel';
 
 class UserController implements Controller {
   public path = '/user';
