@@ -1,12 +1,28 @@
 version: '3.8'
 
 services:
+ back:
+  build:
+   context: .
+   target: api-build
+  container_name: back
+  command: npm run dev
+  expose:
+    - 8000
+  restart: always
+  ports:
+    - "8000:8000"
+
  front:
-  build: .
+  build: 
+   context: .
+   target: ui-build
   container_name: front
   command: ng serve --host 0.0.0.0
   expose:
     - 4200
   restart: always
+  depends_on:
+   - back
   ports:
     - "4200:4200"
