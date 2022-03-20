@@ -1,5 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
 import { Attraction } from '../../models/attraction/attration.model';
+
+export const createAttraction = createAction(
+  '[Attraction] Create attraction',
+  props<{ file: FormData; payload: AttractionPayload }>()
+);
 
 export const getAttractions = createAction('[Attraction] Get attraction list');
 

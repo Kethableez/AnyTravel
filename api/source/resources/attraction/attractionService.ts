@@ -87,7 +87,20 @@ class AttractionService {
 
   public async getAll(): Promise<Attraction[] | Error> {
     try {
-      const attractions = await this.attractionSchema.find();
+      const attractions = await this.attractionSchema.find({ isApproved: true });
+
+      return attractions;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  public async getToApprove(): Promise<Attraction[] | Error> {
+    try {
+      const attractions = await this.attractionSchema.find({ isApproved: false });
 
       return attractions;
     } catch (error: unknown) {
