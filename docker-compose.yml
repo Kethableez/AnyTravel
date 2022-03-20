@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+ front:
+  build: .
+  container_name: front
+  command: ng serve --host 0.0.0.0
+  expose:
+    - 4200
+  restart: always
+  ports:
+    - "4200:4200"
