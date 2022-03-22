@@ -7,11 +7,11 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <div class="button is-white"> Dashboard </div>
-            <div class="button is-white"> Twoje grupy </div>
-            <div class="button is-white"> Twoje wycieczki </div>
-            <div class="button is-white"><a [routerLink]="['/home/attraction']">Atrakcje</a></div>
-            <div class="button is-white"><a [routerLink]="['/home/profile']">Profil</a></div>
+            <div class="button" [ngClass]="isActive('dashboard')"> Dashboard </div>
+            <div class="button" [ngClass]="isActive('group')"> Twoje grupy </div>
+            <div class="button" [ngClass]="isActive('journey')"> Twoje wycieczki </div>
+            <div class="button" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>
+            <div class="button" [ngClass]="isActive('profile')" (click)="navigate('profile')">Profil</div>
             <div class="button is-white" (click)="logout()"> Wyloguj się </div>
           </div>
         </div>

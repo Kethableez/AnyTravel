@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AttractionPayload } from 'src/app/core/models/attraction/attraction-payload.model';
+import { FileService } from 'src/app/core/services/file/file.service';
 import { FormService } from 'src/app/core/services/form.service';
 import { RootState } from 'src/app/core/store/app.states';
+import { AttractionActions } from 'src/app/core/store/attraction';
 
 @Component({
   selector: 'majk-attraction-form',
@@ -12,7 +14,12 @@ import { RootState } from 'src/app/core/store/app.states';
   providers: [FormService]
 })
 export class AttractionFormComponent implements OnInit {
-  constructor(protected formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {}
+  constructor(
+    protected formService: FormService,
+    private builder: FormBuilder,
+    private fileService: FileService,
+    private store$: Store<RootState>
+  ) {}
 
   file = new FormData();
 
@@ -75,11 +82,13 @@ export class AttractionFormComponent implements OnInit {
     }
   }
 
-  show() {
+  createAttraction(): void {
     const payload: AttractionPayload = {
       ...this.attractionForm.value,
       address: { ...this.addressForm.value },
       additionalInfo: { ...this.additionalInfo.value }
     };
+
+    this.store$.dispatch(AttractionActions.createAttraction({ file: this.file, payload: payload }));
   }
 }

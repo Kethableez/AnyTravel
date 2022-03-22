@@ -120,5 +120,5 @@
   </div>
 </div>
 <div class="control has-text-centered">
-  <button class="button is-primary center" [disabled]="attractionForm.invalid || addressForm.invalid">Dodaj atrakcję</button>
+  <button class="button is-primary center" (click)="createAttraction()" [disabled]="attractionForm.invalid || addressForm.invalid">Dodaj atrakcję</button>
 </div>

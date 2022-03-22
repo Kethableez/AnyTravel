@@ -1,0 +1,52 @@
+.card {
+  width: 30rem;
+  margin: 1rem;
+  .image  img{
+    width: 100%;
+    object-fit: cover;
+  }
+  .button {
+    min-width: 10rem;
+  }
+
+  .card-footer {
+    justify-content: space-evenly;
+  }
+
+  .title {
+    padding: 1rem;
+  }
+
+  .is-center {
+    text-align: center;
+  }
+
+  .medium {
+    font-size: 1.5rem;
+  }
+
+  .semi {
+    font-size: 1.2rem;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+
+    .text {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .is-link {
+      color: #485fc7;
+      cursor: pointer;
+      text-decoration: none;
+
+    }
+
+    .is-link:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 export interface Attraction {
+  _id: string;
   name: string;
   description: string;
   cover: string;
@@ -11,12 +12,7 @@ export interface Attraction {
     lat: number;
     lng: number;
   };
-  reviews: [
-    {
-      userId: any;
-      review: number;
-    }
-  ];
+  reviews: any[];
   additionalInfo: any[];
   isApproved: boolean;
 }

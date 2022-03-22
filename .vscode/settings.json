@@ -17,7 +17,7 @@
     "editor.tabSize": 2,
     "rest-client.environmentVariables": {
         "$shared": {
-            "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzA4ZjY0NWEyOTBmYTViODg2MDBmMSIsImlhdCI6MTY0NzUyMTg0NSwiZXhwIjoxNjQ3NTI1NDQ1LCJpc3MiOiJhbnktdHJhdmVsLWlzc3VlciJ9.ckk4cGA4v5QeZz9iJ9ZAmzU7qMqhieCJqOpGwdZVre0",
+            "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzA4ZjY0NWEyOTBmYTViODg2MDBmMSIsImlhdCI6MTY0NzkwMDE5MiwiZXhwIjoxNjQ3OTAzNzkyLCJpc3MiOiJhbnktdHJhdmVsLWlzc3VlciJ9.jSTLXcnXRQ3bpQQYiRedVTzNPYFq-xrDJ-jxTZAafKo",
             "contentType": "application/json"
         },
         "local": {

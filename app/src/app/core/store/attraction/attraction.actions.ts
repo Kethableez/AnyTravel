@@ -7,6 +7,11 @@ export const createAttraction = createAction(
   props<{ file: FormData; payload: AttractionPayload }>()
 );
 
+// export const createAttractionSuccess = createAction(
+//   '[Attraction] Create attraction success',
+//   props<{ attraction: Attraction }>()
+// );
+
 export const getAttractions = createAction('[Attraction] Get attraction list');
 
 export const getNewAttractions = createAction('[Attraction] Get new attraction');
@@ -23,23 +28,23 @@ export const getNewAttractionsSuccess = createAction(
 
 export const approveAttraction = createAction('[Attraction] Approve attraction', props<{ attractionId: string }>());
 
-export const approveAttractionSuccess = createAction(
-  '[Attraction] Approve attraction success',
-  props<{ attraction: Attraction }>()
-);
+// export const approveAttractionSuccess = createAction(
+//   '[Attraction] Approve attraction success',
+//   props<{ attraction: Attraction }>()
+// );
 
 export const deleteAttraction = createAction('[Attraction] Delete attraction', props<{ attractionId: string }>());
 
-export const deleteAttractionSuccess = createAction(
-  '[Attraction] Delete attraction success',
-  props<{ attractionId: string }>()
-);
+// export const deleteAttractionSuccess = createAction(
+//   '[Attraction] Delete attraction success',
+//   props<{ attractionId: string }>()
+// );
 
 export const addReview = createAction('[Attraction] Add review', props<{ attractionId: string; payload: any }>());
 
-export const addReviewSuccess = createAction(
-  '[Attraction] Add review success',
-  props<{ attractionId: string; payload: any }>()
-);
+// export const addReviewSuccess = createAction(
+//   '[Attraction] Add review success',
+//   props<{ attractionId: string; payload: any }>()
+// );
 
 export const attractionError = createAction('[Auth] Error', props<{ message: string }>());
