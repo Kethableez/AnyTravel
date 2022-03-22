@@ -8,15 +8,18 @@ import AttractionPayload from './payload/createPayload';
 class AttractionService {
   private attractionSchema = attractionSchema;
 
-  public async createAttraction(payload: AttractionPayload): Promise<BaseResponse | Error> {
+  public async createAttraction(payload: AttractionPayload): Promise<any | Error> {
     try {
-      await this.attractionSchema.create({
+      const newAttraction = await this.attractionSchema.create({
         ...payload,
         cover: [attractionPrefix(), payload.cover].join('/'),
         reviews: [],
         isApproved: false
       });
-      return { message: 'Created' };
+      return {
+        message: 'Created',
+        attraction: newAttraction
+      };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -25,10 +28,13 @@ class AttractionService {
     }
   }
 
-  public async approveAttraction(attractionId: string): Promise<BaseResponse | Error> {
+  public async approveAttraction(attractionId: string): Promise<any | Error> {
     try {
-      await this.attractionSchema.findByIdAndUpdate(attractionId, { isApproved: true });
-      return { message: 'Approved' };
+      const attraction = await this.attractionSchema.findByIdAndUpdate(attractionId, { isApproved: true });
+      return {
+        message: 'Approved',
+        attraction: attraction
+      };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -70,8 +76,6 @@ class AttractionService {
         review: payload.review
       };
 
-      console.log(review);
-
       attraction.reviews.push(review);
 
       await this.attractionSchema.findByIdAndUpdate(attractionId, { reviews: attraction.reviews });
@@ -87,7 +91,20 @@ class AttractionService {
 
   public async getAll(): Promise<Attraction[] | Error> {
     try {
-      const attractions = await this.attractionSchema.find();
+      const attractions = await this.attractionSchema.find({ isApproved: true });
+
+      return attractions;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  public async getToApprove(): Promise<Attraction[] | Error> {
+    try {
+      const attractions = await this.attractionSchema.find({ isApproved: false });
 
       return attractions;
     } catch (error: unknown) {

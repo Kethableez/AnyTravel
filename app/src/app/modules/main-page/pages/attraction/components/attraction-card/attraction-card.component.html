@@ -1,0 +1,64 @@
+<div *ngIf="attraction" class="card">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img [src]="attractionCover" alt="Placeholder image" />
+    </figure>
+  </div>
+  <header class="card-header">
+    <div class="title is-4"> {{attraction.name}}</div>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="label">Opis:</div>
+      {{ attraction.description }}
+    </div>
+    <div class="content">
+      <div class="label">Adres:</div>
+      {{ attraction.address.zipCode }}, {{ attraction.address.city }}<br>
+      Ul. {{ attraction.address.street }}, {{ attraction.address.apartment }}
+    </div>
+
+    <hr>
+
+    <div class="content semi" *ngIf="attraction.additionalInfo[0]">
+      <div class="info">
+        <div class="icon">
+          <i class="fa-solid fa-link"></i>
+        </div>
+        <div class="text">
+          <span [ngClass]="attractionInfo.link !== '---' ? 'is-link' : ''">{{ attractionInfo.link }}</span>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="icon">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <div class="text">
+          {{ attractionInfo.hours }}
+        </div>
+      </div>
+        <br>
+
+
+    </div>
+
+    <hr>
+
+    <div class="content is-center medium">
+      <i class="fa-solid fa-heart"></i> {{ reviews.sum}} ({{reviews.all }})
+    </div>
+  </div>
+  <footer class="card-footer" *ngIf="isModeratorView">
+    <button (click)="approveAttraction()" class="button is-success">Zatwierdź</button>
+    <button (click)="deleteAttraction()" class="button is-danger">Usuń</button>
+  </footer>
+  <footer class="card-footer" *ngIf="!isModeratorView">
+      <button [disabled]="!(enableRating() | async)" (click)="addReview(+1)" class="button is-success">
+        <i class="fa-solid fa-thumbs-up"></i>
+      </button>
+      <button [disabled]="!(enableRating() | async)" (click)="addReview(-1)" class="button is-danger">
+        <i class="fa-solid fa-thumbs-down"></i>
+      </button>
+  </footer>
+</div>

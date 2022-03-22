@@ -17,6 +17,7 @@ class AttractionController implements Controller {
 
   private initRoutes(): void {
     this.router.get(`${this.path}/all`, authMiddleware, this.getAll);
+    this.router.get(`${this.path}/to-approve`, authMiddleware, rolesMiddleware('Moderator'), this.getToApprove);
     this.router.get(`${this.path}/get/:attractionId`, authMiddleware, this.getAttraction);
 
     this.router.post(`${this.path}/create`, authMiddleware, this.createAttraction);
@@ -38,6 +39,16 @@ class AttractionController implements Controller {
   private getAll = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
       const attractions = await this.attractionService.getAll();
+
+      res.status(200).json(attractions);
+    } catch (error: any) {
+      next(new HttpException(400, error.message));
+    }
+  };
+
+  private getToApprove = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+      const attractions = await this.attractionService.getToApprove();
 
       res.status(200).json(attractions);
     } catch (error: any) {
