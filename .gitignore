@@ -1,6 +1,6 @@
 api/node_modules
 api/build
-api/storage/**
+api/storage
 
 app/node_modules
 .request
