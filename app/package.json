@@ -39,6 +39,7 @@
     "@angular-eslint/template-parser": "^13.1.0",
     "@angular/cli": "~13.2.1",
     "@angular/compiler-cli": "~13.2.0",
+    "@creativebulma/bulma-badge": "^1.0.1",
     "@types/jasmine": "~3.10.0",
     "@types/lodash": "^4.14.180",
     "@types/lodash-es": "^4.17.6",

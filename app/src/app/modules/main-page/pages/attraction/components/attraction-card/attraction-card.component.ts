@@ -27,15 +27,6 @@ export class AttractionCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  get attractionInfo() {
-    const info = {
-      link: this.attraction?.additionalInfo[0].link ? this.attraction?.additionalInfo[0].link : '---',
-      hours: this.attraction?.additionalInfo[0].hours ? this.attraction?.additionalInfo[0].hours : '---'
-    };
-
-    return info;
-  }
-
   get reviews() {
     if (this.attraction && this.attraction.reviews.length > 0) {
       const all = this.attraction.reviews.length;

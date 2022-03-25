@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first, Observable, tap } from 'rxjs';
+import { AttractionCategory } from '../../models/attraction/attraction-category.model';
 import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
+import { AttractionType } from '../../models/attraction/attraction-type.model';
 import { Attraction } from '../../models/attraction/attration.model';
 import { ModuleName } from '../../models/module-name.model';
 import { Response } from '../../models/response.model';
@@ -92,5 +94,103 @@ export class AttractionService extends BaseRequestService {
         this.store$.dispatch(getNewAttractions());
       })
     );
+  }
+
+  get attractionCategory() {
+    return [
+      {
+        value: AttractionCategory.RESTAURANT,
+        displayValue: 'Restauracja',
+        label: '#ffff00'
+      },
+      {
+        value: AttractionCategory.BAR,
+        displayValue: 'Bar',
+        label: '#ffff00'
+      },
+      {
+        value: AttractionCategory.COFFEE,
+        displayValue: 'Kawiarnia',
+        label: '#0000ff'
+      },
+      {
+        value: AttractionCategory.PARK,
+        displayValue: 'Park',
+        label: '#0000ff'
+      },
+      {
+        value: AttractionCategory.GYM,
+        displayValue: 'Siłownia',
+        label: '#ff00ff'
+      },
+      {
+        value: AttractionCategory.ART,
+        displayValue: 'Sztuka',
+        label: '#ff00ff'
+      },
+      {
+        value: AttractionCategory.MUSEUM,
+        displayValue: 'Muzeum',
+        label: '#e5f4ee'
+      },
+      {
+        value: AttractionCategory.LIBRARY,
+        displayValue: 'Biblioteka',
+        label: '#00ff00'
+      },
+      {
+        value: AttractionCategory.LAKE,
+        displayValue: 'Jezioro',
+        label: '#00ff00'
+      },
+      {
+        value: AttractionCategory.FOREST,
+        displayValue: 'Las',
+        label: '#00ff00'
+      },
+      {
+        value: AttractionCategory.BEACH,
+        displayValue: 'Plaża',
+        label: '#00ff00'
+      }
+    ];
+  }
+
+  get attractionType() {
+    return [
+      {
+        value: AttractionType.INDOOR,
+        displayValue: 'Wewnętrzna',
+        label: '#e6e6e6'
+      },
+      {
+        value: AttractionType.OUTDOOR,
+        displayValue: 'Zewnętrzna',
+        label: '#e6e6ff'
+      }
+    ];
+  }
+
+  get initialAttraction() {
+    return {
+      name: '',
+      description: '',
+      cover: '',
+      category: '',
+      attractionType: '',
+      isPaid: false
+    };
+  }
+
+  get initialAddress() {
+    return {
+      country: '',
+      zipCode: '',
+      city: '',
+      street: '',
+      apartment: '',
+      lat: 0,
+      lng: 0
+    };
   }
 }

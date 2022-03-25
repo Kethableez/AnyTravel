@@ -12,6 +12,7 @@ import { AttractionFormComponent } from './pages/attraction/components/attractio
 import { ReactiveFormsModule } from '@angular/forms';
 import { AttractionListComponent } from './pages/attraction/components/attraction-list/attraction-list.component';
 import { AttractionCardComponent } from './pages/attraction/components/attraction-card/attraction-card.component';
+import { FiltersComponent } from './pages/attraction/components/filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AttractionCardComponent } from './pages/attraction/components/attractio
     AttractionComponent,
     AttractionFormComponent,
     AttractionListComponent,
-    AttractionCardComponent
+    AttractionCardComponent,
+    FiltersComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

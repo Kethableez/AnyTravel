@@ -1,124 +1,289 @@
 <div class="container">
-
   <div class="box">
     <form [formGroup]="attractionForm">
-      <h1>Podstawowe informacje</h1>
-      <div class="field">
-        <label class="label">Nazwa atrakcji</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('name', attractionForm)" formControlName="name" type="text" placeholder="Nazwa atrakcji" />
-          <div class="help is-danger" *ngIf="isErrorEnabled('name', attractionForm)">
-            <div *ngFor="let error of getError('name', attractionForm)"> {{error | formError}}</div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Podstawowe informacje</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                [ngClass]="isFieldValid('name', attractionForm)"
+                formControlName="name"
+                type="text"
+                placeholder="Nazwa atrakcji"
+              />
+              <div class="help is-danger" *ngIf="isErrorEnabled('name', attractionForm)">
+                <div *ngFor="let error of getError('name', attractionForm)">{{ error | formError }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="file" [ngClass]="isFieldValid('cover', attractionForm)">
+              <label class="file-label">
+                <input class="file-input" type="file" (change)="uploadFile($event)" />
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span *ngIf="!getControl(attractionForm, 'cover').touched" class="file-label">
+                    Wybierz plik...
+                  </span>
+                  <span *ngIf="getControl(attractionForm, 'cover').touched" class="file-label">
+                    {{ getControl(attractionForm, 'cover').value }}
+                  </span>
+                </span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="field">
-        <label class="label">Opis</label>
-        <div class="control">
-          <textarea
-            class="textarea has-fixed-size"
-            [ngClass]="isFieldValid('description', attractionForm)"
-            rows="5"
-            formControlName="description"
-            type="text"
-            placeholder="Opis"
-          ></textarea>
-          <div class="help is-danger" *ngIf="isErrorEnabled('description', attractionForm)">
-            <div *ngFor="let error of getError('description', attractionForm)"> {{error | formError}}</div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label"></label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <textarea
+                class="textarea has-fixed-size"
+                [ngClass]="isFieldValid('description', attractionForm)"
+                rows="5"
+                formControlName="description"
+                type="text"
+                placeholder="Opis"
+              ></textarea>
+              <div class="help is-danger" *ngIf="isErrorEnabled('description', attractionForm)">
+                <div *ngFor="let error of getError('description', attractionForm)">{{ error | formError }}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="field">
-        <label class="label">Zdjęcie atrakcji</label>
-        <div class="file" [ngClass]="isFieldValid('cover', attractionForm)">
-          <label class="file-label">
-            <input class="file-input" type="file" (change)="uploadFile($event)" />
-            <span class="file-cta">
-              <span class="file-icon">
-                <i class="fas fa-upload"></i>
-              </span>
-              <span *ngIf="!this.attractionForm.controls['cover'].touched" class="file-label"> Wybierz plik... </span>
-              <span *ngIf="this.attractionForm.controls['cover'].touched" class="file-label"> {{ this.attractionForm.controls['cover'].value }} </span>
+      <form [formGroup]="addressForm" class="mb-3">
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Adres</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('zipCode', addressForm)"
+                  formControlName="zipCode"
+                  type="text"
+                  placeholder="Kod pocztowy"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('zipCode', addressForm)">
+                  <div *ngFor="let error of getError('zipCode', addressForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+            </div>
 
-            </span>
-          </label>
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('city', addressForm)"
+                  formControlName="city"
+                  type="text"
+                  placeholder="Miasto"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('city', addressForm)">
+                  <div *ngFor="let error of getError('city', addressForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('country', addressForm)"
+                  formControlName="country"
+                  type="text"
+                  placeholder="Kraj"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('country', addressForm)">
+                  <div *ngFor="let error of getError('country', addressForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"></label>
+          </div>
+          <div class="field-body">
+            <div class="field grow-3">
+              <div class="control">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('street', addressForm)"
+                  formControlName="street"
+                  type="text"
+                  placeholder="Ulica"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('street', addressForm)">
+                  <div *ngFor="let error of getError('street', addressForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="input" formControlName="apartment" type="text" placeholder="Nr. budynku/mieszkania" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Kategoria, Typ</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <div class="select is-fullwidth" [ngClass]="isFieldValid('category', attractionForm)">
+                <select formControlName="category">
+                  <option [ngValue]="null">Wybierz kategorię</option>
+                  <option *ngFor="let category of categories" [ngValue]="category.value"> {{ category.displayValue }}</option>
+                </select>
+              </div>
+              <div class="help is-danger" *ngIf="isErrorEnabled('category', attractionForm)">
+                <div *ngFor="let error of getError('category', attractionForm)">{{ error | formError }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <div class="select is-fullwidth" [ngClass]="isFieldValid('attractionType', attractionForm)">
+                <select formControlName="attractionType">
+                  <option [ngValue]="null">Wybierz typ</option>
+                  <option *ngFor="let type of types" [ngValue]="type.value"> {{ type.displayValue }}</option>
+                </select>
+              </div>
+
+              <div class="help is-danger" *ngIf="isErrorEnabled('attractionType', attractionForm)">
+                <div *ngFor="let error of getError('attractionType', attractionForm)">{{ error | formError }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Płatna?</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input
+                  type="radio"
+                  formControlName="isPaid"
+                  (change)="toggleField('ticketPrice', true)"
+                  [value]="true"
+                />
+                Tak
+              </label>
+              <label class="radio">
+                <input
+                  type="radio"
+                  formControlName="isPaid"
+                  (change)="toggleField('ticketPrice', false)"
+                  [value]="false"
+                />
+                Nie
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input class="input" [ngClass]="isFieldValid('ticketPrice', attractionForm)" formControlName="ticketPrice" type="text" placeholder="Cena biletów" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Dodatkowe informacje (opcjonalne)</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-grouped">
+            <p class="control is-expanded">
+              <input class="input" [ngClass]="isFieldValid('link', attractionForm)" formControlName="link" type="text" placeholder="Link" />
+            </p>
+            <div class="control" *ngIf="getControl(attractionForm, 'link') as link">
+              <a
+                class="button"
+                [ngClass]="link.enabled ? 'is-danger' : 'is-info'"
+                (click)="toggleField('link', link.disabled)"
+              >
+                <i *ngIf="link.disabled" class="fa-solid fa-plus"></i>
+                <i *ngIf="!link.disabled" class="fa-solid fa-xmark"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label"></label>
+        </div>
+        <div class="field-body">
+          <div class="field is-grouped">
+            <p class="control is-expanded">
+              <input class="input" [ngClass]="isFieldValid('hours', attractionForm)" formControlName="hours" type="time" placeholder="Godzina otwarcia" />
+            </p>
+
+            <p class="control is-expanded">
+              <input class="input" [ngClass]="isFieldValid('hours', attractionForm)" formControlName="hours" type="time" placeholder="Godzina zamknięcia" />
+            </p>
+            <div class="control" *ngIf="getControl(attractionForm, 'hours') as hours">
+              <a
+                class="button"
+                [ngClass]="hours.enabled ? 'is-danger' : 'is-info'"
+                (click)="toggleField('hours', hours.disabled)"
+              >
+                <i *ngIf="hours.disabled" class="fa-solid fa-plus"></i>
+                <i *ngIf="!hours.disabled" class="fa-solid fa-xmark"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal mt-6">
+        <div class="field-label">
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <button
+                class="button is-primary center"
+                (click)="createAttraction()"
+                [disabled]="attractionForm.invalid || addressForm.invalid"
+              >
+                Dodaj atrakcję
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </form>
   </div>
-  <div class="box">
-    <form [formGroup]="addressForm">
-      <h1>Adres</h1>
-      <div class="field">
-        <label class="label">Kraj</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('country', addressForm)" formControlName="country" type="text" placeholder="Nazwa użytkownika" />
-          <div class="help is-danger" *ngIf="isErrorEnabled('country', addressForm)">
-            <div *ngFor="let error of getError('country', addressForm)"> {{error | formError}}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Kod pocztowy</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('zipCode', addressForm)" formControlName="zipCode" type="text" placeholder="Nazwa użytkownika" />
-          <div class="help is-danger" *ngIf="isErrorEnabled('zipCode', addressForm)">
-            <div *ngFor="let error of getError('zipCode', addressForm)"> {{error | formError}}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Miasto</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('city', addressForm)" formControlName="city" type="text" placeholder="Nazwa użytkownika" />
-          <div class="help is-danger" *ngIf="isErrorEnabled('city', addressForm)">
-            <div *ngFor="let error of getError('city', addressForm)"> {{error | formError}}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Ulica</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('street', addressForm)" formControlName="street" type="text" placeholder="Nazwa użytkownika" />
-          <div class="help is-danger" *ngIf="isErrorEnabled('street', addressForm)">
-            <div *ngFor="let error of getError('street', addressForm)"> {{error | formError}}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Numer budynku, mieszkania</label>
-        <div class="control">
-          <input class="input" formControlName="apartment" type="text" placeholder="Nazwa użytkownika" />
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <div class="box">
-    <form [formGroup]="additionalInfo">
-      <h1>Dodatkowe informacje</h1>
-      <div class="field">
-        <label class="label">Link</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('link', additionalInfo)" formControlName="link" type="text" placeholder="Nazwa użytkownika" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Godziny otwarcia</label>
-        <div class="control">
-          <input class="input" [ngClass]="isFieldValid('hours', additionalInfo)" formControlName="hours" type="text" placeholder="Nazwa użytkownika" />
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-<div class="control has-text-centered">
-  <button class="button is-primary center" (click)="createAttraction()" [disabled]="attractionForm.invalid || addressForm.invalid">Dodaj atrakcję</button>
 </div>

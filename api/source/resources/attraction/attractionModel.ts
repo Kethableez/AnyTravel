@@ -19,8 +19,14 @@ interface Attraction extends Document {
       review: number;
     }
   ];
-  additionalInfo: any[];
+  reviewRatio: number;
   isApproved: boolean;
+  category: string;
+  attractionType: string;
+  isPaid: boolean;
+  link: string;
+  ticketPrice: string[];
+  hours: string[];
 }
 
 export default Attraction;

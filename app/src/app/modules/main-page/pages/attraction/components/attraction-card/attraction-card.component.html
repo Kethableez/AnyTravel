@@ -6,6 +6,8 @@
   </div>
   <header class="card-header">
     <div class="title is-4"> {{attraction.name}}</div>
+    <span class="tag"> {{attraction.category }}</span>
+    <span class="tag"> {{attraction.attractionType }}</span>
   </header>
   <div class="card-content">
     <div class="content">
@@ -20,7 +22,15 @@
 
     <hr>
 
-    <div class="content semi" *ngIf="attraction.additionalInfo[0]">
+    {{ attraction.attractionType }} <br>
+    {{ attraction.category }} <br>
+    {{ attraction.isPaid }} <br>
+    {{ attraction.link }} <br>
+    {{ attraction.ticketPrice }} <br>
+    {{ attraction.hours }} <br>
+
+
+    <!-- <div class="content semi" *ngIf="attraction.additionalInfo[0]">
       <div class="info">
         <div class="icon">
           <i class="fa-solid fa-link"></i>
@@ -41,7 +51,7 @@
         <br>
 
 
-    </div>
+    </div> -->
 
     <hr>
 

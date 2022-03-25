@@ -13,6 +13,12 @@ export interface Attraction {
     lng: number;
   };
   reviews: any[];
-  additionalInfo: any[];
+  reviewRatio: number;
   isApproved: boolean;
+  category: string;
+  attractionType: string;
+  isPaid: boolean;
+  link: string;
+  ticketPrice: string[];
+  hours: string[];
 }
