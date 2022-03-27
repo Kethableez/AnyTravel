@@ -10,8 +10,16 @@ services:
   expose:
     - 8000
   restart: always
+  links:
+    - mongo-db
   ports:
     - "8000:8000"
+
+ mongo-db:
+  container_name: mongo-db
+  image: mongo
+  ports:
+    - "27017:27017"
 
  front:
   build: 

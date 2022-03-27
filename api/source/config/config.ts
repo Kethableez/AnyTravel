@@ -14,13 +14,12 @@ const MONGO_OPTIONS = {
   retryWrites: false
 };
 
-const MONGO_HOST = process.env.MONGO_URL || 'localhost:27017';
-const MONGO_NAME = process.env.MONGO_NAME || 'any-travel-db';
+const MONGO_HOST = process.env.MONGO_HOST;
+const MONGO_PORT = process.env.MONGO_PORT;
 
 const MONGO = {
-  host: MONGO_HOST,
   options: MONGO_OPTIONS,
-  url: `mongodb://${MONGO_HOST}/${MONGO_NAME}`
+  url: `mongodb://${MONGO_HOST}:${MONGO_PORT}/`
 };
 
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
