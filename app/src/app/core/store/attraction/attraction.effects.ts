@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { initFilters } from '../../models/attraction/attraction-filter.model';
 import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
+import { Address, Attraction } from '../../models/attraction/attration.model';
 import { AttractionService } from '../../services/attraction/attraction.service';
 import { FileService } from '../../services/file/file.service';
 import { RootState } from '../app.states';
@@ -16,7 +18,8 @@ import {
   getAttractions,
   getAttractionsSuccess,
   getNewAttractions,
-  getNewAttractionsSuccess
+  getNewAttractionsSuccess,
+  initializeFilters
 } from './attraction.actions';
 
 @Injectable()
@@ -57,7 +60,10 @@ export class AttractionEffects {
       ofType(getAttractions),
       switchMap(() => {
         return this.attractionService.doGetAll().pipe(
-          map((response) => getAttractionsSuccess({ attractions: response })),
+          switchMap((response) => [
+            getAttractionsSuccess({ attractions: response }),
+            initializeFilters({ filters: initFilters(response) })
+          ]),
           catchError((error) => of(attractionError({ message: error.error.message })))
         );
       })

@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AttractionListComponent } from './pages/attraction/components/attraction-list/attraction-list.component';
 import { AttractionCardComponent } from './pages/attraction/components/attraction-card/attraction-card.component';
 import { FiltersComponent } from './pages/attraction/components/filters/filters.component';
+import { FilterInputComponent } from './pages/attraction/components/filter-input/filter-input.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FiltersComponent } from './pages/attraction/components/filters/filters.
     AttractionFormComponent,
     AttractionListComponent,
     AttractionCardComponent,
-    FiltersComponent
+    FiltersComponent,
+    FilterInputComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

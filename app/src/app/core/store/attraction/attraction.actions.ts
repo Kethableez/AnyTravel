@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { AttractionFilter, FilterInput } from '../../models/attraction/attraction-filter.model';
 import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
 import { Attraction } from '../../models/attraction/attration.model';
 
@@ -6,6 +7,13 @@ export const createAttraction = createAction(
   '[Attraction] Create attraction',
   props<{ file: FormData; payload: AttractionPayload }>()
 );
+
+export const initializeFilters = createAction(
+  '[Attraction] Initialize filters',
+  props<{ filters: AttractionFilter }>()
+);
+
+export const filterChange = createAction('[Attraction] Filter change', props<{ filterInput: FilterInput }>());
 
 // export const createAttractionSuccess = createAction(
 //   '[Attraction] Create attraction success',

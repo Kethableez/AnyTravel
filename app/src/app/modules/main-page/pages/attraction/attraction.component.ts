@@ -18,7 +18,7 @@ enum ViewSelector {
   styleUrls: ['./attraction.component.scss']
 })
 export class AttractionComponent extends CleanableDirective implements OnInit {
-  currentView = ViewSelector.CREATOR;
+  currentView = ViewSelector.ALL;
 
   constructor(private attractionService: AttractionService, private store$: Store<RootState>) {
     super();

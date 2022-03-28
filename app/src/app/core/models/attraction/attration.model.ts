@@ -3,15 +3,7 @@ export interface Attraction {
   name: string;
   description: string;
   cover: string;
-  address: {
-    country: string;
-    zipCode: string;
-    city: string;
-    street: string;
-    apartment?: string;
-    lat: number;
-    lng: number;
-  };
+  address: Address;
   reviews: any[];
   reviewRatio: number;
   isApproved: boolean;
@@ -21,4 +13,14 @@ export interface Attraction {
   link: string;
   ticketPrice: string[];
   hours: string[];
+}
+
+export interface Address {
+  country: string;
+  zipCode: string;
+  city: string;
+  street: string;
+  apartment?: string;
+  lat: number;
+  lng: number;
 }
