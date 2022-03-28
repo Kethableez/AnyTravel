@@ -46,9 +46,6 @@ class GroupService {
 
   public async getUserGroups(userId: string): Promise<any[] | Error> {
     try {
-      // console.log([byUserId(userId), ...baseQuery]);
-
-      console.log(userId);
       const group = await this.groupSchema.aggregate([byUserId(userId), ...baseQuery]);
       if (!group) throw new Error('Group with given ID do not exists');
 

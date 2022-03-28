@@ -1,0 +1,21 @@
+<nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <div class="navbar-item"></div>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <div class="button" [ngClass]="isActive('dashboard')"> Dashboard </div>
+            <div class="button" [ngClass]="isActive('group')"> Twoje grupy </div>
+            <div class="button" [ngClass]="isActive('journey')"> Twoje wycieczki </div>
+            <div class="button" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>
+            <div class="button" [ngClass]="isActive('profile')" (click)="navigate('profile')">Profil</div>
+            <div class="button is-white" (click)="logout()"> Wyloguj się </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,35 @@
+<nav class="level" *ngIf="!isModeratorView">
+  <div class="level-item">
+    <div class="field has-addons">
+      <p class="control">
+        <input class="input" type="text" placeholder="Wyszukaj atrakcję" />
+      </p>
+      <p class="control">
+        <button class="button">Szukaj</button>
+      </p>
+    </div>
+  </div>
+  <!-- <div class="level-item">
+    <button class="button" mat-button [matMenuTriggerFor]="menu">Sortuj...</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Po nazwie rosnąco</button>
+      <button mat-menu-item>Po nazwie malejąco</button>
+      <button mat-menu-item>Po ocenie rosnąco</button>
+      <button mat-menu-item>Po ocenie malejąco</button>
+
+    </mat-menu>
+
+    <button class="button" mat-button [matMenuTriggerFor]="menu">Filtruj...</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </div> -->
+  <!-- Right side -->
+
+</nav>
+<div class="list">
+  <div *ngFor="let attraction of attractionList$ | async">
+    <majk-attraction-card [attraction]="attraction" [isModeratorView]="isModeratorView"></majk-attraction-card>
+  </div>
+</div>

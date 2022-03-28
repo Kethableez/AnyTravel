@@ -15,6 +15,7 @@ import { AppComponent } from './main/app.component';
 import { AuthStateModule } from './core/store/auth';
 import { UserStateModule } from './core/store/user';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AttractionStateModule } from './core/store/attraction';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     AuthStateModule,
     UserStateModule,
+    AttractionStateModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([HydrationEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
