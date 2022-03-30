@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GroupComponent } from './components/group/group.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { GroupComponent } from './pages/group/group.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { MainPageComponent } from './main-page.component';
 import { AttractionComponent } from './pages/attraction/attraction.component';
@@ -22,7 +21,8 @@ const routes: Routes = [
         component: AttractionComponent
       },
       {
-        path: 'groups', component: GroupComponent
+        path: 'groups',
+        component: GroupComponent
       }
     ]
   }

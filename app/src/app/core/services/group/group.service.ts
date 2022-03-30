@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { first, Observable, tap } from 'rxjs';
 import { ModuleName } from '../../models/module-name.model';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
 import { Group } from '../../models/group/group.model';
 import { CreateGroupPayload } from '../../models/group/crate-group-payload';
+import { RootState } from '../../store/app.states';
+import { Store } from '@ngrx/store';
+import { getNewGroup, getData } from '../../store/group/group.actions';
 
 enum GroupActions {
   ALL = 'all',
@@ -24,7 +27,9 @@ enum GroupActions {
   providedIn: 'root'
 })
 export class GroupService extends BaseRequestService {
-  constructor(protected override http: HttpClient, protected override injector: ParametersInjectorService) {
+  constructor(protected override http: HttpClient,
+    protected override injector: ParametersInjectorService,
+    private store$: Store<RootState>) {
     super(http, injector);
   }
 
@@ -42,5 +47,21 @@ export class GroupService extends BaseRequestService {
     const url = this.getUrl(GroupActions.CREATE_GROUP);
 
     return this.post<CreateGroupPayload>(url, body);
+  }
+
+  doGetAll(): Observable<Group[]> {
+    const url = this.getUrl(GroupActions.ALL);
+
+    return this.get<Group[]>(url);
+  }
+
+  initData() {
+    return this.store$.pipe(
+      first(),
+      tap(() => {
+        this.store$.dispatch(getData());
+        this.store$.dispatch(getNewGroup());
+      })
+    );
   }
 }

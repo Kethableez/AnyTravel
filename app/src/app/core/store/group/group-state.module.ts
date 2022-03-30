@@ -14,4 +14,4 @@ import * as fromGroup from './group.reducers';
   ],
   declarations: []
 })
-export class UserStateModule { }
+export class GroupStateModule { }

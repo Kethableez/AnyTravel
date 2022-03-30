@@ -3,12 +3,16 @@
 
 <div class="columns is-mobile is-centered" *ngIf="(userGroups$ | async) as userGroups">
   <div *ngFor="let group of userGroups">
-      <li>
-        <span class="badge">{{group.name}}</span>
-      </li>
+    <li>
+      <span class="badge">{{group.name}}</span>
+    </li>
   </div>
 </div>
-<form [formGroup]="newGroupForm" (ngSubmit) ="createNewGroup()" >
+<div class="columns is-mobile is-centered" *ngIf="(newUserGroups$ | async) as userNewGroups">
+  {{userNewGroups}}
+</div>
+
+<form [formGroup]="newGroupForm">
 
   <div>
     <label for="name">
@@ -24,6 +28,6 @@
     <input id="cover" type="text" formControlName="cover">
   </div>
 
-  <button class="button" type="submit">Purchase</button>
+  <button class="button" type="submit" (click)="createNewGroup()">Purchase</button>
 
 </form>

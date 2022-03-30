@@ -16,6 +16,7 @@ import { AuthStateModule } from './core/store/auth';
 import { UserStateModule } from './core/store/user';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AttractionStateModule } from './core/store/attraction';
+import { GroupStateModule } from './core/store/group';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { AttractionStateModule } from './core/store/attraction';
     ReactiveFormsModule,
     AuthStateModule,
     UserStateModule,
+    GroupStateModule,
     AttractionStateModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([HydrationEffects]),
@@ -41,4 +43,4 @@ import { AttractionStateModule } from './core/store/attraction';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
