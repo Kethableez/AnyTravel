@@ -32,7 +32,8 @@ export class AttractionFormComponent {
     isPaid: [false, Validators.required],
     ticketPrice: [{ value: '', disabled: true }],
     link: [{ value: '', disabled: true }],
-    hours: [{ value: '', disabled: true }]
+    hoursFrom: [{ value: '', disabled: true }],
+    hoursTo: [{ value: '', disabled: true }]
   });
 
   addressForm = this.builder.group({
@@ -102,6 +103,9 @@ export class AttractionFormComponent {
   createAttraction(): void {
     const payload: AttractionPayload = {
       ...this.attractionForm.value,
+      hours: `${this.getControl(this.attractionForm, 'hoursFrom').value} - ${
+        this.getControl(this.attractionForm, 'hoursTo').value
+      }`,
       address: { ...this.addressForm.value }
     };
 

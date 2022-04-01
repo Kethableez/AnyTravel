@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AttractionService } from 'src/app/core/services/attraction/attraction.service';
 import { RootState } from 'src/app/core/store/app.states';
-import { selectAttractions, selectNewAttractions } from 'src/app/core/store/attraction';
+import { selectAttractions, selectFilteredAttractions, selectNewAttractions } from 'src/app/core/store/attraction';
 import { isUserModerator } from 'src/app/core/store/user';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
@@ -37,7 +37,7 @@ export class AttractionComponent extends CleanableDirective implements OnInit {
   }
 
   isModerator = this.store$.select(isUserModerator);
-  attractionList$ = this.store$.select(selectAttractions);
+  attractionList$ = this.store$.select(selectFilteredAttractions);
   newAttractionList$ = this.store$.select(selectNewAttractions);
 
   ngOnInit(): void {

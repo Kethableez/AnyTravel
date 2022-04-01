@@ -1,8 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import Attraction from './attractionModel';
 
-const ObjectId = mongoose.Types.ObjectId;
-
 const AttractionSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -25,9 +23,9 @@ const AttractionSchema = new Schema({
   category: { type: String, required: true },
   attractionType: { type: String, required: true },
   isPaid: { type: Boolean, required: true },
-  ticketPrice: { type: [String] },
+  ticketPrice: { type: String },
   link: { type: String },
-  hours: { type: [String] }
+  hours: { type: String }
 
   // additionalInfo: { type: [Object] }
 });

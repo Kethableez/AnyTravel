@@ -25,8 +25,8 @@ interface Attraction extends Document {
   attractionType: string;
   isPaid: boolean;
   link: string;
-  ticketPrice: string[];
-  hours: string[];
+  ticketPrice: string;
+  hours: string;
 }
 
 export default Attraction;

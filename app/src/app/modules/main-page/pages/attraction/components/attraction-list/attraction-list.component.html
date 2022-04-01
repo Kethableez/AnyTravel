@@ -1,7 +1,12 @@
 <div class="majk-container">
-  <!-- <div class="box filters" *ngIf="!isModeratorView">
+  <div class="box filters" *ngIf="!isModeratorView">
+    <majk-search></majk-search>
+    <hr>
+    <majk-sort></majk-sort>
+    <hr>
     <majk-filters></majk-filters>
-  </div> -->
+  </div>
+
   <div class="list">
     <div *ngFor="let attraction of attractionList$ | async">
       <majk-attraction-card [attraction]="attraction" [isModeratorView]="isModeratorView"></majk-attraction-card>

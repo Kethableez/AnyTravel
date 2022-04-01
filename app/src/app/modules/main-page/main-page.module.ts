@@ -14,6 +14,8 @@ import { AttractionListComponent } from './pages/attraction/components/attractio
 import { AttractionCardComponent } from './pages/attraction/components/attraction-card/attraction-card.component';
 import { FiltersComponent } from './pages/attraction/components/filters/filters.component';
 import { FilterInputComponent } from './pages/attraction/components/filter-input/filter-input.component';
+import { SearchComponent } from './pages/attraction/components/search/search.component';
+import { SortComponent } from './pages/attraction/components/sort/sort.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FilterInputComponent } from './pages/attraction/components/filter-input
     AttractionListComponent,
     AttractionCardComponent,
     FiltersComponent,
-    FilterInputComponent
+    FilterInputComponent,
+    SearchComponent,
+    SortComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

@@ -25,6 +25,11 @@ export class AttractionCardComponent implements OnInit {
     return ['http://localhost:9000/api/file/download', this.attraction?.cover].join('/');
   }
 
+  valueWrapper(value: string | undefined | null) {
+    if (value) return value;
+    return '---';
+  }
+
   ngOnInit(): void {}
 
   get reviews() {

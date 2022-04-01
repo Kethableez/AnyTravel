@@ -12,7 +12,7 @@ export interface Attraction {
   isPaid: boolean;
   link: string;
   ticketPrice: string[];
-  hours: string[];
+  hours: string;
 }
 
 export interface Address {

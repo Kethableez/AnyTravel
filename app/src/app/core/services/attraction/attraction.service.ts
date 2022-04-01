@@ -100,58 +100,47 @@ export class AttractionService extends BaseRequestService {
     return [
       {
         value: AttractionCategory.RESTAURANT,
-        displayValue: 'Restauracja',
-        label: '#ffff00'
+        displayValue: 'Restauracja'
       },
       {
         value: AttractionCategory.BAR,
-        displayValue: 'Bar',
-        label: '#ffff00'
+        displayValue: 'Bar'
       },
       {
         value: AttractionCategory.COFFEE,
-        displayValue: 'Kawiarnia',
-        label: '#0000ff'
+        displayValue: 'Kawiarnia'
       },
       {
         value: AttractionCategory.PARK,
-        displayValue: 'Park',
-        label: '#0000ff'
+        displayValue: 'Park'
       },
       {
         value: AttractionCategory.GYM,
-        displayValue: 'Siłownia',
-        label: '#ff00ff'
+        displayValue: 'Siłownia'
       },
       {
         value: AttractionCategory.ART,
-        displayValue: 'Sztuka',
-        label: '#ff00ff'
+        displayValue: 'Sztuka'
       },
       {
         value: AttractionCategory.MUSEUM,
-        displayValue: 'Muzeum',
-        label: '#e5f4ee'
+        displayValue: 'Muzeum'
       },
       {
         value: AttractionCategory.LIBRARY,
-        displayValue: 'Biblioteka',
-        label: '#00ff00'
+        displayValue: 'Biblioteka'
       },
       {
         value: AttractionCategory.LAKE,
-        displayValue: 'Jezioro',
-        label: '#00ff00'
+        displayValue: 'Jezioro'
       },
       {
         value: AttractionCategory.FOREST,
-        displayValue: 'Las',
-        label: '#00ff00'
+        displayValue: 'Las'
       },
       {
         value: AttractionCategory.BEACH,
-        displayValue: 'Plaża',
-        label: '#00ff00'
+        displayValue: 'Plaża'
       }
     ];
   }
@@ -160,13 +149,11 @@ export class AttractionService extends BaseRequestService {
     return [
       {
         value: AttractionType.INDOOR,
-        displayValue: 'Wewnętrzna',
-        label: '#e6e6e6'
+        displayValue: 'Wewnętrzna'
       },
       {
         value: AttractionType.OUTDOOR,
-        displayValue: 'Zewnętrzna',
-        label: '#e6e6ff'
+        displayValue: 'Zewnętrzna'
       }
     ];
   }
@@ -178,7 +165,9 @@ export class AttractionService extends BaseRequestService {
       cover: '',
       category: '',
       attractionType: '',
-      isPaid: false
+      isPaid: false,
+      hoursFrom: '',
+      hoursTo: ''
     };
   }
 

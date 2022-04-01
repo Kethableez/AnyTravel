@@ -156,7 +156,7 @@
             <div class="control">
               <div class="select is-fullwidth" [ngClass]="isFieldValid('category', attractionForm)">
                 <select formControlName="category">
-                  <option [ngValue]="null">Wybierz kategorię</option>
+                  <option [selected]="true" [ngValue]="null">Wybierz kategorię</option>
                   <option *ngFor="let category of categories" [ngValue]="category.value"> {{ category.displayValue }}</option>
                 </select>
               </div>
@@ -170,7 +170,7 @@
             <div class="control">
               <div class="select is-fullwidth" [ngClass]="isFieldValid('attractionType', attractionForm)">
                 <select formControlName="attractionType">
-                  <option [ngValue]="null">Wybierz typ</option>
+                  <option [selected]="true" [ngValue]="null">Wybierz typ</option>
                   <option *ngFor="let type of types" [ngValue]="type.value"> {{ type.displayValue }}</option>
                 </select>
               </div>
@@ -210,9 +210,18 @@
               </label>
             </div>
           </div>
+
           <div class="field">
             <div class="control">
-              <input class="input" [ngClass]="isFieldValid('ticketPrice', attractionForm)" formControlName="ticketPrice" type="text" placeholder="Cena biletów" />
+              <div class="select is-fullwidth" [ngClass]="isFieldValid('ticketPrice', attractionForm)">
+                <select formControlName="ticketPrice">
+                  <option [selected]="true" [ngValue]="null">Wybierz zakres cen</option>
+                  <option value="$">Tanio</option>
+                  <option value="$$">Umiarkowanie</option>
+                  <option value="$$$">Drogo</option>
+                  <option value="$$$$">Bardzo drogo</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -248,20 +257,23 @@
         <div class="field-body">
           <div class="field is-grouped">
             <p class="control is-expanded">
-              <input class="input" [ngClass]="isFieldValid('hours', attractionForm)" formControlName="hours" type="time" placeholder="Godzina otwarcia" />
+              <input class="input" [ngClass]="isFieldValid('hoursFrom', attractionForm)" formControlName="hoursFrom" type="time" placeholder="Godzina otwarcia" />
             </p>
 
             <p class="control is-expanded">
-              <input class="input" [ngClass]="isFieldValid('hours', attractionForm)" formControlName="hours" type="time" placeholder="Godzina zamknięcia" />
+              <input class="input" [ngClass]="isFieldValid('hoursTo', attractionForm)" formControlName="hoursTo" type="time" placeholder="Godzina zamknięcia" />
             </p>
-            <div class="control" *ngIf="getControl(attractionForm, 'hours') as hours">
+            <div class="control">
               <a
                 class="button"
-                [ngClass]="hours.enabled ? 'is-danger' : 'is-info'"
-                (click)="toggleField('hours', hours.disabled)"
+                [ngClass]="getControl(attractionForm, 'hoursFrom').enabled && getControl(attractionForm, 'hoursFrom').enabled ? 'is-danger' : 'is-info'"
+                (click)="
+                  toggleField('hoursFrom', getControl(attractionForm, 'hoursFrom').disabled);
+                  toggleField('hoursTo', getControl(attractionForm, 'hoursTo').disabled);
+                "
               >
-                <i *ngIf="hours.disabled" class="fa-solid fa-plus"></i>
-                <i *ngIf="!hours.disabled" class="fa-solid fa-xmark"></i>
+                <i *ngIf="getControl(attractionForm, 'hoursFrom').disabled && getControl(attractionForm, 'hoursFrom').disabled" class="fa-solid fa-plus"></i>
+                <i *ngIf="!(getControl(attractionForm, 'hoursFrom').disabled && getControl(attractionForm, 'hoursFrom').disabled)" class="fa-solid fa-xmark"></i>
               </a>
             </div>
           </div>

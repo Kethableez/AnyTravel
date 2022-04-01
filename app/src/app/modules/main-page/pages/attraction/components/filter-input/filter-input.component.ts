@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { includes } from 'lodash';
-import { FilterInput } from 'src/app/core/models/attraction/attraction-filter.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FilterInput } from 'src/app/core/models/attraction/attraction-filters/filter-input.model';
+import { InputValue } from 'src/app/core/models/attraction/attraction-filters/input-value.model';
 
 @Component({
   selector: 'majk-filter-input',
   templateUrl: './filter-input.component.html',
   styleUrls: ['./filter-input.component.scss']
 })
-export class FilterInputComponent implements OnInit {
+export class FilterInputComponent {
   @Input()
   filter?: FilterInput;
 
@@ -16,43 +16,61 @@ export class FilterInputComponent implements OnInit {
 
   constructor() {}
 
+  // searchValue(event: any) {
+  //   const inputValue = event.target.value;
+  //   if (this.filter) {
+  //     const newVal = {
+  //       value: inputValue,
+  //       enabled: inputValue !== ''
+  //     };
+
+  //     this.onFitlerChange(newVal);
+  //   }
+  // }
+
   changeValue(event: any) {
     const inputValue = event.target.value;
+    if (this.filter) {
+      const newVals = (this.filter.input as InputValue[]).map((v) => {
+        return {
+          ...v,
+          enabled: v.value === inputValue
+        };
+      });
 
-    if (this.filter && inputValue) {
-      const changedFilter: FilterInput = {
-        ...this.filter,
-        value: inputValue,
-        enabled: inputValue !== ''
-      };
-      this.filter = changedFilter;
-      this.onFitlerChange();
+      this.onFitlerChange(newVals);
     }
   }
 
-  addValue(value: string) {
+  get inputList() {
+    if (this.filter) {
+      return this.filter.input as InputValue[];
+    } else return [] as InputValue[];
+  }
+
+  toggleValue(value: string | number | boolean) {
     const inputValue = value;
 
-    if (this.filter && inputValue) {
-      const values = includes(this.filter.value, value)
-        ? this.filter.value.filter((v: string) => v !== value)
-        : [...this.filter.value, value];
+    if (this.filter) {
+      const newVals = (this.filter.input as InputValue[]).map((input) => {
+        return {
+          ...input,
+          enabled: input.value === inputValue ? !input.enabled : input.enabled
+        };
+      });
 
-      const changedFilter: FilterInput = {
-        ...this.filter,
-        value: values,
-        enabled: values.length > 0
-      };
-      this.filter = changedFilter;
-      this.onFitlerChange();
+      this.onFitlerChange(newVals);
     }
   }
 
-  onFitlerChange() {
-    if (this.filter) {
+  onFitlerChange(changedInput: InputValue[]) {
+    if (this.filter && changedInput) {
+      this.filter = {
+        ...this.filter,
+        input: changedInput
+      };
+
       this.filterChange.emit(this.filter);
     }
   }
-
-  ngOnInit(): void {}
 }
