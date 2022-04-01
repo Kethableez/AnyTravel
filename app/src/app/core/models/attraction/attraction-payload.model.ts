@@ -7,9 +7,14 @@ export interface AttractionPayload {
     zipCode: string;
     city: string;
     street: string;
-    apartment?: string;
+    apartment: string;
     lat: number;
     lng: number;
   };
-  additionalInfo: any[];
+  category: string;
+  attractionType: string;
+  isPaid: boolean;
+  link: string;
+  ticketPrice: string[];
+  hours: string[];
 }

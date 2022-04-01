@@ -1,0 +1,5 @@
+<div class="fill" *ngIf="filters$ | async as filters">
+    <div *ngFor="let filter of filters">
+      <majk-filter-input [filter]="filter" (filterChange)="filterChange($event)"></majk-filter-input>
+    </div>
+</div>

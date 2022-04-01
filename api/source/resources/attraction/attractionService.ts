@@ -14,6 +14,7 @@ class AttractionService {
         ...payload,
         cover: [attractionPrefix(), payload.cover].join('/'),
         reviews: [],
+        reviewRatio: 0,
         isApproved: false
       });
       return {
@@ -77,8 +78,16 @@ class AttractionService {
       };
 
       attraction.reviews.push(review);
+      const ratio =
+        attraction.reviews.length > 0
+          ? attraction.reviews
+              .map((r) => r.review)
+              .reduce(function (previous, current) {
+                return previous + current;
+              }) / attraction.reviews.length
+          : 0;
 
-      await this.attractionSchema.findByIdAndUpdate(attractionId, { reviews: attraction.reviews });
+      await this.attractionSchema.findByIdAndUpdate(attractionId, { reviews: attraction.reviews, reviewRatio: ratio });
 
       return { message: 'Added review' };
     } catch (error: unknown) {

@@ -16,7 +16,5 @@ export class AttractionListComponent implements OnInit {
 
   constructor() {}
 
-  click(event: any) {}
-
   ngOnInit(): void {}
 }

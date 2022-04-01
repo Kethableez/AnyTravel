@@ -11,7 +11,12 @@ interface AttractionPayload {
     lat: number;
     lng: number;
   };
-  additionalInfo: any[];
+  category: string;
+  attractionType: string;
+  isPaid: boolean;
+  link: string;
+  ticketPrice: string;
+  hours: string;
 }
 
 export default AttractionPayload;

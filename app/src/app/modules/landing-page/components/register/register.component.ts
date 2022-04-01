@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AvailabilityValidator } from 'src/app/core/services/availability.validator';
+import { AvailabilityValidator } from 'src/app/core/validators/availability.validator';
 import { FormService } from 'src/app/core/services/form.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { RootState } from 'src/app/core/store/app.states';

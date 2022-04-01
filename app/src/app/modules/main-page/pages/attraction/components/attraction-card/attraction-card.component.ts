@@ -25,16 +25,12 @@ export class AttractionCardComponent implements OnInit {
     return ['http://localhost:9000/api/file/download', this.attraction?.cover].join('/');
   }
 
-  ngOnInit(): void {}
-
-  get attractionInfo() {
-    const info = {
-      link: this.attraction?.additionalInfo[0].link ? this.attraction?.additionalInfo[0].link : '---',
-      hours: this.attraction?.additionalInfo[0].hours ? this.attraction?.additionalInfo[0].hours : '---'
-    };
-
-    return info;
+  valueWrapper(value: string | undefined | null) {
+    if (value) return value;
+    return '---';
   }
+
+  ngOnInit(): void {}
 
   get reviews() {
     if (this.attraction && this.attraction.reviews.length > 0) {

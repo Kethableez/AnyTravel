@@ -8,6 +8,13 @@
     <div class="title is-4"> {{attraction.name}}</div>
   </header>
   <div class="card-content">
+    <div class="content flex">
+      <span class="tag is-link is-light"> {{attraction.category }}</span>
+      <span class="tag is-info is-light"> {{attraction.attractionType }}</span>
+      <span *ngIf="attraction.isPaid" class="tag is-success is-light"> {{ attraction.ticketPrice }}</span>
+      <span *ngIf="!attraction.isPaid" class="tag is-success is-light"> Free </span>
+    </div>
+
     <div class="content">
       <div class="label">Opis:</div>
       {{ attraction.description }}
@@ -20,13 +27,13 @@
 
     <hr>
 
-    <div class="content semi" *ngIf="attraction.additionalInfo[0]">
+    <div class="content mb-0 flex-col">
       <div class="info">
         <div class="icon">
           <i class="fa-solid fa-link"></i>
         </div>
-        <div class="text">
-          <span [ngClass]="attractionInfo.link !== '---' ? 'is-link' : ''">{{ attractionInfo.link }}</span>
+        <div class="text" *ngIf="valueWrapper(attraction.link) as link">
+          <span [ngClass]="attraction.link ? 'is-link' : ''"> {{ link }} </span>
         </div>
       </div>
 
@@ -34,13 +41,10 @@
         <div class="icon">
           <i class="fa-solid fa-clock"></i>
         </div>
-        <div class="text">
-          {{ attractionInfo.hours }}
+        <div class="text" *ngIf="valueWrapper(attraction.hours) as hours">
+          {{ hours }}
         </div>
       </div>
-        <br>
-
-
     </div>
 
     <hr>

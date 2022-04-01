@@ -1,4 +1,4 @@
-<mat-tab-group mat-stretch-tabs>
+<!-- <mat-tab-group mat-stretch-tabs>
   <mat-tab label="Atrakcje">
     <majk-attraction-list [attractionList$]="attractionList$" [isModeratorView]="false"></majk-attraction-list>
   </mat-tab>
@@ -7,8 +7,41 @@
   </mat-tab>
   <mat-tab *ngIf="isModerator | async">
     <ng-template mat-tab-label>
-      <span [matBadge]="(newAttractionList$ | async)?.length" matBadgeOverlap="false">Atrakcje do zatwierdzenia</span>
+      <span >Atrakcje do zatwierdzenia</span>
     </ng-template>
     <majk-attraction-list [attractionList$]="newAttractionList$" [isModeratorView]="true"></majk-attraction-list>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+
+<div class="tabs is-centered is-large is-boxed mb-0">
+  <ul>
+    <li [ngClass]="isViewActive(ViewSelector.ALL)" (click)="changeView(ViewSelector.ALL)">
+      <a>
+       <span>Atrakcje</span>
+      </a>
+    </li>
+    <li [ngClass]="isViewActive(ViewSelector.CREATOR)" (click)="changeView(ViewSelector.CREATOR)">
+      <a>
+      <span>Kreator</span>
+    </a>
+  </li>
+    <li *ngIf="isModerator | async" [ngClass]="isViewActive(ViewSelector.PENDING)" (click)="changeView(ViewSelector.PENDING)">
+      <a>
+      <span [matBadge]="(newAttractionList$ | async)?.length" matBadgeSize="small" matBadgeOverlap="false">Oczekujace</span>
+    </a>
+  </li>
+  </ul>
+</div>
+
+<div [ngSwitch]="currentView">
+  <div *ngSwitchCase="ViewSelector.ALL">
+    <majk-attraction-list [attractionList$]="attractionList$" [isModeratorView]="false"></majk-attraction-list>
+
+  </div>
+  <div *ngSwitchCase="ViewSelector.CREATOR">
+    <majk-attraction-form></majk-attraction-form>
+  </div>
+  <div *ngSwitchCase="ViewSelector.PENDING">
+    <majk-attraction-list [attractionList$]="newAttractionList$" [isModeratorView]="true"></majk-attraction-list>
+  </div>
+</div>
