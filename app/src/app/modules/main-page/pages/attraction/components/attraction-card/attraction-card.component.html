@@ -9,8 +9,8 @@
   </header>
   <div class="card-content">
     <div class="content flex">
-      <span class="tag is-link is-light"> {{attraction.category }}</span>
-      <span class="tag is-info is-light"> {{attraction.attractionType }}</span>
+      <span class="tag is-link is-light"> {{attraction.category | label }}</span>
+      <span class="tag is-info is-light"> {{attraction.attractionType | label }}</span>
       <span *ngIf="attraction.isPaid" class="tag is-success is-light"> {{ attraction.ticketPrice }}</span>
       <span *ngIf="!attraction.isPaid" class="tag is-success is-light"> Free </span>
     </div>

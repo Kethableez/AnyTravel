@@ -5,5 +5,5 @@ export interface AttractionFilter {
   country: FilterInput;
   category: FilterInput;
   attractionType: FilterInput;
-  isPaid: FilterInput;
+  ticketPrice: FilterInput;
 }

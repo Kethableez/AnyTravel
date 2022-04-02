@@ -9,34 +9,41 @@ export function initFilters(list: Attraction[]): AttractionFilter {
   return {
     city: {
       key: 'city',
-      label: 'Miasto',
       input: getDisplayValue(list, 'city')
     },
     country: {
       key: 'country',
-      label: 'Państwo',
       input: getDisplayValue(list, 'country')
     },
     category: {
       key: 'category',
-      label: 'Kategoria',
       input: getDisplayValue(list, 'category')
     },
     attractionType: {
       key: 'attractionType',
-      label: 'Typ',
       input: getDisplayValue(list, 'attractionType')
     },
-    isPaid: {
-      key: 'isPaid',
-      label: 'Czy płatna',
+    ticketPrice: {
+      key: 'ticketPrice',
       input: [
         {
-          value: true,
+          value: 'Free',
           enabled: false
         },
         {
-          value: false,
+          value: '$',
+          enabled: false
+        },
+        {
+          value: '$$',
+          enabled: false
+        },
+        {
+          value: '$$$',
+          enabled: false
+        },
+        {
+          value: '$$$$',
           enabled: false
         }
       ]
@@ -57,7 +64,8 @@ function getDisplayValue(list: Attraction[], key: string): InputValue[] {
 
 export function isMatch(attraction: Attraction, filters: any[]) {
   const match = filters.map((f) => {
-    return checkMulti(attraction, f as FilterInput, f.key);
+    if (f.key === 'ticketPrice') return checkPrice(attraction, f);
+    else return checkMulti(attraction, f as FilterInput, f.key);
   });
   return !includes(match, false);
 }
@@ -69,6 +77,16 @@ function checkMulti(attraction: Attraction, filterInput: FilterInput, key: keyof
   return input.length !== 0 ? includes(input, value) : true;
 }
 
+function checkPrice(attraction: Attraction, filterInput: FilterInput) {
+  const input = filterInput.input.filter((i) => i.enabled).map((i) => i.value);
+  const { isPaid, ticketPrice } = attraction;
+  if (isPaid) {
+    return input.length !== 0 ? includes(input, ticketPrice) : true;
+  } else {
+    return input.length !== 0 ? includes(input, 'Free') : true;
+  }
+}
+
 export function sortSelector(sort: SortOptions, a: Attraction, b: Attraction) {
   switch (sort) {
     case SortOptions.NAME_ASC:
@@ -78,9 +96,9 @@ export function sortSelector(sort: SortOptions, a: Attraction, b: Attraction) {
       return a.name < b.name ? 1 : -1;
 
     case SortOptions.RATING_ASC:
-      return a.name > b.name ? 1 : -1;
+      return a.reviewRatio > b.reviewRatio ? 1 : -1;
 
     case SortOptions.RATING_DESC:
-      return a.name < b.name ? 1 : -1;
+      return a.reviewRatio < b.reviewRatio ? 1 : -1;
   }
 }

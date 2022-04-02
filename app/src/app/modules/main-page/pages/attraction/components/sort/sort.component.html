@@ -3,7 +3,7 @@
   <div class="control">
     <div class="select is-fullwidth">
       <select (change)="changeSortType($event)">
-        <option [selected]="sortType === type" *ngFor="let type of SortOptions">{{ type }}</option>
+        <option [selected]="sortType === type" *ngFor="let type of SortOptions">{{ type | label}}</option>
       </select>
     </div>
   </div>

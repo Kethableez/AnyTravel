@@ -3,9 +3,9 @@
     <div *ngSwitchDefault>
       <div class="field">
         <div class="control">
-          <label class="label"> {{filter.label}} </label>
+          <label class="label"> {{filter.key | label}} </label>
           <div *ngFor="let input of inputList">
-            <label class="checkbox"> <input type="checkbox" [value]="input.value" [checked]="input.enabled" (change)="toggleValue(input.value)" /> {{ input.value }} </label>
+            <label class="checkbox"> <input type="checkbox" [value]="input.value" [checked]="input.enabled" (change)="toggleValue(input.value)" /> {{ input.value | label}} </label>
             <br />
           </div>
         </div>

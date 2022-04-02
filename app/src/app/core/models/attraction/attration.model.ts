@@ -11,7 +11,7 @@ export interface Attraction {
   attractionType: string;
   isPaid: boolean;
   link: string;
-  ticketPrice: string[];
+  ticketPrice: string;
   hours: string;
 }
 
