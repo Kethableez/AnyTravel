@@ -6,7 +6,7 @@ import { CreateGroupPayload } from '../../models/group/crate-group-payload';
 import { GroupService } from '../../services/group/group.service';
 import { RootState } from '../app.states';
 import { selectIsLoggedIn } from '../auth';
-import { getData, getDataSuccess, groupError, createGroup, getNewGroupSuccess, getNewGroup } from './group.actions';
+import { getData, getDataSuccess, groupError, createGroup, getNewGroupSuccess, getNewGroup, deleteGroup, editGroup } from './group.actions';
 
 @Injectable()
 export class GroupEffects {
@@ -48,7 +48,32 @@ export class GroupEffects {
       ofType(createGroup),
       switchMap((action) =>
         this.groupService.doCreateGroup(action.payload).pipe(
-          map(() => getNewGroup(),
+          map(() => getData(),
+            catchError((error) => of(groupError({ message: error.error.message }))))
+        )
+      )
+    )
+  );
+
+  deleteGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteGroup),
+      switchMap((action) => {
+        return this.groupService.doDeleteGroup(action.groupId).pipe(
+          switchMap(() => [getData(), getNewGroup()]),
+          catchError((error) => of(groupError({ message: error.error.message })
+          ))
+        );
+      })
+    )
+  );
+
+  editGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editGroup),
+      switchMap((action) =>
+        this.groupService.doEdit(action.groupId, action.payload).pipe(
+          map(() => getData(),
             catchError((error) => of(groupError({ message: error.error.message }))))
         )
       )

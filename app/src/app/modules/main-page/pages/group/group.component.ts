@@ -6,25 +6,27 @@ import { GroupActions, selectGroupData, selectNewGroupData } from 'src/app/core/
 import { GroupService } from 'src/app/core/services/group/group.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CreateGroupPayload } from 'src/app/core/models/group/crate-group-payload';
-
+import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 @Component({
   selector: 'majk-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss'],
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent extends CleanableDirective implements OnInit {
 
   newGroupForm = this.formBuilder.group({
     name: '',
     cover: ''
   });
 
-  constructor(private store$: Store<RootState>, private service: GroupService, private formBuilder: FormBuilder) { }
+  constructor(private store$: Store<RootState>, private service: GroupService, private formBuilder: FormBuilder) { super(); }
 
   userGroups$ = this.store$.select(selectGroupData);
   newUserGroups$ = this.store$.select(selectNewGroupData);
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.addSubscription(this.service.initData().subscribe());
+  }
 
   createNewGroup() {
     const payload: CreateGroupPayload = {
