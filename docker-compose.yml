@@ -8,12 +8,12 @@ services:
   container_name: back
   command: npm run dev
   expose:
-    - 8000
+    - 9000
   restart: always
   links:
     - mongo-db
   ports:
-    - "8000:8000"
+    - "9000:9000"
 
  mongo-db:
   container_name: mongo-db
@@ -26,7 +26,7 @@ services:
    context: .
    target: ui-build
   container_name: front
-  command: ng serve --host 0.0.0.0
+  command: ng serve -c local --host 0.0.0.0
   expose:
     - 4200
   restart: always
