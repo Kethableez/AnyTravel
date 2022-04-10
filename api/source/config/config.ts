@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
-import path from 'path';
+// import path from 'path';
 
-const configPath = path.resolve(__dirname, `../../.${process.env.NODE_ENV}.env`);
+// const configPath = path.resolve(__dirname, `../../.${process.env.NODE_ENV}.env`);
 
-dotenv.config({ path: configPath });
+// console.log(configPath);
+
+// dotenv.config({ path: configPath });
+dotenv.config();
 
 const MONGO_OPTIONS = {
   useUnifiedTopology: true,
@@ -14,13 +17,13 @@ const MONGO_OPTIONS = {
   retryWrites: false
 };
 
-const MONGO_HOST = process.env.MONGO_URL || 'localhost:27017';
-const MONGO_NAME = process.env.MONGO_NAME || 'any-travel-db';
+const MONGO_HOST = process.env.MONGO_HOST || 'localhost';
+const MONGO_PORT = process.env.MONGO_PORT || '27017';
+const MONGO_NAME = process.env.MONGO_NAME || 'test';
 
 const MONGO = {
-  host: MONGO_HOST,
   options: MONGO_OPTIONS,
-  url: `mongodb://${MONGO_HOST}/${MONGO_NAME}`
+  url: `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_NAME}`
 };
 
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
