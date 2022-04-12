@@ -7,6 +7,14 @@ import { GroupService } from 'src/app/core/services/group/group.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CreateGroupPayload } from 'src/app/core/models/group/crate-group-payload';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
+
+
+enum ViewSelector {
+  ALL = 'ALL',
+  CREATOR = 'CREATOR',
+  PENDING = 'PENDING'
+}
+
 @Component({
   selector: 'majk-group',
   templateUrl: './group.component.html',
@@ -14,10 +22,8 @@ import { CleanableDirective } from 'src/app/shared/directives/cleanable.directiv
 })
 export class GroupComponent extends CleanableDirective implements OnInit {
 
-  newGroupForm = this.formBuilder.group({
-    name: '',
-    cover: ''
-  });
+  currentView = ViewSelector.ALL;
+
 
   constructor(private store$: Store<RootState>, private service: GroupService, private formBuilder: FormBuilder) { super(); }
 
@@ -28,11 +34,16 @@ export class GroupComponent extends CleanableDirective implements OnInit {
     this.addSubscription(this.service.initData().subscribe());
   }
 
-  createNewGroup() {
-    const payload: CreateGroupPayload = {
-      ... this.newGroupForm.value,
-    };
-
-    this.store$.dispatch(GroupActions.createGroup({ payload: payload }));
+  changeView(selector: ViewSelector) {
+    this.currentView = selector;
   }
+
+  isViewActive(selector: ViewSelector) {
+    return this.currentView === selector ? 'is-active' : '';
+  }
+
+  get ViewSelector() {
+    return ViewSelector;
+  }
+
 }

@@ -1,0 +1,19 @@
+<div *ngIf="group" class="card">
+  <figure class="image is-4by3">
+    <img [src]="groupCover" alt="Placeholder image" />
+  </figure>
+</div>
+<header class="card-header">
+  <div class="title is-4">{{group?.name}}</div>
+</header>
+<div class="card-content">
+  <div class="content flex">
+    <span class="tag is-link is-light"> {{group?.founder| label }}</span>
+    <span class="tag is-info is-light"> {{group?.invitationCode| label }}</span>
+    <span class="tag is-info is-light"> {{group?.journeys| label }}</span>
+    <span class="tag is-info is-light"> {{group?.members| label }}</span>
+  </div>
+
+  <footer class="card-footer">
+    <button (click)="deleteGroup()" class="button is-danger">Usuń</button>
+  </footer>

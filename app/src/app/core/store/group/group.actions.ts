@@ -10,7 +10,7 @@ export const getNewGroupSuccess = createAction('[Group] Get new group success', 
 
 
 export const deleteGroup = createAction('[Group] Delete Group', props<{ groupId: string }>());
-export const createGroup = createAction('[Group] Create Group', props<{ payload: CreateGroupPayload }>());
+export const createGroup = createAction('[Group] Create Group', props<{ file: FormData, payload: CreateGroupPayload }>());
 export const editGroup = createAction('[Group] Edit Group', props<{ groupId: string, payload: EditGroupPayload }>());
 
 
