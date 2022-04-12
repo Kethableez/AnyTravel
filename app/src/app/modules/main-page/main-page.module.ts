@@ -16,6 +16,7 @@ import { FiltersComponent } from './pages/attraction/components/filters/filters.
 import { FilterInputComponent } from './pages/attraction/components/filter-input/filter-input.component';
 import { SearchComponent } from './pages/attraction/components/search/search.component';
 import { SortComponent } from './pages/attraction/components/sort/sort.component';
+import { GroupComponent } from './pages/group/group.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SortComponent } from './pages/attraction/components/sort/sort.component
     FiltersComponent,
     FilterInputComponent,
     SearchComponent,
-    SortComponent
+    SortComponent,
+    GroupComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })
