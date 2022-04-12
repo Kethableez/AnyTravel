@@ -3,7 +3,40 @@
   flex-direction: row;
   justify-content: center;
   .box {
-    width: 30%;
+    width: 70%;
     margin: 1rem;
   }
+}
+
+
+
+.file {
+  justify-content: end;
+
+  .file-input {
+    width: 40%;
+  }
+
+  .file-cta {
+    width: 100%;
+  }
+
+  .file-label {
+    white-space: nowrap;
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.grow-1 {
+  flex-grow: 1 !important;
+}
+
+.grow-2 {
+  flex-grow: 2 !important;
+}
+
+.grow-3 {
+  flex-grow: 3 !important;
 }

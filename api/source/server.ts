@@ -28,6 +28,7 @@ class Server {
   }
 
   private initDBConnection(): void {
+    console.log('Config check', config.server.port);
     mongoose
       .connect(config.mongo.url, config.mongo.options)
       .then(() => console.log('Mongo connected'))

@@ -1,8 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import Attraction from './attractionModel';
 
-const ObjectId = mongoose.Types.ObjectId;
-
 const AttractionSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -20,8 +18,16 @@ const AttractionSchema = new Schema({
     type: [Object],
     required: true
   },
+  reviewRatio: { type: Number, required: true },
   isApproved: { type: Boolean, required: true },
-  additionalInfo: { type: [Object] }
+  category: { type: String, required: true },
+  attractionType: { type: String, required: true },
+  isPaid: { type: Boolean, required: true },
+  ticketPrice: { type: String },
+  link: { type: String },
+  hours: { type: String }
+
+  // additionalInfo: { type: [Object] }
 });
 
 export default mongoose.model<Attraction>('Attraction', AttractionSchema);

@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first, Observable, tap } from 'rxjs';
+import { AttractionCategory } from '../../models/attraction/attraction-category.model';
 import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
+import { AttractionType } from '../../models/attraction/attraction-type.model';
 import { Attraction } from '../../models/attraction/attration.model';
 import { ModuleName } from '../../models/module-name.model';
 import { Response } from '../../models/response.model';
@@ -92,5 +94,92 @@ export class AttractionService extends BaseRequestService {
         this.store$.dispatch(getNewAttractions());
       })
     );
+  }
+
+  get attractionCategory() {
+    return [
+      {
+        value: AttractionCategory.RESTAURANT,
+        displayValue: 'Restauracja'
+      },
+      {
+        value: AttractionCategory.BAR,
+        displayValue: 'Bar'
+      },
+      {
+        value: AttractionCategory.COFFEE,
+        displayValue: 'Kawiarnia'
+      },
+      {
+        value: AttractionCategory.PARK,
+        displayValue: 'Park'
+      },
+      {
+        value: AttractionCategory.GYM,
+        displayValue: 'Siłownia'
+      },
+      {
+        value: AttractionCategory.ART,
+        displayValue: 'Sztuka'
+      },
+      {
+        value: AttractionCategory.MUSEUM,
+        displayValue: 'Muzeum'
+      },
+      {
+        value: AttractionCategory.LIBRARY,
+        displayValue: 'Biblioteka'
+      },
+      {
+        value: AttractionCategory.LAKE,
+        displayValue: 'Jezioro'
+      },
+      {
+        value: AttractionCategory.FOREST,
+        displayValue: 'Las'
+      },
+      {
+        value: AttractionCategory.BEACH,
+        displayValue: 'Plaża'
+      }
+    ];
+  }
+
+  get attractionType() {
+    return [
+      {
+        value: AttractionType.INDOOR,
+        displayValue: 'Wewnętrzna'
+      },
+      {
+        value: AttractionType.OUTDOOR,
+        displayValue: 'Zewnętrzna'
+      }
+    ];
+  }
+
+  get initialAttraction() {
+    return {
+      name: '',
+      description: '',
+      cover: '',
+      category: '',
+      attractionType: '',
+      isPaid: false,
+      hoursFrom: '',
+      hoursTo: ''
+    };
+  }
+
+  get initialAddress() {
+    return {
+      country: '',
+      zipCode: '',
+      city: '',
+      street: '',
+      apartment: '',
+      lat: 0,
+      lng: 0
+    };
   }
 }

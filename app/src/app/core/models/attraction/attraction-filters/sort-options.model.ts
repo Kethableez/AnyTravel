@@ -1,0 +1,6 @@
+export enum SortOptions {
+  NAME_ASC = 'NAME_ASC',
+  NAME_DESC = 'NAME_DESC',
+  RATING_ASC = 'RATING_ASC',
+  RATING_DESC = 'RATING_DESC'
+}
