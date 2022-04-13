@@ -3,8 +3,9 @@ import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import config from './config/config';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import errorMiddleware from './middleware/errorMiddleware';
+import error from './middleware/errorMiddleware';
 import Controller from './utils/models/controllerModel';
 
 class Server {
@@ -28,7 +29,6 @@ class Server {
   }
 
   private initDBConnection(): void {
-    console.log('Config check', config.server.port);
     mongoose
       .connect(config.mongo.url, config.mongo.options)
       .then(() => console.log('Mongo connected'))
@@ -38,16 +38,15 @@ class Server {
   }
 
   private initMiddleware(): void {
-    const corsOptions = {
-      origin: '*',
-      allowedHeaders: 'Content-Type,Authorization',
-      methods: 'GET,POST',
-      optionSuccessStatus: 200
-    };
-    this.express.use(cors(corsOptions));
+    this.express.use(cors(config.server.cors));
+
     this.express.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+
     this.express.use(bodyParser.json({ limit: '10mb' }));
+
     this.express.use(morgan('dev'));
+
+    this.express.use(cookieParser());
   }
 
   private initControllers(controllers: Controller[]): void {
@@ -57,13 +56,8 @@ class Server {
   }
 
   private initErrorHandling(): void {
-    this.express.use(errorMiddleware);
-    this.express.use(function (req: express.Request, res: express.Response, next) {
-      next({ status: 404 });
-    });
-    this.express.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-      res.status(err.status || 500).json({ message: err.message });
-    });
+    this.express.use(error.notFoundMiddleware);
+    this.express.use(error.errorMiddleware);
   }
 }
 
