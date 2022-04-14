@@ -5,7 +5,7 @@ import { AvailabilityValidator } from 'src/app/core/validators/availability.vali
 import { FormService } from 'src/app/core/services/form.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { RootState } from 'src/app/core/store/app.states';
-import { AuthActions } from 'src/app/core/store/auth';
+import { UserActions } from 'src/app/core/store/user';
 
 @Component({
   selector: 'majk-register',
@@ -52,7 +52,7 @@ export class RegisterComponent {
 
   register() {
     const payload = this.registerForm.value;
-    this.store$.dispatch(AuthActions.register({ registerPayload: payload }));
+    this.store$.dispatch(UserActions.register({ registerPayload: payload }));
   }
 
   isErrorEnabled(fieldName: string) {

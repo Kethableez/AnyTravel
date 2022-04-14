@@ -1,12 +1,10 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config/config';
-import User from '../resources/user/userModel';
 
-export const createToken = (user: User): string => {
-  return jwt.sign({ id: user._id }, config.server.token.secret, {
+export const createAuthToken = (payload: any) => {
+  return jwt.sign(payload, config.server.token.secret, {
     issuer: config.server.token.issuer,
-    algorithm: 'HS256',
-    expiresIn: '1h'
+    expiresIn: config.server.token.authExpireTime
   });
 };
 

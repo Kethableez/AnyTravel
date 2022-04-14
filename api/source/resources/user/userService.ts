@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
-import { createToken } from '../../functions/token';
 import { isEmpty } from 'lodash';
 
 import userSchema from './userSchema';
@@ -14,9 +14,12 @@ import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import User from './userModel';
 import { avatarPrefix } from '../../utils/filePrefix';
+import { createAuthToken } from '../../functions/token';
+import userConfirmSchema from '../auth/userConfirmSchema';
 
 class UserService {
   private userSchema = userSchema;
+  private userConfirmSchema = userConfirmSchema;
 
   public async register(payload: RegisterPayload): Promise<BaseResponse | Error> {
     const { username, email } = payload;
@@ -24,11 +27,18 @@ class UserService {
     if (await this.checkIfUserExists({ username, email })) throw new Error('User already exists');
 
     try {
-      await this.userSchema.create({
+      const user = await this.userSchema.create({
         ...payload,
         avatar: 'avatar/default.png',
         role: 'RegularUser',
-        isActive: true
+        isActive: false
+      });
+
+      await this.userConfirmSchema.create({
+        userId: user._id.toString(),
+        activationCode: crypto.randomBytes(4).toString('hex').toUpperCase(),
+        createdAt: new Date(),
+        expiredAt: new Date(new Date().getTime() + 30 * 60 * 1000)
       });
 
       return { message: 'Created' };
@@ -51,7 +61,7 @@ class UserService {
       if (await bcrypt.compare(password, user.password)) {
         const response: LoginResponse = {
           id: user._id,
-          token: createToken(user)
+          token: createAuthToken({ userId: user._id })
         };
         return response;
       } else {
