@@ -31,7 +31,7 @@ class UserService {
         ...payload,
         avatar: 'avatar/default.png',
         role: 'RegularUser',
-        isActive: false
+        isActive: true
       });
 
       await this.userConfirmSchema.create({
