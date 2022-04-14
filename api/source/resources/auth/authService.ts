@@ -93,32 +93,6 @@ class AuthService {
     }
   }
 
-  public async resend(payload: any) {
-    try {
-      const { confirmId } = payload;
-      const confirmation = await this.userConfirmSchema.findById(confirmId);
-      if (!confirmation) throw new Error('Invalid confirmation ID');
-      if (confirmation.confirmedAt) throw new Error('Confirmation has already been confirmed');
-      if (new Date() < confirmation.createdAt) throw new Error('Confirmation has not yet expired');
-
-      const user = await this.userSchema.findById(confirmation.userId);
-      if (!user) throw new Error('User with given ID not found');
-      if (user.isActive) throw new Error('User with given ID is already active');
-
-      confirmation.activationCode = this.createToken();
-      confirmation.createdAt = new Date();
-
-      await confirmation.save();
-
-      return { message: 'Confirmation code resent' };
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-      throw new Error('Unexpected error');
-    }
-  }
-
   public async confirm(payload: any) {
     try {
       const { confirmId, activationCode } = payload;
@@ -127,7 +101,7 @@ class AuthService {
 
       if (!confirmation) throw new Error('Invalid confirmation ID');
       if (activationCode !== confirmation.activationCode) throw new Error('Invalid confirmation code');
-      if (new Date() >= confirmation.confirmedAt) throw new Error('Confirmation has expired');
+      if (new Date() > confirmation.expiredAt) throw new Error('Confirmation has expired');
 
       const user = await this.userSchema.findById(confirmation.userId);
       if (!user) throw new Error('User with given ID not found');
@@ -140,6 +114,33 @@ class AuthService {
       await user.save();
 
       return { message: 'Account activated' };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  public async resend(payload: any) {
+    try {
+      const { confirmId } = payload;
+      const confirmation = await this.userConfirmSchema.findById(confirmId);
+      if (!confirmation) throw new Error('Invalid confirmation ID');
+      if (confirmation.confirmedAt) throw new Error('Confirmation has already been confirmed');
+      if (new Date() < confirmation.expiredAt) throw new Error('Confirmation has not yet expired');
+
+      const user = await this.userSchema.findById(confirmation.userId);
+      if (!user) throw new Error('User with given ID not found');
+      if (user.isActive) throw new Error('User with given ID is already active');
+
+      confirmation.activationCode = crypto.randomBytes(4).toString('hex').toUpperCase();
+      confirmation.createdAt = new Date();
+      confirmation.expiredAt = new Date(new Date().getTime() + 30 * 60 * 1000);
+
+      await confirmation.save();
+
+      return { message: 'Confirmation code resent' };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);

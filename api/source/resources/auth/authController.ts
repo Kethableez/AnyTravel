@@ -13,11 +13,11 @@ class AuthController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.post(`${this.path}/login`, this.login);
+    this.router.post(`${this.path}/login`, this.login); //Payload validator
     this.router.post(`${this.path}/refresh`, this.refresh);
     this.router.post(`${this.path}/logout`, this.logout);
-    this.router.post(`${this.path}/confirm`, this.confirm);
-    this.router.post(`${this.path}/resend`, this.resend);
+    this.router.post(`${this.path}/confirm`, this.confirm); //Payload validator
+    this.router.post(`${this.path}/resend`, this.resend); //Payload validatod
   }
 
   private login = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {

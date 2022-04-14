@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '../../models/user/user.model';
+import { RegisterPayload } from '../../models/user/register-payload';
+
+export const register = createAction('[User] Register', props<{ registerPayload: RegisterPayload }>());
+
+export const registerSuccess = createAction('[User] Register success');
 
 export const getData = createAction('[User] Fetch data');
 

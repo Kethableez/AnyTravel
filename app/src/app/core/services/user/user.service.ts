@@ -12,7 +12,6 @@ import { User } from '../../models/user/user.model';
 
 enum UserActions {
   REGISTER = 'register',
-  LOGIN = 'login',
   GET_DATA = 'data',
   ALL = 'all',
   AVAILABILITY = 'availability',
@@ -40,12 +39,6 @@ export class UserService extends BaseRequestService {
     const url = this.getUrl(UserActions.REGISTER);
 
     return this.post<Response>(url, body);
-  }
-
-  doLogin(body: LoginPayload): Observable<LoginResponse> {
-    const url = this.getUrl(UserActions.LOGIN);
-
-    return this.post<LoginResponse>(url, body);
   }
 
   doGetLoggedUserData(): Observable<User> {

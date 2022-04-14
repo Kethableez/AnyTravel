@@ -1,5 +1,6 @@
 //
 export enum ModuleName {
+  AUTH = 'auth',
   USER = 'user',
   GROUP = 'group',
   ATTRACTION = 'attraction',
