@@ -1,22 +1,27 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { TokenService } from '../services/token.service';
+import { select, Store } from '@ngrx/store';
+import { first, Observable, switchMap } from 'rxjs';
+import { RootState } from '../store/app.states';
+import { selectAuth } from '../store/auth';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private tokenService: TokenService) {}
+  constructor(private store$: Store<RootState>) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.tokenService.getToken();
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return this.store$.pipe(
+      select(selectAuth),
+      first(),
+      switchMap((authState) => {
+        req = authState.authToken ? this.addToken(req, authState.authToken) : req;
 
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return next.handle(req);
+        return next.handle(req);
+      })
+    );
+  }
+
+  private addToken(req: HttpRequest<unknown>, token: string) {
+    return req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
   }
 }

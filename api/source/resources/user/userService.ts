@@ -5,16 +5,13 @@ import { isEmpty } from 'lodash';
 
 import userSchema from './userSchema';
 
-import LoginPayload from './payload/loginPayload';
 import RegisterPayload from './payload/registerPayload';
 import AvailabilityPayload from './payload/availabilityPayload';
-import LoginResponse from './response/userResponse';
 import EditPayload from './payload/editPayload';
 import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import User from './userModel';
 import { avatarPrefix } from '../../utils/filePrefix';
-import { createAuthToken } from '../../functions/token';
 import userConfirmSchema from '../auth/userConfirmSchema';
 
 class UserService {
@@ -42,31 +39,6 @@ class UserService {
       });
 
       return { message: 'Created' };
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-      throw new Error('Unexpected error');
-    }
-  }
-
-  public async login(payload: LoginPayload): Promise<LoginResponse | Error> {
-    try {
-      const { username, password } = payload;
-
-      const user = await this.userSchema.findOne({ username });
-      if (!user) {
-        throw new Error('Invalid username');
-      }
-      if (await bcrypt.compare(password, user.password)) {
-        const response: LoginResponse = {
-          id: user._id,
-          token: createAuthToken({ userId: user._id })
-        };
-        return response;
-      } else {
-        throw new Error('Invalid username or password');
-      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);

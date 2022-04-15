@@ -24,6 +24,10 @@ export abstract class BaseRequestService {
     return this.http.post<T>(url, body);
   }
 
+  postWithCredentials<T>(url: string, body?: any): Observable<T> {
+    return this.http.post<T>(url, body, { withCredentials: true });
+  }
+
   getUrl(action: any, params?: any) {
     const url = [this.baseUrl, this.moduleName, params ? this.injector.injectParameters(action, params) : action].join(
       '/'

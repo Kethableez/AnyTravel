@@ -7,13 +7,15 @@ import userSchema from '../user/userSchema';
 import userTokenSchema from './userTokenSchema';
 import { createAuthToken } from './../../functions/token';
 import userConfirmSchema from './userConfirmSchema';
+import LoginPayload from './payload/loginPayload';
+import ConfirmPayload from './payload/confirmPayload';
 
 class AuthService {
   private userTokenSchema = userTokenSchema;
   private userConfirmSchema = userConfirmSchema;
   private userSchema = userSchema;
 
-  public async login(res: Response, payload: any) {
+  public async login(res: Response, payload: LoginPayload) {
     try {
       const { username, password } = payload;
       const user = await this.userSchema.findOne({ username: username });
@@ -46,16 +48,12 @@ class AuthService {
     }
   }
 
-  public async refresh(res: Response, payload: any) {
+  public async refresh(res: Response, payload: { token: string }) {
     try {
       const { token } = payload;
+
       const refreshToken = await this.getRefreshToken(token);
       const userId = refreshToken.userId;
-
-      const newRefreshToken = await this.saveRefreshToken(userId);
-      refreshToken.revokedAt = new Date();
-      refreshToken.replaced = newRefreshToken.token;
-      await refreshToken.save();
 
       const authToken = createAuthToken({ userId: userId });
 
@@ -75,7 +73,7 @@ class AuthService {
     }
   }
 
-  public async logout(res: Response, payload: any) {
+  public async logout(res: Response, payload: { token: string }) {
     try {
       const { token } = payload;
 
@@ -93,7 +91,7 @@ class AuthService {
     }
   }
 
-  public async confirm(payload: any) {
+  public async confirm(payload: ConfirmPayload) {
     try {
       const { confirmId, activationCode } = payload;
 
@@ -122,7 +120,7 @@ class AuthService {
     }
   }
 
-  public async resend(payload: any) {
+  public async resend(payload: { confirmId: string }) {
     try {
       const { confirmId } = payload;
       const confirmation = await this.userConfirmSchema.findById(confirmId);

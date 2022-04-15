@@ -5,9 +5,8 @@ import { Store } from '@ngrx/store';
 import { switchMap, map, catchError, of, tap, filter, withLatestFrom } from 'rxjs';
 import { RootState } from 'src/app/core/store/app.states';
 import { AuthService } from '../../services/auth/auth.service';
-import { TokenService } from '../../services/token.service';
 import { clearData, getData } from '../user/user.actions';
-import { login, loginSuccess, authError, logout } from './auth.actions';
+import { login, loginSuccess, authError, logout, refresh, refreshSuccess, refreshError } from './auth.actions';
 import { selectIsLoggedIn } from './auth.selectors';
 
 @Injectable()
@@ -16,7 +15,6 @@ export class AuthEffects {
     private store$: Store<RootState>,
     private actions$: Actions,
     private router: Router,
-    private tokenService: TokenService,
     private authService: AuthService
   ) {}
 
@@ -29,7 +27,7 @@ export class AuthEffects {
             loginSuccess({
               loggedIn: true,
               userId: response.userId,
-              token: response.authToken
+              authToken: response.authToken
             })
           ),
           catchError((error) => of(authError({ message: error.error.message })))
@@ -41,29 +39,35 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginSuccess),
-      tap((action) => {
-        this.tokenService.saveToken(action.token);
-        this.router.navigateByUrl('/home');
-      }),
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
-      map(() => getData())
+      map(() => getData()),
+      tap(() => this.router.navigateByUrl('/home'))
+    )
+  );
+
+  refresh$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(refresh),
+      switchMap(() =>
+        this.authService.doRefresh().pipe(
+          map((response) => refreshSuccess({ authToken: response.authToken })),
+          catchError((error) => of(refreshError(error.error.message)))
+        )
+      )
     )
   );
 
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(logout),
-      tap(() => {
-        this.tokenService.removeToken();
-        this.router.navigateByUrl('');
-      }),
-      switchMap(() =>
-        this.authService.doLogout().pipe(
+      map(() => clearData()),
+      switchMap(() => {
+        return this.authService.doLogout().pipe(
           map(() => clearData()),
-          catchError((error) => of(authError({ message: error.error.message })))
-        )
-      )
+          tap(() => this.router.navigateByUrl('/start'))
+        );
+      })
     )
   );
 }

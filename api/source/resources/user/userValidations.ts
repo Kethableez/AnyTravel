@@ -10,11 +10,6 @@ const register = Joi.object({
   isSubscribed: Joi.boolean().required()
 });
 
-const login = Joi.object({
-  username: Joi.string().required(),
-  password: Joi.string().required()
-});
-
 const availability = Joi.object({
   selector: Joi.string().required(),
   value: Joi.string().required()
@@ -33,4 +28,4 @@ const remove = Joi.object({
   password: Joi.string().required()
 });
 
-export default { register, login, availability, edit, remove };
+export default { register, availability, edit, remove };

@@ -23,8 +23,9 @@ const MONGO_OPTIONS = {
 };
 
 const CORS_OPTIONS = {
-  origin: '*',
+  origin: 'http://localhost:4200',
   allowedHeaders: 'Content-Type,Authorization',
+  credentials: true,
   methods: 'GET, POST',
   preflightContinue: true,
   maxAge: 600

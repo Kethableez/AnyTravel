@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpException } from './../../middleware/errorMiddleware';
 import { Request, Response, NextFunction, Router } from 'express';
 import Controller from '../../utils/models/controllerModel';
 import AuthService from './authService';
+import authValidators from './authValidators';
+import validationMiddleware from '../../middleware/validationMiddleware';
 
 class AuthController implements Controller {
   public path = '/auth';
@@ -13,11 +16,11 @@ class AuthController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.post(`${this.path}/login`, this.login); //Payload validator
+    this.router.post(`${this.path}/login`, validationMiddleware(authValidators.login), this.login);
     this.router.post(`${this.path}/refresh`, this.refresh);
     this.router.post(`${this.path}/logout`, this.logout);
-    this.router.post(`${this.path}/confirm`, this.confirm); //Payload validator
-    this.router.post(`${this.path}/resend`, this.resend); //Payload validatod
+    this.router.post(`${this.path}/confirm`, validationMiddleware(authValidators.confirm), this.confirm);
+    this.router.post(`${this.path}/resend`, validationMiddleware(authValidators.resend), this.resend);
   }
 
   private login = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
