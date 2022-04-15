@@ -7,6 +7,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import error from './middleware/errorMiddleware';
 import Controller from './utils/models/controllerModel';
+import compression from 'compression';
+import helmet from 'helmet';
 
 class Server {
   public express: Application;
@@ -45,6 +47,10 @@ class Server {
     this.express.use(bodyParser.json({ limit: '10mb' }));
 
     this.express.use(morgan('dev'));
+
+    this.express.use(compression());
+
+    this.express.use(helmet());
 
     this.express.use(cookieParser());
   }
