@@ -157,7 +157,7 @@
               <div class="select is-fullwidth" [ngClass]="isFieldValid('category', attractionForm)">
                 <select formControlName="category">
                   <option [selected]="true" [ngValue]="null">Wybierz kategorię</option>
-                  <option *ngFor="let category of categories" [ngValue]="category.value"> {{ category.displayValue }}</option>
+                  <option *ngFor="let category of categories" [ngValue]="category"> {{ category | label }}</option>
                 </select>
               </div>
               <div class="help is-danger" *ngIf="isErrorEnabled('category', attractionForm)">
@@ -171,7 +171,7 @@
               <div class="select is-fullwidth" [ngClass]="isFieldValid('attractionType', attractionForm)">
                 <select formControlName="attractionType">
                   <option [selected]="true" [ngValue]="null">Wybierz typ</option>
-                  <option *ngFor="let type of types" [ngValue]="type.value"> {{ type.displayValue }}</option>
+                  <option *ngFor="let type of types" [ngValue]="type"> {{ type | label }}</option>
                 </select>
               </div>
 

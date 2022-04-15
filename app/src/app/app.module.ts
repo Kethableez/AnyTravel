@@ -18,10 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AttractionStateModule } from './core/store/attraction';
 import { RefreshTokenInterceptor } from './core/helpers/refresh-token.interceptor';
 import { AuthInitService } from './core/helpers/auth-init.service';
-
-export function appInit(authInitService: AuthInitService) {
-  return () => authInitService.authInit();
-}
+import { authInit } from './core/helpers/functions/auth-init';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +39,7 @@ export function appInit(authInitService: AuthInitService) {
     AuthInitService,
     {
       provide: APP_INITIALIZER,
-      useFactory: appInit,
+      useFactory: authInit,
       deps: [AuthInitService],
       multi: true
     },

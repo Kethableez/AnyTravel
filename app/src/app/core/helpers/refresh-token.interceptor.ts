@@ -1,26 +1,11 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import {
-  BehaviorSubject,
-  catchError,
-  filter,
-  first,
-  Observable,
-  OperatorFunction,
-  switchMap,
-  tap,
-  throwError
-} from 'rxjs';
+import { BehaviorSubject, catchError, filter, first, Observable, switchMap, tap, throwError } from 'rxjs';
 import { RootState } from '../store/app.states';
 import { AuthActions, selectAuth } from '../store/auth';
 import * as Auth from '../store/auth/auth.reducers';
-
-const exists = <T>(state: T): boolean => !!state;
-
-function filterExists<T>(): OperatorFunction<T, NonNullable<T>> {
-  return filter<T>((item) => exists(item)) as OperatorFunction<T, NonNullable<T>>;
-}
+import { filterExists } from './functions/filter-exists';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
@@ -52,7 +37,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
 
     if (statusCode !== 401) {
       if (isRefreshToken) this.store$.dispatch(AuthActions.logout());
-      return throwError(() => new Error(error.message));
+      throw error;
     }
 
     return this.refreshToken(req, next, authState);

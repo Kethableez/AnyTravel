@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ModuleName } from 'src/app/core/models/module-name.model';
 import { BaseRequestService } from 'src/app/core/services/base-request.service';
 import { ParametersInjectorService } from 'src/app/core/services/parameters-injector.service';
 import { AvailabilityPayload } from '../../models/user/availability-payload';
-import { LoginPayload } from '../../models/user/login-payload';
-import { LoginResponse } from '../../models/user/login-response';
 import { RegisterPayload } from '../../models/user/register-payload';
 import { User } from '../../models/user/user.model';
 
@@ -49,9 +47,6 @@ export class UserService extends BaseRequestService {
 
   doCheckAvailability(body: AvailabilityPayload): Observable<boolean> {
     const url = this.getUrl(UserActions.AVAILABILITY);
-    return this.post<CheckResponse>(url, body).pipe(
-      delay(2000),
-      map((res) => res.available)
-    );
+    return this.post<CheckResponse>(url, body).pipe(map((res) => res.available));
   }
 }

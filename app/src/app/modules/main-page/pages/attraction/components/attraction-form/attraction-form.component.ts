@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AttractionPayload } from 'src/app/core/models/attraction/attraction-payload.model';
+import { FormName } from 'src/app/core/models/form-name.model';
 import { AttractionService } from 'src/app/core/services/attraction/attraction.service';
 import { FormService } from 'src/app/core/services/form.service';
 import { RootState } from 'src/app/core/store/app.states';
@@ -110,8 +111,8 @@ export class AttractionFormComponent {
     };
 
     this.store$.dispatch(AttractionActions.createAttraction({ file: this.file, payload: payload }));
-    this.attractionForm.reset(this.attractionService.initialAttraction);
-    this.addressForm.reset(this.attractionService.initialAddress);
+    this.attractionForm.reset(this.formService.getInitialForm(FormName.ATTRACTION));
+    this.addressForm.reset(this.formService.getInitialForm(FormName.ADDRESS));
     this.file.delete('file');
   }
 

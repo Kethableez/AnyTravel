@@ -40,6 +40,7 @@ export const authReducer = createReducer(
   })),
   on(authError, (state, action) => ({
     ...state,
+    inProgress: false,
     errorMessage: action.message
   }))
 );
