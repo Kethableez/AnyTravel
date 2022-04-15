@@ -6,6 +6,7 @@ import { FormService } from 'src/app/core/services/form.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { RootState } from 'src/app/core/store/app.states';
 import { UserActions } from 'src/app/core/store/user';
+import { FormName } from 'src/app/core/models/form-name.model';
 
 @Component({
   selector: 'majk-register',
@@ -46,6 +47,10 @@ export class RegisterComponent {
     isSubscribed: [false, Validators.required]
   });
 
+  get formName() {
+    return FormName.REGISTER;
+  }
+
   isFieldValid(fieldName: string) {
     return this.formService.isFieldValid(fieldName, this.registerForm);
   }
@@ -53,6 +58,7 @@ export class RegisterComponent {
   register() {
     const payload = this.registerForm.value;
     this.store$.dispatch(UserActions.register({ registerPayload: payload }));
+    this.registerForm.reset(this.formService.getInitialForm(this.formName));
   }
 
   isErrorEnabled(fieldName: string) {

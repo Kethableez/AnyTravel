@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,9 @@ import { AuthStateModule } from './core/store/auth';
 import { UserStateModule } from './core/store/user';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AttractionStateModule } from './core/store/attraction';
+import { RefreshTokenInterceptor } from './core/helpers/refresh-token.interceptor';
+import { AuthInitService } from './core/helpers/auth-init.service';
+import { authInit } from './core/helpers/functions/auth-init';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +36,18 @@ import { AttractionStateModule } from './core/store/attraction';
     BrowserAnimationsModule
   ],
   providers: [
+    AuthInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: authInit,
+      deps: [AuthInitService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

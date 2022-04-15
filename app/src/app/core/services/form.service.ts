@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
+import { initialFroms } from '../helpers/form.init';
+import { FormName } from '../models/form-name.model';
 
 export enum StyleSelector {
   DEFAULT = '',
@@ -10,6 +12,8 @@ export enum StyleSelector {
 
 @Injectable()
 export class FormService {
+  private readonly initialForms = initialFroms;
+
   isFieldValid(fieldName: string, form: FormGroup) {
     const field = form.get(fieldName);
     if (field?.touched) {
@@ -46,5 +50,9 @@ export class FormService {
       return Object.keys(errors);
     }
     return [];
+  }
+
+  getInitialForm(form: FormName) {
+    return this.initialForms[form];
   }
 }

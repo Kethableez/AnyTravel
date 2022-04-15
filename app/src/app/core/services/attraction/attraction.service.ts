@@ -97,89 +97,10 @@ export class AttractionService extends BaseRequestService {
   }
 
   get attractionCategory() {
-    return [
-      {
-        value: AttractionCategory.RESTAURANT,
-        displayValue: 'Restauracja'
-      },
-      {
-        value: AttractionCategory.BAR,
-        displayValue: 'Bar'
-      },
-      {
-        value: AttractionCategory.COFFEE,
-        displayValue: 'Kawiarnia'
-      },
-      {
-        value: AttractionCategory.PARK,
-        displayValue: 'Park'
-      },
-      {
-        value: AttractionCategory.GYM,
-        displayValue: 'Siłownia'
-      },
-      {
-        value: AttractionCategory.ART,
-        displayValue: 'Sztuka'
-      },
-      {
-        value: AttractionCategory.MUSEUM,
-        displayValue: 'Muzeum'
-      },
-      {
-        value: AttractionCategory.LIBRARY,
-        displayValue: 'Biblioteka'
-      },
-      {
-        value: AttractionCategory.LAKE,
-        displayValue: 'Jezioro'
-      },
-      {
-        value: AttractionCategory.FOREST,
-        displayValue: 'Las'
-      },
-      {
-        value: AttractionCategory.BEACH,
-        displayValue: 'Plaża'
-      }
-    ];
+    return Object.values(AttractionCategory);
   }
 
   get attractionType() {
-    return [
-      {
-        value: AttractionType.INDOOR,
-        displayValue: 'Wewnętrzna'
-      },
-      {
-        value: AttractionType.OUTDOOR,
-        displayValue: 'Zewnętrzna'
-      }
-    ];
-  }
-
-  get initialAttraction() {
-    return {
-      name: '',
-      description: '',
-      cover: '',
-      category: '',
-      attractionType: '',
-      isPaid: false,
-      hoursFrom: '',
-      hoursTo: ''
-    };
-  }
-
-  get initialAddress() {
-    return {
-      country: '',
-      zipCode: '',
-      city: '',
-      street: '',
-      apartment: '',
-      lat: 0,
-      lng: 0
-    };
+    return Object.values(AttractionType);
   }
 }

@@ -7,7 +7,6 @@ import UserService from './userService';
 import validationMiddleware from '../../middleware/validationMiddleware';
 import userValidations from './userValidations';
 import User from './userModel';
-import LoginResponse from './response/userResponse';
 import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import Controller from '../../utils/models/controllerModel';
@@ -25,7 +24,6 @@ class UserController implements Controller {
     this.router.get(`${this.path}/all`, authMiddleware, rolesMiddleware('Admin'), this.getAll);
     this.router.get(`${this.path}/data`, authMiddleware, this.getUserData);
 
-    // this.router.post(`${this.path}/login`, validationMiddleware(userValidations.login), this.login);
     this.router.post(`${this.path}/register`, validationMiddleware(userValidations.register), this.register);
     this.router.post(
       `${this.path}/availability`,
@@ -51,16 +49,6 @@ class UserController implements Controller {
       const payload = req.body;
       const message = await this.userService.register(payload);
       res.status(200).json(message);
-    } catch (error: any) {
-      next(new HttpException(400, error.message));
-    }
-  };
-
-  private login = async (req: Request, res: Response, next: NextFunction): Promise<LoginResponse | void> => {
-    try {
-      const payload = req.body;
-      const response = await this.userService.login(payload);
-      res.status(200).json(response);
     } catch (error: any) {
       next(new HttpException(400, error.message));
     }

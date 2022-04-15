@@ -5,8 +5,14 @@ export const login = createAction('[Auth] Login', props<{ loginPayload: LoginPay
 
 export const loginSuccess = createAction(
   '[Auth] Login success',
-  props<{ loggedIn: boolean; userId: string; token: string }>()
+  props<{ loggedIn: boolean; userId: string; authToken: string }>()
 );
+
+export const refresh = createAction('[Auth] Refresh token');
+
+export const refreshSuccess = createAction('[Auth] Refresh token success', props<{ authToken: string }>());
+
+export const refreshError = createAction('[Auth] Refresh token error', props<{ message: string }>());
 
 export const logout = createAction('[Auth] Logout');
 

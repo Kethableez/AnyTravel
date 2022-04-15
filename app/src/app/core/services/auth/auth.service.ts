@@ -29,19 +29,19 @@ export class AuthService extends BaseRequestService {
   doLogin(body: LoginPayload): Observable<any> {
     const url = this.getUrl(AuthActions.LOGIN);
 
-    return this.post(url, body);
+    return this.postWithCredentials(url, body);
   }
 
-  doRefresh() {
+  doRefresh(): Observable<any> {
     const url = this.getUrl(AuthActions.REFRESH);
 
-    return this.post(url);
+    return this.postWithCredentials(url);
   }
 
-  doLogout() {
+  doLogout(): Observable<any> {
     const url = this.getUrl(AuthActions.LOGOUT);
 
-    return this.post(url);
+    return this.postWithCredentials(url);
   }
 
   doConfirm() {
