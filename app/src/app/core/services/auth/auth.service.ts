@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseAuthResponse } from '../../models/auth/base-auth-response.model';
+import { BaseResponse } from '../../models/base-response.model';
 import { ModuleName } from '../../models/module-name.model';
 import { LoginPayload } from '../../models/user/login-payload';
 import { BaseRequestService } from '../base-request.service';
@@ -26,29 +28,29 @@ export class AuthService extends BaseRequestService {
     return ModuleName.AUTH;
   }
 
-  doLogin(body: LoginPayload): Observable<any> {
+  doLogin(body: LoginPayload): Observable<BaseAuthResponse> {
     const url = this.getUrl(AuthActions.LOGIN);
 
-    return this.postWithCredentials(url, body);
+    return this.postWithCredentials<BaseAuthResponse>(url, body);
   }
 
-  doRefresh(): Observable<any> {
+  doRefresh(): Observable<BaseAuthResponse> {
     const url = this.getUrl(AuthActions.REFRESH);
 
-    return this.postWithCredentials(url);
+    return this.postWithCredentials<BaseAuthResponse>(url);
   }
 
-  doLogout(): Observable<any> {
+  doLogout(): Observable<BaseResponse> {
     const url = this.getUrl(AuthActions.LOGOUT);
 
-    return this.postWithCredentials(url);
+    return this.postWithCredentials<BaseResponse>(url);
   }
 
-  doConfirm() {
-    const url = this.getUrl(AuthActions.CONFIRM);
-  }
+  // doConfirm() {
+  //   const url = this.getUrl(AuthActions.CONFIRM);
+  // }
 
-  doResend() {
-    const url = this.getUrl(AuthActions.RESEND);
-  }
+  // doResend() {
+  //   const url = this.getUrl(AuthActions.RESEND);
+  // }
 }

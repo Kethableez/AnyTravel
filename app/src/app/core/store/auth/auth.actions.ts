@@ -8,6 +8,8 @@ export const loginSuccess = createAction(
   props<{ loggedIn: boolean; userId: string; authToken: string }>()
 );
 
+export const loginError = createAction('[Auth] Login error', props<{ error: string }>());
+
 export const refresh = createAction('[Auth] Refresh token');
 
 export const refreshSuccess = createAction('[Auth] Refresh token success', props<{ authToken: string }>());
@@ -16,4 +18,8 @@ export const refreshError = createAction('[Auth] Refresh token error', props<{ m
 
 export const logout = createAction('[Auth] Logout');
 
-export const authError = createAction('[Auth] Error', props<{ message: string }>());
+export const logoutSuccess = createAction('[Auth] Logout success');
+
+export const logoutError = createAction('[Auth] Logout error', props<{ error: string }>());
+
+export const authError = createAction('[Auth] Error', props<{ message: string; dispatchNotification: boolean }>());

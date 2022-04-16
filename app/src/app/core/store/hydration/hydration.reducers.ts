@@ -1,9 +1,9 @@
 import { Action, ActionReducer } from '@ngrx/store';
 import { RootState } from '../app.states';
-import * as HydrationActions from './hydration.actions';
+import { hydrateSuccess } from './hydration.actions';
 
-function isHydrateSuccess(action: Action): action is ReturnType<typeof HydrationActions.hydrateSuccess> {
-  return action.type === HydrationActions.hydrateSuccess.type;
+function isHydrateSuccess(action: Action): action is ReturnType<typeof hydrateSuccess> {
+  return action.type === hydrateSuccess.type;
 }
 
 export const hydrationMetaReducer = (reducer: ActionReducer<RootState>): ActionReducer<RootState> => {

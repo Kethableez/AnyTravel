@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { ModuleName } from 'src/app/core/models/module-name.model';
 import { BaseRequestService } from 'src/app/core/services/base-request.service';
 import { ParametersInjectorService } from 'src/app/core/services/parameters-injector.service';
+import { BaseResponse } from '../../models/base-response.model';
 import { AvailabilityPayload } from '../../models/user/availability-payload';
 import { RegisterPayload } from '../../models/user/register-payload';
 import { User } from '../../models/user/user.model';
@@ -33,10 +34,10 @@ export class UserService extends BaseRequestService {
     return ModuleName.USER;
   }
 
-  doRegister(body: RegisterPayload): Observable<Response> {
+  doRegister(body: RegisterPayload): Observable<BaseResponse> {
     const url = this.getUrl(UserActions.REGISTER);
 
-    return this.post<Response>(url, body);
+    return this.post<BaseResponse>(url, body);
   }
 
   doGetLoggedUserData(): Observable<User> {

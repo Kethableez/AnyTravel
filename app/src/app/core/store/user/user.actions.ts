@@ -16,4 +16,4 @@ export const getDataSuccess = createAction('[User] Fetch data success', props<{ 
 
 export const clearData = createAction('[User] Clear data');
 
-export const userError = createAction('[User] Error', props<{ message: string }>());
+export const userError = createAction('[User] Error', props<{ message: string; dispatchNotification: boolean }>());

@@ -7,7 +7,7 @@ import { AttractionPayload } from '../../models/attraction/attraction-payload.mo
 import { AttractionType } from '../../models/attraction/attraction-type.model';
 import { Attraction } from '../../models/attraction/attration.model';
 import { ModuleName } from '../../models/module-name.model';
-import { Response } from '../../models/response.model';
+import { BaseResponse } from '../../models/base-response.model';
 import { RootState } from '../../store/app.states';
 import { getAttractions, getNewAttractions } from '../../store/attraction/attraction.actions';
 import { BaseRequestService } from '../base-request.service';
@@ -74,16 +74,16 @@ export class AttractionService extends BaseRequestService {
     return this.post<AttractionResponse>(url);
   }
 
-  doDelete(attractionId: string): Observable<Response> {
+  doDelete(attractionId: string): Observable<BaseResponse> {
     const url = this.getUrl(AttractionActions.DELETE, { attractionId: attractionId });
 
-    return this.post<Response>(url);
+    return this.post<BaseResponse>(url);
   }
 
-  doAddReview(attractionId: string, payload: { review: number }): Observable<Response> {
+  doAddReview(attractionId: string, payload: { review: number }): Observable<BaseResponse> {
     const url = this.getUrl(AttractionActions.ADD_REVIEW, { attractionId: attractionId });
 
-    return this.post<Response>(url, payload);
+    return this.post<BaseResponse>(url, payload);
   }
 
   initData() {
