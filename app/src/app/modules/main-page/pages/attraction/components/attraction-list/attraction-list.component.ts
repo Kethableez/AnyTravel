@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Attraction } from 'src/app/core/models/attraction/attration.model';
+import { Attraction } from '@models/attraction/attration.model';
 
 @Component({
   selector: 'majk-attraction-list',

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { isMatch, sortSelector } from '../../helpers/attraction-filter.helpers';
-import { AttractionFilter } from '../../models/attraction/attraction-filters/attraction-filter.model';
+import { isMatch, sortSelector } from '@helpers/attraction-filter.helpers';
+import { AttractionFilter } from '@models/attraction/attraction-filters/attraction-filter.model';
 import * as fromAttraction from './attraction.reducers';
 
 export const getAttractionState = createFeatureSelector<fromAttraction.State>(fromAttraction.attractionFeatureKey);

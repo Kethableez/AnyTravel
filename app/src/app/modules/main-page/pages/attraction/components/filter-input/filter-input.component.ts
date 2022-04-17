@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FilterInput } from 'src/app/core/models/attraction/attraction-filters/filter-input.model';
-import { InputValue } from 'src/app/core/models/attraction/attraction-filters/input-value.model';
+import { FilterInput } from '@models/attraction/attraction-filters/filter-input.model';
+import { InputValue } from '@models/attraction/attraction-filters/input-value.model';
 
 @Component({
   selector: 'majk-filter-input',

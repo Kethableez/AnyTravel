@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RootState } from 'src/app/core/store/app.states';
-import { selectUserData } from 'src/app/core/store/user/user.selectors';
+import { RootState } from '@store/app.states';
+import { selectUserData } from '@store/user/user.selectors';
 
 @Component({
   selector: 'majk-profile',

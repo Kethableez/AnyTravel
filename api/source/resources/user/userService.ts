@@ -28,7 +28,7 @@ class UserService {
         ...payload,
         avatar: 'avatar/default.png',
         role: 'RegularUser',
-        isActive: true
+        isActive: process.env.API_REQUIRE_ACCOUNT_VERIFICATION === 'true' ? false : true
       });
 
       await this.userConfirmSchema.create({

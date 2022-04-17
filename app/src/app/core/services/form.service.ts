@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
-import { initialFroms } from '../helpers/form.init';
-import { FormName } from '../models/form-name.model';
+import { initialFroms } from '@helpers/form.init';
+import { FormName } from '@models/form-name.model';
 
 export enum StyleSelector {
   DEFAULT = '',

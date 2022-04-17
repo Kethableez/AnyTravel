@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ModuleName } from 'src/app/core/models/module-name.model';
-import { BaseRequestService } from 'src/app/core/services/base-request.service';
-import { ParametersInjectorService } from 'src/app/core/services/parameters-injector.service';
-import { AvailabilityPayload } from '../../models/user/availability-payload';
-import { RegisterPayload } from '../../models/user/register-payload';
-import { User } from '../../models/user/user.model';
+import { ModuleName } from '@models/module-name.model';
+import { BaseRequestService } from '@services/base-request.service';
+import { ParametersInjectorService } from '@services/parameters-injector.service';
+import { AvailabilityPayload } from '@models/user/availability-payload';
+import { RegisterPayload } from '@models/user/register-payload';
+import { User } from '@models/user/user.model';
 
 enum UserActions {
   REGISTER = 'register',

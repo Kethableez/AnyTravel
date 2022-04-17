@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { RootState } from '../store/app.states';
-import { selectIsLoggedIn } from '../store/auth';
+import { RootState } from '@store/app.states';
+import { selectIsLoggedIn } from '@store/auth';
 
 @Injectable({
   providedIn: 'root'

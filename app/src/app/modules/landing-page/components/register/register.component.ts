@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AvailabilityValidator } from 'src/app/core/validators/availability.validator';
-import { FormService } from 'src/app/core/services/form.service';
-import { UserService } from 'src/app/core/services/user/user.service';
-import { RootState } from 'src/app/core/store/app.states';
-import { UserActions } from 'src/app/core/store/user';
-import { FormName } from 'src/app/core/models/form-name.model';
+import { AvailabilityValidator } from '@validators/availability.validator';
+import { FormService } from '@services/form.service';
+import { UserService } from '@services/user/user.service';
+import { RootState } from '@store/app.states';
+import { UserActions } from '@store/user';
+import { FormName } from '@models/form-name.model';
 
 @Component({
   selector: 'majk-register',

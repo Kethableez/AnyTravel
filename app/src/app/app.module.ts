@@ -8,17 +8,17 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.local-dev';
-import { metaReducers } from './core/store/app.states';
-import { HydrationEffects } from './core/store/hydration/hydration.effects';
-import { AuthInterceptor } from './core/helpers/auth.interceptor';
+import { metaReducers } from '@store/app.states';
+import { HydrationEffects } from '@store/hydration/hydration.effects';
+import { AuthInterceptor } from '@helpers/auth.interceptor';
 import { AppComponent } from './main/app.component';
-import { AuthStateModule } from './core/store/auth';
-import { UserStateModule } from './core/store/user';
+import { AuthStateModule } from '@store/auth';
+import { UserStateModule } from '@store/user';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AttractionStateModule } from './core/store/attraction';
-import { RefreshTokenInterceptor } from './core/helpers/refresh-token.interceptor';
-import { AuthInitService } from './core/helpers/auth-init.service';
-import { authInit } from './core/helpers/functions/auth-init';
+import { AttractionStateModule } from '@store/attraction';
+import { RefreshTokenInterceptor } from '@helpers/refresh-token.interceptor';
+import { AuthInitService } from '@helpers/auth-init.service';
+import { authInit } from '@helpers/functions/auth-init';
 
 @NgModule({
   declarations: [AppComponent],

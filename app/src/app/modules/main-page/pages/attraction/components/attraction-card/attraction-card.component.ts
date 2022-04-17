@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { isEmpty } from 'lodash';
 import { map, Observable } from 'rxjs';
-import { Attraction } from 'src/app/core/models/attraction/attration.model';
-import { RootState } from 'src/app/core/store/app.states';
-import { AttractionActions } from 'src/app/core/store/attraction';
-import { selectUserId } from 'src/app/core/store/user';
+import { Attraction } from '@models/attraction/attration.model';
+import { RootState } from '@store/app.states';
+import { AttractionActions } from '@store/attraction';
+import { selectUserId } from '@store/user';
 
 @Component({
   selector: 'majk-attraction-card',
