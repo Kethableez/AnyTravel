@@ -1,36 +1,31 @@
-version: '3.8'
+version: "3.8"
 
 services:
- back:
-  build:
-   context: .
-   target: api-build
-  container_name: back
-  command: pm2-runtime process.yaml
-  expose:
-    - 9000
-  restart: always
-  links:
-    - mongo-db
-  ports:
-    - "9000:9000"
+  any-travel-api:
+    build:
+      context: ./api
+    container_name: any-travel-api
+    command: pm2-runtime process.yaml
+    expose:
+      - 9000
+    restart: always
+    links:
+      - mongo-db
+    ports:
+      - "9000:9000"
 
- mongo-db:
-  container_name: mongo-db
-  image: mongo
-  ports:
-    - "27017:27017"
+  any-travel-db:
+    container_name: any-travel-db
+    image: mongo
+    ports:
+      - "27017:27017"
 
-#  front:
-#   build: 
-#    context: .
-#    target: ui-build
-#   container_name: front
-#   command: ng serve -c local --host 0.0.0.0
-#   expose:
-#     - 4200
-#   restart: always
-#   depends_on:
-#    - back
-#   ports:
-#     - "4200:4200"
+  any-travel-app:
+    build:
+      context: ./app
+    container_name: any-travel-app
+    expose:
+      - 80
+    ports:
+      - "4200:80"
+

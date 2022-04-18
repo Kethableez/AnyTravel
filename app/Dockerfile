@@ -1,9 +1,12 @@
 FROM node:16 as app-build
 WORKDIR /usr/src/app
-COPY ./ /usr/src/app/
+RUN npm cache clean --force
+COPY . .
 RUN npm install
 RUN npm run build
 
-FROM nginx:latest
-COPY --from=app-build /usr/app/dist/app /usr/share/nginx/html
+FROM nginx:latest AS ngi
+COPY --from=app-build /usr/src/app/dist/app /usr/share/nginx/html
+COPY /nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
