@@ -19,17 +19,22 @@ import { AttractionStateModule } from './core/store/attraction';
 import { RefreshTokenInterceptor } from './core/helpers/refresh-token.interceptor';
 import { AuthInitService } from './core/helpers/auth-init.service';
 import { authInit } from './core/helpers/functions/auth-init';
+import { NotificationStateModule } from './core/store/notification';
+import { SharedModule } from './shared/shared.module';
+import { NotificationComponent } from './main/notification/notification.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotificationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SharedModule,
     AuthStateModule,
     UserStateModule,
     AttractionStateModule,
+    NotificationStateModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([HydrationEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

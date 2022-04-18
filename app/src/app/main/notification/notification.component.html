@@ -1,0 +1,7 @@
+
+<div *ngIf="notification$ | async as notification">
+  <div *ngIf="notification.isVisible" class="notification" [ngClass]="getNotificationType(notification.notificationType)">
+    <button class="delete" (click)="hide()"></button>
+    {{ notification.message }}
+  </div>
+</div>
