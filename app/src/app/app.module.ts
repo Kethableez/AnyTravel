@@ -16,7 +16,7 @@ import { AuthStateModule } from '@store/auth';
 import { UserStateModule } from '@store/user';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AttractionStateModule } from '@store/attraction';
-import { RefreshTokenInterceptor } from '@elpers/refresh-token.interceptor';
+import { RefreshTokenInterceptor } from '@helpers/refresh-token.interceptor';
 import { AuthInitService } from '@helpers/auth-init.service';
 import { authInit } from '@helpers/functions/auth-init';
 import { NotificationStateModule } from '@store/notification';

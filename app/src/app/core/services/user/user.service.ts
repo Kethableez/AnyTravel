@@ -7,7 +7,7 @@ import { ParametersInjectorService } from '@services/parameters-injector.service
 import { BaseResponse } from '@models/base-response.model';
 import { AvailabilityPayload } from '@models/user/availability-payload';
 import { RegisterPayload } from '@models/user/register-payload';
-import { User } from '@/models/user/user.model';
+import { User } from '@models/user/user.model';
 
 enum UserActions {
   REGISTER = 'register',

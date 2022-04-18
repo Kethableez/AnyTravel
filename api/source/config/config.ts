@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import crypto from 'crypto';
 
 dotenv.config();
 
@@ -17,8 +16,6 @@ const TOKEN_EXPIRETIME_REFRESH = process.env.TOKEN_EXPIRETIME_REFRESH || '1y';
 
 const REQUEST_LIMIT_WINDOW = Number(process.env.REQUEST_LIMIT_WINDOW) || 60000;
 const REQUEST_LIMIT_MAX = Number(process.env.REQUEST_LIMIT_MAX) || 10;
-
-const CONFIG_KEY = crypto.randomUUID();
 
 const MONGO_OPTIONS = {
   useUnifiedTopology: true,
@@ -47,7 +44,6 @@ const SERVER = {
   hostname: SERVER_HOSTNAME,
   port: SERVER_PORT,
   cors: CORS_OPTIONS,
-  apiKey: CONFIG_KEY,
   requestLimiter: REQUEST_LIMITER,
   token: {
     authExpireTime: TOKEN_EXPIRETIME_AUTH,

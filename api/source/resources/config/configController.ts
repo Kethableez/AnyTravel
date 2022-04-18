@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import config from '../../config/config';
 import { HttpException } from '../../middleware/errorMiddleware';
 import Controller from '../../utils/models/controllerModel';
 
@@ -13,8 +12,8 @@ class ConfigController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.get(`${this.path}/${config.server.apiKey}/get`, this.getConfig);
-    this.router.post(`${this.path}/${config.server.apiKey}/set`, this.setConfig);
+    this.router.get(`${this.path}/get`, this.getConfig);
+    this.router.post(`${this.path}/set`, this.setConfig);
   }
 
   private getConfig = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {

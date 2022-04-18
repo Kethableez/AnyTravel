@@ -25,8 +25,6 @@ class Server {
   }
 
   public listen(): void {
-    console.log(`Current Api Key: ${config.server.apiKey}`);
-
     this.express.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
