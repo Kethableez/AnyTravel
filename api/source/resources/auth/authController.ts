@@ -5,6 +5,8 @@ import Controller from '../../utils/models/controllerModel';
 import AuthService from './authService';
 import authValidators from './authValidators';
 import validationMiddleware from '../../middleware/validationMiddleware';
+import { limiterMiddleware } from '../../middleware/limiterMiddleware';
+import authLimiter from './authLimiter';
 
 class AuthController implements Controller {
   public path = '/auth';
@@ -16,11 +18,26 @@ class AuthController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.post(`${this.path}/login`, validationMiddleware(authValidators.login), this.login);
-    this.router.post(`${this.path}/refresh`, this.refresh);
-    this.router.post(`${this.path}/logout`, this.logout);
-    this.router.post(`${this.path}/confirm`, validationMiddleware(authValidators.confirm), this.confirm);
-    this.router.post(`${this.path}/resend`, validationMiddleware(authValidators.resend), this.resend);
+    this.router.post(
+      `${this.path}/login`,
+      limiterMiddleware(authLimiter),
+      validationMiddleware(authValidators.login),
+      this.login
+    );
+    this.router.post(`${this.path}/refresh`, limiterMiddleware(authLimiter), this.refresh);
+    this.router.post(`${this.path}/logout`, limiterMiddleware(authLimiter), this.logout);
+    this.router.post(
+      `${this.path}/confirm`,
+      limiterMiddleware(authLimiter),
+      validationMiddleware(authValidators.confirm),
+      this.confirm
+    );
+    this.router.post(
+      `${this.path}/resend`,
+      limiterMiddleware(authLimiter),
+      validationMiddleware(authValidators.resend),
+      this.resend
+    );
   }
 
   private login = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {

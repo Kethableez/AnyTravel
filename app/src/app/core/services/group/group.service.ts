@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ModuleName } from '../../models/module-name.model';
+import { ModuleName } from '@models/module-name.model';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
 

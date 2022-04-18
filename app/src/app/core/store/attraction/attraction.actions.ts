@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { AttractionFilter } from '../../models/attraction/attraction-filters/attraction-filter.model';
-import { FilterInput } from '../../models/attraction/attraction-filters/filter-input.model';
-import { SortOptions } from '../../models/attraction/attraction-filters/sort-options.model';
-import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
-import { Attraction } from '../../models/attraction/attration.model';
+import { AttractionFilter } from '@models/attraction/attraction-filters/attraction-filter.model';
+import { FilterInput } from '@models/attraction/attraction-filters/filter-input.model';
+import { SortOptions } from '@models/attraction/attraction-filters/sort-options.model';
+import { AttractionPayload } from '@models/attraction/attraction-payload.model';
+import { Attraction } from '@models/attraction/attration.model';
 
 export const createAttraction = createAction(
   '[Attraction] Create attraction',

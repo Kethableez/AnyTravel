@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { User } from '../../models/user/user.model';
+import { User } from '@models/user/user.model';
 import { clearData, getDataSuccess, registerSuccess, userError } from './user.actions';
 
 export interface State {

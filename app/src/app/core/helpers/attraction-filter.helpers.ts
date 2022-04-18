@@ -1,9 +1,9 @@
 import { includes, uniqBy } from 'lodash';
-import { AttractionFilter } from '../models/attraction/attraction-filters/attraction-filter.model';
-import { FilterInput } from '../models/attraction/attraction-filters/filter-input.model';
-import { InputValue } from '../models/attraction/attraction-filters/input-value.model';
-import { SortOptions } from '../models/attraction/attraction-filters/sort-options.model';
-import { Attraction, Address } from '../models/attraction/attration.model';
+import { AttractionFilter } from '@models/attraction/attraction-filters/attraction-filter.model';
+import { FilterInput } from '@models/attraction/attraction-filters/filter-input.model';
+import { InputValue } from '@models/attraction/attraction-filters/input-value.model';
+import { SortOptions } from '@models/attraction/attraction-filters/sort-options.model';
+import { Attraction, Address } from '@models/attraction/attration.model';
 
 export function initFilters(list: Attraction[]): AttractionFilter {
   return {

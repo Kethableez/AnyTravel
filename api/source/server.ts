@@ -1,14 +1,14 @@
 import bodyParser from 'body-parser';
-import express, { Application } from 'express';
-import mongoose from 'mongoose';
-import config from './config/config';
-import morgan from 'morgan';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import express, { Application } from 'express';
+import helmet from 'helmet';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import config from './config/config';
 import error from './middleware/errorMiddleware';
 import Controller from './utils/models/controllerModel';
-import compression from 'compression';
-import helmet from 'helmet';
 
 class Server {
   public express: Application;
@@ -25,6 +25,8 @@ class Server {
   }
 
   public listen(): void {
+    console.log(`Current Api Key: ${config.server.apiKey}`);
+
     this.express.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
@@ -41,17 +43,11 @@ class Server {
 
   private initMiddleware(): void {
     this.express.use(cors(config.server.cors));
-
     this.express.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
-
     this.express.use(bodyParser.json({ limit: '10mb' }));
-
     this.express.use(morgan('dev'));
-
     this.express.use(compression());
-
     this.express.use(helmet());
-
     this.express.use(cookieParser());
   }
 

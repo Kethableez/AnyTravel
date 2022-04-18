@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { FormName } from 'src/app/core/models/form-name.model';
-import { FormService } from 'src/app/core/services/form.service';
-import { RootState } from 'src/app/core/store/app.states';
-import { AuthActions } from 'src/app/core/store/auth';
+import { FormName } from '@models/form-name.model';
+import { FormService } from '@services/form.service';
+import { RootState } from '@store/app.states';
+import { AuthActions } from '@store/auth';
 
 @Component({
   selector: 'majk-login',

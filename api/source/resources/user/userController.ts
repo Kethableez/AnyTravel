@@ -10,6 +10,8 @@ import User from './userModel';
 import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import Controller from '../../utils/models/controllerModel';
+import { limiterMiddleware } from '../../middleware/limiterMiddleware';
+import userLimiter from './userLimiter';
 
 class UserController implements Controller {
   public path = '/user';
@@ -21,10 +23,21 @@ class UserController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.get(`${this.path}/all`, authMiddleware, rolesMiddleware('Admin'), this.getAll);
-    this.router.get(`${this.path}/data`, authMiddleware, this.getUserData);
+    this.router.get(
+      `${this.path}/all`,
+      limiterMiddleware(userLimiter.getLimiter),
+      authMiddleware,
+      rolesMiddleware('Admin'),
+      this.getAll
+    );
+    this.router.get(`${this.path}/data`, limiterMiddleware(userLimiter.getLimiter), authMiddleware, this.getUserData);
 
-    this.router.post(`${this.path}/register`, validationMiddleware(userValidations.register), this.register);
+    this.router.post(
+      `${this.path}/register`,
+      limiterMiddleware(userLimiter.createLimiter),
+      validationMiddleware(userValidations.register),
+      this.register
+    );
     this.router.post(
       `${this.path}/availability`,
       validationMiddleware(userValidations.availability),

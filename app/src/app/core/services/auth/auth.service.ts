@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseAuthResponse } from '../../models/auth/base-auth-response.model';
-import { ConfirmPayload } from '../../models/auth/confirm-payload.model';
-import { BaseResponse } from '../../models/base-response.model';
-import { ModuleName } from '../../models/module-name.model';
-import { LoginPayload } from '../../models/user/login-payload';
+import { BaseAuthResponse } from '@models/auth/base-auth-response.model';
+import { ConfirmPayload } from '@models/auth/confirm-payload.model';
+import { BaseResponse } from '@models/base-response.model';
+import { ModuleName } from '@models/module-name.model';
+import { LoginPayload } from '@models/user/login-payload';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
 

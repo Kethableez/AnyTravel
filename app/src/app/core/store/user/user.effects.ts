@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { withLatestFrom, filter, switchMap, map, catchError, of } from 'rxjs';
+import { UserService } from '@services/user/user.service';
 import { withLatestFrom, filter, switchMap, map, catchError, of, concatMap } from 'rxjs';
-import { UserService } from '../../services/user/user.service';
+import { UserService } from '@services/user/user.service';
 import { RootState } from '../app.states';
 import { selectIsLoggedIn } from '../auth';
 import { showNotification, NotificationType } from '../notification/notification.actions';

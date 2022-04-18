@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { SortOptions } from 'src/app/core/models/attraction/attraction-filters/sort-options.model';
-import { RootState } from 'src/app/core/store/app.states';
-import { selectSortingType, AttractionActions } from 'src/app/core/store/attraction';
+import { SortOptions } from '@models/attraction/attraction-filters/sort-options.model';
+import { RootState } from '@store/app.states';
+import { selectSortingType, AttractionActions } from '@store/attraction';
 
 @Component({
   selector: 'majk-sort',

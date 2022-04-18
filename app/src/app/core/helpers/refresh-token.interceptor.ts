@@ -1,10 +1,10 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, catchError, filter, first, Observable, switchMap, tap, throwError } from 'rxjs';
-import { RootState } from '../store/app.states';
-import { AuthActions, selectAuth } from '../store/auth';
-import * as Auth from '../store/auth/auth.reducers';
+import { BehaviorSubject, catchError, filter, first, Observable, switchMap, tap } from 'rxjs';
+import { RootState } from '@store/app.states';
+import { AuthActions, selectAuth } from '@store/auth';
+import * as Auth from '@store/auth/auth.reducers';
 import { filterExists } from './functions/filter-exists';
 
 @Injectable()

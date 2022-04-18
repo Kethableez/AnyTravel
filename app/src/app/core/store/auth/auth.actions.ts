@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { ConfirmPayload } from '../../models/auth/confirm-payload.model';
-import { LoginPayload } from '../../models/user/login-payload';
+import { ConfirmPayload } from '@models/auth/confirm-payload.model';
+import { LoginPayload } from '@models/user/login-payload';
 
 export const login = createAction('[Auth] Login', props<{ loginPayload: LoginPayload }>());
 

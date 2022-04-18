@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { RootState } from 'src/app/core/store/app.states';
-import { selectIsLoggedIn } from 'src/app/core/store/auth';
+import { RootState } from '@store/app.states';
+import { selectIsLoggedIn } from '@store/auth';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 import { StartNavigationService } from './services/start-navigation.service';
 

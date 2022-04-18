@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModuleName } from 'src/app/core/models/module-name.model';
+import { ModuleName } from '@models/module-name.model';
 import { environment } from 'src/environments/environment';
 import { ParametersInjectorService } from './parameters-injector.service';
 

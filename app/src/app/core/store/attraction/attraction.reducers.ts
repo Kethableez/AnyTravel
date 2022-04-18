@@ -1,8 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { AttractionFilter } from '../../models/attraction/attraction-filters/attraction-filter.model';
-import { FilterInput } from '../../models/attraction/attraction-filters/filter-input.model';
-import { SortOptions } from '../../models/attraction/attraction-filters/sort-options.model';
-import { Attraction } from '../../models/attraction/attration.model';
+import { AttractionFilter } from '@models/attraction/attraction-filters/attraction-filter.model';
+import { FilterInput } from '@models/attraction/attraction-filters/filter-input.model';
+import { SortOptions } from '@models/attraction/attraction-filters/sort-options.model';
+import { Attraction } from '@models/attraction/attration.model';
 import {
   attractionError,
   filterChange,

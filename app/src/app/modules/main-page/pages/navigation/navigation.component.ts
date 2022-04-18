@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { RootState } from 'src/app/core/store/app.states';
-import { AuthActions } from 'src/app/core/store/auth';
+import { RootState } from '@store/app.states';
+import { AuthActions } from '@store/auth';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 import { HomeNavigationService } from '../../services/home-navigation.service';
 

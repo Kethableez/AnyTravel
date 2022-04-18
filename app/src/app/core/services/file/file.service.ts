@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModuleName } from '../../models/module-name.model';
-import { BaseResponse } from '../../models/base-response.model';
+import { ModuleName } from '@models/module-name.model';
+import { BaseResponse } from '@models/base-response.model';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
 

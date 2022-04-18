@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs';
-import { FilterInput } from 'src/app/core/models/attraction/attraction-filters/filter-input.model';
-import { RootState } from 'src/app/core/store/app.states';
-import { AttractionActions, selectFilters } from 'src/app/core/store/attraction';
+import { FilterInput } from '@models/attraction/attraction-filters/filter-input.model';
+import { RootState } from '@store/app.states';
+import { AttractionActions, selectFilters } from '@store/attraction';
 
 @Component({
   selector: 'majk-filters',
