@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import { getPath } from '../utils/pathParser';
+import fs from 'fs';
 
 const MAX_SIZE = 10 * 1024 * 1024;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const filePath = getPath(req.params.selector);
+
+    if(!fs.existsSync(filePath)) fs.mkdirSync(filePath);
+
     cb(null, filePath);
   },
   filename: (req, file, cb) => {

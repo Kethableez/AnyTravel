@@ -1,0 +1,7 @@
+node_modules
+.eslintrc.json
+.prettierrc
+tsconfig.json
+.dockerignore
+Dockerfile
+docker-compose.yml

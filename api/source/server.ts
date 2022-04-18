@@ -26,7 +26,7 @@ class Server {
 
   public listen(): void {
     this.express.listen(this.port, () => {
-      console.log(`App listening on the port ${this.port}`);
+      console.log(`App listening on the port ${this.port} on mode: ${config.server.mode}`);
     });
   }
 

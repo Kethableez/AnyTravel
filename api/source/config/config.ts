@@ -8,6 +8,7 @@ const MONGO_NAME = process.env.MONGO_NAME || 'test';
 
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
 const SERVER_PORT = process.env.SERVER_PORT || 8000;
+const SERVER_MODE = process.env.NODE_ENV || 'development';
 
 const TOKEN_ISSUER = process.env.TOKEN_ISSUER || 'any-travel-issuer';
 const TOKEN_SECRET = process.env.TOKEN_SECRET || 'any-travel-jwt-secret';
@@ -41,6 +42,7 @@ const REQUEST_LIMITER = {
 };
 
 const SERVER = {
+  mode: SERVER_MODE,
   hostname: SERVER_HOSTNAME,
   port: SERVER_PORT,
   cors: CORS_OPTIONS,

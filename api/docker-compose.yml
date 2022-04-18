@@ -20,17 +20,3 @@ services:
   image: mongo
   ports:
     - "27017:27017"
-
-#  front:
-#   build: 
-#    context: .
-#    target: ui-build
-#   container_name: front
-#   command: ng serve -c local --host 0.0.0.0
-#   expose:
-#     - 4200
-#   restart: always
-#   depends_on:
-#    - back
-#   ports:
-#     - "4200:4200"
