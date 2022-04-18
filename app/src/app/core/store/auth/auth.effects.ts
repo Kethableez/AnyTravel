@@ -7,7 +7,7 @@ import { RootState } from 'src/app/core/store/app.states';
 import { AuthService } from '../../services/auth/auth.service';
 import { NotificationType, showNotification } from '../notification/notification.actions';
 import { clearData, getData } from '../user/user.actions';
-import { authError, login, loginSuccess, logout, refresh, refreshSuccess } from './auth.actions';
+import { authError, confirm, login, loginSuccess, logout, refresh, refreshSuccess } from './auth.actions';
 import { selectIsLoggedIn } from './auth.selectors';
 
 @Injectable()
@@ -70,6 +70,21 @@ export class AuthEffects {
           map(() => clearData()),
           catchError((error) => of(authError(error.error.message))),
           tap(() => this.router.navigateByUrl('/start'))
+        );
+      })
+    )
+  );
+
+  confirm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(confirm),
+      switchMap((action) => {
+        console.log(action.payload);
+        return this.authService.doConfirm(action.payload).pipe(
+          map((response) =>
+            showNotification({ message: response.message, notificationType: NotificationType.SUCCESS })
+          ),
+          catchError((error) => of(authError({ message: error.error.message, dispatchNotification: true })))
         );
       })
     )

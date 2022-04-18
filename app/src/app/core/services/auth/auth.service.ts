@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAuthResponse } from '../../models/auth/base-auth-response.model';
+import { ConfirmPayload } from '../../models/auth/confirm-payload.model';
 import { BaseResponse } from '../../models/base-response.model';
 import { ModuleName } from '../../models/module-name.model';
 import { LoginPayload } from '../../models/user/login-payload';
@@ -46,9 +47,11 @@ export class AuthService extends BaseRequestService {
     return this.postWithCredentials<BaseResponse>(url);
   }
 
-  // doConfirm() {
-  //   const url = this.getUrl(AuthActions.CONFIRM);
-  // }
+  doConfirm(body: ConfirmPayload) {
+    const url = this.getUrl(AuthActions.CONFIRM);
+    console.log(body);
+    return this.post<BaseResponse>(url, body);
+  }
 
   // doResend() {
   //   const url = this.getUrl(AuthActions.RESEND);

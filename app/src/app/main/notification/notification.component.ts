@@ -18,7 +18,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {}
 
   hide() {
-    this.store$.dispatch(NotificationActions.hideNotification());
+    this.store$.dispatch(NotificationActions.hideNotification({ timeout: 0 }));
   }
 
   getNotificationType(notificationType: NotificationType) {

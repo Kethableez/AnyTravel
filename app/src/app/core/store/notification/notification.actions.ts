@@ -14,4 +14,4 @@ export const showNotification = createAction(
 
 export const showNotificationSuccess = createAction('[Notification] Show Success');
 
-export const hideNotification = createAction('[Notification] Hide');
+export const hideNotification = createAction('[Notification] Hide', props<{ timeout: number }>());

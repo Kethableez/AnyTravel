@@ -14,16 +14,6 @@ import User from './userModel';
 import { avatarPrefix } from '../../utils/filePrefix';
 import userConfirmSchema from '../auth/userConfirmSchema';
 
-const UserResponses = {
-  registerSuccess: 'register.success',
-  editSuccess: 'edit.success',
-  deleteSuccess: 'delete.success',
-  userExistsError: 'error.userExists',
-  invalidIdError: 'error.invalidId',
-  invalidPasswordError: 'error.invalidPassword',
-  genericError: 'error.generic'
-}; // => przerobić na obiekt w osobnym pliku (response factory?)
-
 class UserService {
   private userSchema = userSchema;
   private userConfirmSchema = userConfirmSchema;
