@@ -4,6 +4,22 @@
   background-size: cover;
 }
 
+@media screen and (max-width: 768px) {
+  .navbar-item {
+    width: 150px;
+  }
+
+  html {
+    min-width: 200px !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .navbar-item {
+    width: 300px;
+  }
+}
+
 .level {
   padding: 2rem 0;
 }
@@ -11,8 +27,7 @@
 .navbar-brand {
   .navbar-item {
     background: url(/assets/images/logo.png) no-repeat center center;
-    background-size: cover;
-    width: 300px;
+    background-size: contain;
   }
 }
 .navbar-burger {

@@ -7,6 +7,7 @@ import { AttractionPayload } from '@models/attraction/attraction-payload.model';
 import { AttractionService } from '@services/attraction/attraction.service';
 import { FileService } from '@services/file/file.service';
 import { RootState } from '../app.states';
+import { NotificationType, showNotification } from '../notification/notification.actions';
 import { selectUserRole } from '../user';
 import {
   addReview,
@@ -30,6 +31,7 @@ export class AttractionEffects {
     private attractionService: AttractionService
   ) {}
 
+  // Better login error responses
   createAttraction$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createAttraction),
@@ -43,12 +45,9 @@ export class AttractionEffects {
             return attraction;
           }),
           switchMap((payload: AttractionPayload) => {
-            return this.attractionService.doCreateAttraction(payload).pipe(
-              map(() => getNewAttractions()),
-              catchError((error) => of(attractionError({ message: error.error.message })))
-            );
+            return this.attractionService.doCreateAttraction(payload).pipe(map(() => getNewAttractions()));
           }),
-          catchError((error) => of(attractionError({ message: error.error.message })))
+          catchError((error) => of(attractionError({ message: error.error.message, dispatchNotification: true })))
         );
       })
     )
@@ -63,7 +62,7 @@ export class AttractionEffects {
             getAttractionsSuccess({ attractions: response }),
             initializeFilters({ filters: initFilters(response) })
           ]),
-          catchError((error) => of(attractionError({ message: error.error.message })))
+          catchError((error) => of(attractionError(error.error.message)))
         );
       })
     )
@@ -77,7 +76,7 @@ export class AttractionEffects {
       switchMap(() => {
         return this.attractionService.doGetToApprove().pipe(
           map((response) => getNewAttractionsSuccess({ attractions: response })),
-          catchError((error) => of(attractionError({ message: error.error.message })))
+          catchError((error) => of(attractionError(error.error.message)))
         );
       })
     )
@@ -89,7 +88,7 @@ export class AttractionEffects {
       switchMap((action) => {
         return this.attractionService.doApprove(action.attractionId).pipe(
           switchMap(() => [getNewAttractions(), getAttractions()]),
-          catchError((error) => of(attractionError({ message: error.error.message })))
+          catchError((error) => of(attractionError({ message: error.error.message, dispatchNotification: true })))
         );
       })
     )
@@ -101,7 +100,7 @@ export class AttractionEffects {
       switchMap((action) => {
         return this.attractionService.doDelete(action.attractionId).pipe(
           switchMap(() => [getNewAttractions(), getAttractions()]),
-          catchError((error) => of(attractionError({ message: error.error.message })))
+          catchError((error) => of(attractionError({ message: error.error.message, dispatchNotification: true })))
         );
       })
     )
@@ -113,9 +112,18 @@ export class AttractionEffects {
       switchMap((action) => {
         return this.attractionService.doAddReview(action.attractionId, action.payload).pipe(
           map(() => getAttractions()),
-          catchError((error) => of(attractionError({ message: error.error.message })))
+          catchError((error) => of(attractionError({ message: error.error.message, dispatchNotification: true })))
         );
       })
+    )
+  );
+
+  error$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(attractionError),
+      map((action) => action),
+      filter((action) => action.dispatchNotification),
+      map((action) => showNotification({ message: action.message, notificationType: NotificationType.ERROR }))
     )
   );
 }

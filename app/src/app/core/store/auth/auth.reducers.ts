@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { authError, loginSuccess, logout, refresh, refreshError, refreshSuccess } from './auth.actions';
+import { authError, loginSuccess, logout, refresh, refreshSuccess } from './auth.actions';
 
 export interface State {
   loggedIn: boolean;

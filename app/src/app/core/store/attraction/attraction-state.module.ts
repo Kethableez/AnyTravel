@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AttractionEffects } from './attraction.effects';
-import { attractionReducer } from './attraction.reducers';
-import * as fromAttraction from './attraction.reducers';
+import { attractionFeatureKey, attractionReducer } from './attraction.reducers';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature(fromAttraction.attractionFeatureKey, attractionReducer),
+    StoreModule.forFeature(attractionFeatureKey, attractionReducer),
     EffectsModule.forFeature([AttractionEffects])
   ],
   declarations: []

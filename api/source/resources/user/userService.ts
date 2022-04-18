@@ -22,7 +22,6 @@ class UserService {
     const { username, email } = payload;
 
     if (await this.checkIfUserExists({ username, email })) throw new Error('User already exists');
-
     try {
       const user = await this.userSchema.create({
         ...payload,

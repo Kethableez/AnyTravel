@@ -3,23 +3,26 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
 import { AuthActions } from '@store/auth';
-import { replace } from 'lodash-es';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
-
-const BASE = '/home';
+import { HomeNavigationService } from '../../services/home-navigation.service';
 
 @Component({
   selector: 'majk-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
+  providers: [HomeNavigationService]
 })
 export class NavigationComponent extends CleanableDirective {
-  constructor(private store$: Store<RootState>, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    protected navigationService: HomeNavigationService,
+    private store$: Store<RootState>,
+    private router: Router
+  ) {
     super();
     this.addSubscription(
       this.router.events.subscribe((v) => {
         if (v instanceof NavigationEnd) {
-          this.activeRoute = this.trim(v.url);
+          this.activeRoute = this.navigationService.trim(v.url);
         }
       })
     );
@@ -32,16 +35,10 @@ export class NavigationComponent extends CleanableDirective {
   }
 
   navigate(url: string) {
-    const destinationUrl = [BASE, url].join('/');
-    this.router.navigateByUrl(destinationUrl);
-  }
-
-  trim(url: string) {
-    const pattern = '/home/';
-    return replace(url, pattern, '');
+    this.navigationService.navigate(url);
   }
 
   isActive(buttonName: string) {
-    return this.activeRoute === buttonName ? 'is-info' : 'is-white';
+    return this.navigationService.isActive(buttonName, this.activeRoute);
   }
 }
