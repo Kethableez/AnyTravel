@@ -11,6 +11,12 @@ export class FormErrorPipe implements PipeTransform {
       case 'invalidEmail':
         return 'Zły format adresu e-mail';
 
+      case 'minlength':
+        return 'Za krótki';
+
+      case 'maxlength':
+        return 'Za długi';
+
       case 'taken':
         return 'Taki użytkownik już istnieje';
 

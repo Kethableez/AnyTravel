@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 export class HttpException extends Error {
   public status: number;
@@ -11,13 +11,20 @@ export class HttpException extends Error {
   }
 }
 
-function errorMiddleware(error: HttpException, req: Request, res: Response): void {
+function notFoundMiddleware(req: Request, res: Response, next: NextFunction): void {
+  next({ status: 404, message: 'Not found' });
+}
+
+function errorMiddleware(error: HttpException, req: Request, res: Response, next: NextFunction) {
   const status = error.status || 500;
   const message = error.message || 'Something went wrong';
-  res.status(status).send({
-    status,
-    message
+
+  res.status(status).json({
+    message: message
   });
 }
 
-export default errorMiddleware;
+export default {
+  notFoundMiddleware,
+  errorMiddleware
+};

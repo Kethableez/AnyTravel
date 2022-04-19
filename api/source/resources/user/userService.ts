@@ -1,11 +1,10 @@
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
-import { createToken } from '../../functions/token';
 import { isEmpty } from 'lodash';
 
 import userSchema from './userSchema';
 
-import LoginPayload from './payload/loginPayload';
 import RegisterPayload from './payload/registerPayload';
 import AvailabilityPayload from './payload/availabilityPayload';
 import EditPayload from './payload/editPayload';
@@ -13,50 +12,32 @@ import BaseResponse from '../../utils/models/baseResponseModel';
 import AvailabilityResponse from './response/availabilityResponse';
 import User from './userModel';
 import { avatarPrefix } from '../../utils/filePrefix';
-import { LoginResponse } from './response/loginResponse';
+import userConfirmSchema from '../auth/userConfirmSchema';
 
 class UserService {
   private userSchema = userSchema;
+  private userConfirmSchema = userConfirmSchema;
 
   public async register(payload: RegisterPayload): Promise<BaseResponse | Error> {
     const { username, email } = payload;
 
     if (await this.checkIfUserExists({ username, email })) throw new Error('User already exists');
-
     try {
-      await this.userSchema.create({
+      const user = await this.userSchema.create({
         ...payload,
         avatar: 'avatar/default.png',
         role: 'RegularUser',
-        isActive: true
+        isActive: process.env.API_REQUIRE_ACCOUNT_VERIFICATION === 'true' ? false : true
+      });
+
+      await this.userConfirmSchema.create({
+        userId: user._id.toString(),
+        activationCode: crypto.randomBytes(4).toString('hex').toUpperCase(),
+        createdAt: new Date(),
+        expiredAt: new Date(new Date().getTime() + 30 * 60 * 1000)
       });
 
       return { message: 'Created' };
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-      throw new Error('Unexpected error');
-    }
-  }
-
-  public async login(payload: LoginPayload): Promise<LoginResponse | Error> {
-    try {
-      const { username, password } = payload;
-
-      const user = await this.userSchema.findOne({ username });
-      if (!user) {
-        throw new Error('Invalid username');
-      }
-      if (await bcrypt.compare(password, user.password)) {
-        const response: LoginResponse = {
-          id: user._id,
-          token: createToken(user)
-        };
-        return response;
-      } else {
-        throw new Error('Invalid username or password');
-      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);

@@ -1,0 +1,8 @@
+apps:
+- name : 'anytravel-api'
+  script : 'dist/index.js'
+  ignore_watch: ['node_modules', 'storage']
+  env_production:
+    NODE_ENV: 'production'
+  env_development:
+    NODE_ENV: 'development'

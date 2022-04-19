@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AttractionService } from 'src/app/core/services/attraction/attraction.service';
-import { RootState } from 'src/app/core/store/app.states';
-import { selectAttractions, selectFilteredAttractions, selectNewAttractions } from 'src/app/core/store/attraction';
-import { isUserModerator } from 'src/app/core/store/user';
+import { AttractionService } from '@services/attraction/attraction.service';
+import { RootState } from '@store/app.states';
+import { selectFilteredAttractions, selectNewAttractions } from '@store/attraction';
+import { isUserModerator } from '@store/user';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
 enum ViewSelector {

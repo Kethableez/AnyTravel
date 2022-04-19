@@ -1,0 +1,24 @@
+<div class="box">
+  <form [formGroup]="confirmForm">
+    <div class="field">
+      <label class="label">Kod aktywacyjny</label>
+      <div class="control">
+        <input
+          class="input"
+          [ngClass]="isFieldValid('activationCode')"
+          formControlName="activationCode"
+          type="text"
+          maxlength="8"
+          placeholder="Kod aktywacyjny"
+        />
+        <div class="help is-danger" *ngIf="isErrorEnabled('activationCode')">
+          <div *ngFor="let error of getError('activationCode')">{{ error | formError }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control has-text-centered">
+      <button class="button is-primary center" (click)="confirm()" [disabled]="confirmForm.invalid">Potwierdź</button>
+    </div>
+  </form>
+</div>

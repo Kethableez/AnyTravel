@@ -1,6 +1,8 @@
 import Attraction from '../attractionModel';
 
-export default interface AttractionResponse {
+interface AttractionResponse {
   message: string;
   object: Attraction;
 }
+
+export default AttractionResponse;

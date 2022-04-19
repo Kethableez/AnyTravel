@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AvailabilityValidator } from 'src/app/core/validators/availability.validator';
-import { FormService } from 'src/app/core/services/form.service';
-import { UserService } from 'src/app/core/services/user/user.service';
-import { RootState } from 'src/app/core/store/app.states';
-import { AuthActions } from 'src/app/core/store/auth';
+import { AvailabilityValidator } from '@validators/availability.validator';
+import { FormService } from '@services/form.service';
+import { UserService } from '@services/user/user.service';
+import { RootState } from '@store/app.states';
+import { UserActions } from '@store/user';
+import { FormName } from '@models/form-name.model';
 
 @Component({
   selector: 'majk-register',
@@ -46,13 +47,18 @@ export class RegisterComponent {
     isSubscribed: [false, Validators.required]
   });
 
+  get formName() {
+    return FormName.REGISTER;
+  }
+
   isFieldValid(fieldName: string) {
     return this.formService.isFieldValid(fieldName, this.registerForm);
   }
 
   register() {
     const payload = this.registerForm.value;
-    this.store$.dispatch(AuthActions.register({ registerPayload: payload }));
+    this.store$.dispatch(UserActions.register({ registerPayload: payload }));
+    this.registerForm.reset(this.formService.getInitialForm(this.formName));
   }
 
   isErrorEnabled(fieldName: string) {

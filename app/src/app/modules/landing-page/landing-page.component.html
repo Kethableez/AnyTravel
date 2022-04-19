@@ -1,8 +1,8 @@
-<section class="hero is-fullheight background">
+<div class="hero is-fullheight background">
   <div class="navbar my-3">
     <div class="container">
       <div class="navbar-brand">
-        <div class="navbar-item"></div>
+        <div class="navbar-item" (click)="navigate('')"></div>
         <div class="navbar-burger">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -13,8 +13,8 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <div class="button is-white" [ngClass]="{ 'is-outlined' : !isRegisterFormActive }" (click)="toggleRegister()"> Zarejestruj się </div>
-              <div class="button is-white" [ngClass]="{ 'is-outlined' : !isLoginFormActive }" (click)="toggleLogin()"> Zaloguj się </div>
+              <div class="button is-white" [ngClass]="isActive('register')" (click)="navigate('register')"> Zarejestruj się </div>
+              <div class="button is-white" [ngClass]="isActive('login')" (click)="navigate('login')"> Zaloguj się </div>
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="hero-body">
-    <div class="container w-50">
+    <!-- <div class="container w-50">
       <h1 class="title is-1 text-wht">Nieodłączny element każdej podróży!</h1>
 
       <h5 class="subtitle is-5 text-wht">
@@ -36,6 +36,10 @@
     <div class="container flex">
       <majk-login *ngIf="isLoginFormActive"></majk-login>
       <majk-register *ngIf="isRegisterFormActive"></majk-register>
+    </div> -->
+    <div class="container">
+
+      <router-outlet></router-outlet>
     </div>
   </div>
   <div class="hero-foot text-wht">
@@ -43,4 +47,4 @@
       <p><strong class="text-wht">AnyTravel</strong> by A.Janiszyn, J.Michalski, K.Zdanowicz, M.Rusek</p>
     </div>
   </div>
-</section>
+</div>

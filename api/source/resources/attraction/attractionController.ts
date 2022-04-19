@@ -2,8 +2,10 @@
 import { Request, Response, NextFunction, Router } from 'express';
 import { authMiddleware } from '../../middleware/authMiddleware';
 import { HttpException } from '../../middleware/errorMiddleware';
+import { limiterMiddleware } from '../../middleware/limiterMiddleware';
 import { rolesMiddleware } from '../../middleware/rolesMiddleware';
 import Controller from '../../utils/models/controllerModel';
+import attractionLimiter from './attractionLimiter';
 import AttractionService from './attractionService';
 
 class AttractionController implements Controller {
@@ -16,11 +18,27 @@ class AttractionController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.get(`${this.path}/all`, authMiddleware, this.getAll);
-    this.router.get(`${this.path}/to-approve`, authMiddleware, rolesMiddleware('Moderator'), this.getToApprove);
-    this.router.get(`${this.path}/get/:attractionId`, authMiddleware, this.getAttraction);
+    this.router.get(`${this.path}/all`, limiterMiddleware(attractionLimiter.getLimiter), authMiddleware, this.getAll);
+    this.router.get(
+      `${this.path}/to-approve`,
+      limiterMiddleware(attractionLimiter.getLimiter),
+      authMiddleware,
+      rolesMiddleware('Moderator'),
+      this.getToApprove
+    );
+    this.router.get(
+      `${this.path}/get/:attractionId`,
+      limiterMiddleware(attractionLimiter.getLimiter),
+      authMiddleware,
+      this.getAttraction
+    );
 
-    this.router.post(`${this.path}/create`, authMiddleware, this.createAttraction);
+    this.router.post(
+      `${this.path}/create`,
+      limiterMiddleware(attractionLimiter.createLimiter),
+      authMiddleware,
+      this.createAttraction
+    );
     this.router.post(
       `${this.path}/approve/:attractionId`,
       authMiddleware,

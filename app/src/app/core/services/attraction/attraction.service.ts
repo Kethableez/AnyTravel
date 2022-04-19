@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first, Observable, tap } from 'rxjs';
-import { AttractionCategory } from '../../models/attraction/attraction-category.model';
-import { AttractionPayload } from '../../models/attraction/attraction-payload.model';
-import { AttractionType } from '../../models/attraction/attraction-type.model';
-import { Attraction } from '../../models/attraction/attration.model';
-import { ModuleName } from '../../models/module-name.model';
-import { Response } from '../../models/response.model';
-import { RootState } from '../../store/app.states';
-import { getAttractions, getNewAttractions } from '../../store/attraction/attraction.actions';
+import { AttractionCategory } from '@models/attraction/attraction-category.model';
+import { AttractionPayload } from '@models/attraction/attraction-payload.model';
+import { AttractionType } from '@models/attraction/attraction-type.model';
+import { Attraction } from '@models/attraction/attration.model';
+import { ModuleName } from '@models/module-name.model';
+import { BaseResponse } from '@models/base-response.model';
+import { RootState } from '@store/app.states';
+import { getAttractions, getNewAttractions } from '@store/attraction/attraction.actions';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
 
@@ -74,16 +74,16 @@ export class AttractionService extends BaseRequestService {
     return this.post<AttractionResponse>(url);
   }
 
-  doDelete(attractionId: string): Observable<Response> {
+  doDelete(attractionId: string): Observable<BaseResponse> {
     const url = this.getUrl(AttractionActions.DELETE, { attractionId: attractionId });
 
-    return this.post<Response>(url);
+    return this.post<BaseResponse>(url);
   }
 
-  doAddReview(attractionId: string, payload: { review: number }): Observable<Response> {
+  doAddReview(attractionId: string, payload: { review: number }): Observable<BaseResponse> {
     const url = this.getUrl(AttractionActions.ADD_REVIEW, { attractionId: attractionId });
 
-    return this.post<Response>(url, payload);
+    return this.post<BaseResponse>(url, payload);
   }
 
   initData() {
@@ -97,89 +97,10 @@ export class AttractionService extends BaseRequestService {
   }
 
   get attractionCategory() {
-    return [
-      {
-        value: AttractionCategory.RESTAURANT,
-        displayValue: 'Restauracja'
-      },
-      {
-        value: AttractionCategory.BAR,
-        displayValue: 'Bar'
-      },
-      {
-        value: AttractionCategory.COFFEE,
-        displayValue: 'Kawiarnia'
-      },
-      {
-        value: AttractionCategory.PARK,
-        displayValue: 'Park'
-      },
-      {
-        value: AttractionCategory.GYM,
-        displayValue: 'Siłownia'
-      },
-      {
-        value: AttractionCategory.ART,
-        displayValue: 'Sztuka'
-      },
-      {
-        value: AttractionCategory.MUSEUM,
-        displayValue: 'Muzeum'
-      },
-      {
-        value: AttractionCategory.LIBRARY,
-        displayValue: 'Biblioteka'
-      },
-      {
-        value: AttractionCategory.LAKE,
-        displayValue: 'Jezioro'
-      },
-      {
-        value: AttractionCategory.FOREST,
-        displayValue: 'Las'
-      },
-      {
-        value: AttractionCategory.BEACH,
-        displayValue: 'Plaża'
-      }
-    ];
+    return Object.values(AttractionCategory);
   }
 
   get attractionType() {
-    return [
-      {
-        value: AttractionType.INDOOR,
-        displayValue: 'Wewnętrzna'
-      },
-      {
-        value: AttractionType.OUTDOOR,
-        displayValue: 'Zewnętrzna'
-      }
-    ];
-  }
-
-  get initialAttraction() {
-    return {
-      name: '',
-      description: '',
-      cover: '',
-      category: '',
-      attractionType: '',
-      isPaid: false,
-      hoursFrom: '',
-      hoursTo: ''
-    };
-  }
-
-  get initialAddress() {
-    return {
-      country: '',
-      zipCode: '',
-      city: '',
-      street: '',
-      apartment: '',
-      lat: 0,
-      lng: 0
-    };
+    return Object.values(AttractionType);
   }
 }

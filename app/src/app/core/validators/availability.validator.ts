@@ -1,7 +1,7 @@
 import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { map, of } from 'rxjs';
-import { FormService } from '../services/form.service';
-import { UserService } from '../services/user/user.service';
+import { FormService } from '@services/form.service';
+import { UserService } from '@services/user/user.service';
 
 const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 

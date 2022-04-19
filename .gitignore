@@ -1,5 +1,5 @@
 api/node_modules
-api/build
+api/dist
 api/storage
 
 app/node_modules

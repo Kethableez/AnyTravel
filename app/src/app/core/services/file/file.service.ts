@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModuleName } from '../../models/module-name.model';
-import { Response } from '../../models/response.model';
+import { ModuleName } from '@models/module-name.model';
+import { BaseResponse } from '@models/base-response.model';
 import { BaseRequestService } from '../base-request.service';
 import { ParametersInjectorService } from '../parameters-injector.service';
 
@@ -37,6 +37,6 @@ export class FileService extends BaseRequestService {
   doDeleteFile(selector: string, filename: string) {
     const url = this.getUrl(FileActions.UPLOAD_FILE, { selector: selector, filename: filename });
 
-    return this.post<Response>(url);
+    return this.post<BaseResponse>(url);
   }
 }

@@ -1,5 +1,5 @@
-import { Response } from './response.model';
+import { BaseResponse } from './base-response.model';
 
-export interface ResponseWithError extends Response {
+export interface ResponseWithError extends BaseResponse {
   error: any;
 }

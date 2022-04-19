@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
-import { Dictionary } from 'src/app/core/models/dictionary.model';
+import { Dictionary } from '@models/dictionary.model';
 
 type Parameters = [string, string][];
 

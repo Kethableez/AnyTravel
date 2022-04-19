@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RootState } from 'src/app/core/store/app.states';
-import { AttractionActions } from 'src/app/core/store/attraction';
+import { RootState } from '@store/app.states';
+import { AttractionActions } from '@store/attraction';
 
 @Component({
   selector: 'majk-search',

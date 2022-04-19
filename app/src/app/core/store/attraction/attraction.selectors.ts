@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { isMatch, sortSelector } from '../../helpers/attraction-filter.helpers';
-import { AttractionFilter } from '../../models/attraction/attraction-filters/attraction-filter.model';
-import * as fromAttraction from './attraction.reducers';
+import { isMatch, sortSelector } from '@helpers/attraction-filter.helpers';
+import { AttractionFilter } from '@models/attraction/attraction-filters/attraction-filter.model';
+import * as Attraction from './attraction.reducers';
 
-export const getAttractionState = createFeatureSelector<fromAttraction.State>(fromAttraction.attractionFeatureKey);
+export const getAttractionState = createFeatureSelector<Attraction.State>(Attraction.attractionFeatureKey);
 
 export const selectAttractions = createSelector(getAttractionState, (state) => state.attractions);
 
