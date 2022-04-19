@@ -10,7 +10,7 @@ services:
       - 9000
     restart: always
     links:
-      - mongo-db
+      - any-travel-db
     ports:
       - "9000:9000"
 
