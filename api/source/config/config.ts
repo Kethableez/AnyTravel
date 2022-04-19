@@ -29,11 +29,15 @@ const MONGO_OPTIONS = {
 
 const CORS_OPTIONS = {
   origin: 'http://localhost:4200',
-  allowedHeaders: 'Content-Type,Authorization',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   credentials: true,
   methods: 'GET, POST',
   preflightContinue: true,
   maxAge: 600
+};
+
+const HELMET_OPTIONS = {
+  crossOriginEmbedderPolicy: false
 };
 
 const REQUEST_LIMITER = {
@@ -46,6 +50,7 @@ const SERVER = {
   hostname: SERVER_HOSTNAME,
   port: SERVER_PORT,
   cors: CORS_OPTIONS,
+  helmet: HELMET_OPTIONS,
   requestLimiter: REQUEST_LIMITER,
   token: {
     authExpireTime: TOKEN_EXPIRETIME_AUTH,

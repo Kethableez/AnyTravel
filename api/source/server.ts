@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import config from './config/config';
+import { optionSkipMiddleware, resourcePassMiddleware } from './middleware/corsMiddleware';
 import error from './middleware/errorMiddleware';
 import Controller from './utils/models/controllerModel';
 
@@ -40,12 +41,14 @@ class Server {
   }
 
   private initMiddleware(): void {
+    this.express.use(helmet());
     this.express.use(cors(config.server.cors));
+    this.express.use(resourcePassMiddleware);
+    this.express.use(optionSkipMiddleware);
     this.express.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
     this.express.use(bodyParser.json({ limit: '10mb' }));
     this.express.use(morgan('dev'));
     this.express.use(compression());
-    this.express.use(helmet());
     this.express.use(cookieParser());
   }
 
