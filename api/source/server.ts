@@ -32,8 +32,9 @@ class Server {
   }
 
   private initDBConnection(): void {
+    const connectionUrl = config.server.isDockerEnabled ? config.mongo.remoteUrl : config.mongo.localUrl;
     mongoose
-      .connect(config.mongo.url, config.mongo.options)
+      .connect(connectionUrl, config.mongo.options)
       .then(() => console.log('Mongo connected'))
       .catch((error) => {
         throw new Error(error.message);

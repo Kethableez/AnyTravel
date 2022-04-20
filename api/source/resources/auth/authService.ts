@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { Response } from 'express';
+import { CookieOptions, Response } from 'express';
 
 import RefreshToken from './userTokenModel';
 import userSchema from '../user/userSchema';
@@ -148,9 +148,11 @@ class AuthService {
   }
 
   public setCookie(res: Response, token: string, expires: Date) {
-    const cookieOptions = {
+    const cookieOptions: CookieOptions = {
       httpOnly: true,
-      expires: expires
+      expires: expires,
+      secure: true,
+      sameSite: 'none'
     };
     res.cookie('refreshToken', token, cookieOptions);
   }
