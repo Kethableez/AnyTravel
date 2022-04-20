@@ -1,19 +1,24 @@
-<div *ngIf="group" class="card">
-  <figure class="image is-4by3">
-    <img [src]="groupCover" alt="Placeholder image" />
-  </figure>
-</div>
-<header class="card-header">
-  <div class="title is-4">{{group?.name}}</div>
-</header>
-<div class="card-content">
-  <div class="content flex">
-    <span class="tag is-link is-light"> {{group?.founder| label }}</span>
-    <span class="tag is-info is-light"> {{group?.invitationCode| label }}</span>
-    <span class="tag is-info is-light"> {{group?.journeys| label }}</span>
-    <span class="tag is-info is-light"> {{group?.members| label }}</span>
-  </div>
+<div class="list-group-item list-group-item-action flex-column align-items-start active">
+  <div class="container">
+    <div *ngIf="group" class="row">
+      <div class="col">
+        <figure class="image">
+          <img [src]="groupCover" alt="Placeholder image" />
+        </figure>
+      </div>
+      <div class="col">
+        <div class="title is-4">{{group?.name}}</div>
+        <div class="row">
+          <span class="tag is-link is-light">Creator: {{group?.founder.username| label }}</span>
+          <span class="tag is-info is-light">Invitation Code: {{group?.invitationCode| label }}</span>
+          <span class="tag is-info is-light"> {{group?.journeys| label }}</span>
+          <span class="tag is-info is-light"> {{group?.members| label }}</span>
+        </div>
 
-  <footer class="card-footer">
-    <button (click)="deleteGroup()" class="button is-danger">Usuń</button>
-  </footer>
+        <div class="row">
+          <button (click)="deleteGroup(group._id)" class="button is-danger">Usuń</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

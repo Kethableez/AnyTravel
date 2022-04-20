@@ -1,0 +1,21 @@
+.container-fluid
+{
+  padding-right: 5%;
+   padding-left: 5%;
+  width: 80%;
+}
+.list-group {
+  width: 85%;
+  display: list-item;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+
+.majk-container {
+  width: 85%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+}

@@ -1,3 +1,7 @@
-<div *ngFor="let group of userGroups$ | async">
-  <majk-group-card [group]="group"></majk-group-card>
+<div class="container-fluid">
+  <div class="list-group">
+    <div *ngFor="let group of userGroups$ | async">
+      <majk-group-card [group]="group"></majk-group-card>
+    </div>
+  </div>
 </div>

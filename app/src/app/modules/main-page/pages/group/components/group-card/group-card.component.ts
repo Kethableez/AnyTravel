@@ -23,9 +23,9 @@ export class GroupCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteGroup() {
+  deleteGroup(id: string) {
     if (this.group) {
-      this.store$.dispatch(GroupActions.deleteGroup({ groupId: this.group?.name }));
+      this.store$.dispatch(GroupActions.deleteGroup({ groupId: id }));
     }
   }
 
