@@ -22,6 +22,7 @@ import { authInit } from '@helpers/functions/auth-init';
 import { NotificationStateModule } from '@store/notification';
 import { SharedModule } from './shared/shared.module';
 import { NotificationComponent } from './main/notification/notification.component';
+import { GroupStateModule } from './core/store/group';
 
 @NgModule({
   declarations: [AppComponent, NotificationComponent],
@@ -33,6 +34,7 @@ import { NotificationComponent } from './main/notification/notification.componen
     SharedModule,
     AuthStateModule,
     UserStateModule,
+    GroupStateModule,
     AttractionStateModule,
     NotificationStateModule,
     StoreModule.forRoot({}, { metaReducers }),
@@ -61,4 +63,4 @@ import { NotificationComponent } from './main/notification/notification.componen
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

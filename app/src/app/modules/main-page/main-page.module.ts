@@ -16,6 +16,10 @@ import { FiltersComponent } from './pages/attraction/components/filters/filters.
 import { FilterInputComponent } from './pages/attraction/components/filter-input/filter-input.component';
 import { SearchComponent } from './pages/attraction/components/search/search.component';
 import { SortComponent } from './pages/attraction/components/sort/sort.component';
+import { GroupComponent } from './pages/group/group.component';
+import { GroupListComponent } from './pages/group/components/group-list/group-list.component';
+import { GroupCardComponent } from './pages/group/components/group-card/group-card.component';
+import { GroupFormComponent } from './pages/group/components/group-form/group-form.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +33,12 @@ import { SortComponent } from './pages/attraction/components/sort/sort.component
     FiltersComponent,
     FilterInputComponent,
     SearchComponent,
-    SortComponent
+    SortComponent,
+    GroupComponent,
+    GroupListComponent,
+    GroupCardComponent,
+    GroupFormComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })
-export class MainPageModule {}
+export class MainPageModule { }

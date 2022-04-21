@@ -1,0 +1,25 @@
+
+<div class="tabs is-centered is-large is-boxed mb-0">
+  <ul>
+    <li [ngClass]="isViewActive(ViewSelector.ALL)" (click)="changeView(ViewSelector.ALL)">
+      <a>
+        <span>Grupy</span>
+      </a>
+    </li>
+    <li [ngClass]="isViewActive(ViewSelector.CREATOR)" (click)="changeView(ViewSelector.CREATOR)">
+      <a>
+        <span>Kreator</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div [ngSwitch]="currentView">
+  <div *ngSwitchCase="ViewSelector.ALL">
+    <majk-group-list [userGroups$]="userGroups$"></majk-group-list>
+  </div>
+  <div *ngSwitchCase="ViewSelector.CREATOR">
+    <majk-group-form></majk-group-form>
+  </div>
+</div>

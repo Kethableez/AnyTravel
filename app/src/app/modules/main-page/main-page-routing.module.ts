@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@guards/auth.guard';
+import { GroupComponent } from './pages/group/group.component';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { MainPageComponent } from './main-page.component';
 import { AttractionComponent } from './pages/attraction/attraction.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'attraction',
         component: AttractionComponent
+      },
+      {
+        path: 'groups',
+        component: GroupComponent
       }
     ]
   }
@@ -27,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MainPageRoutingModule {}
+export class MainPageRoutingModule { }
