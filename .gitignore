@@ -1,7 +1,7 @@
 api/node_modules
 api/dist
 api/storage
-# /storage
+/storage
 
 app/node_modules
 .request
