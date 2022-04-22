@@ -1,18 +1,11 @@
 import { Document } from 'mongoose';
+import Address from '../../utils/models/addressModel';
 
 interface Attraction extends Document {
   name: string;
   description: string;
   cover: string;
-  address: {
-    country: string;
-    zipCode: string;
-    city: string;
-    street: string;
-    apartment?: string;
-    lat: number;
-    lng: number;
-  };
+  address: Address;
   reviews: [
     {
       userId: any;
