@@ -7,6 +7,11 @@ export const getAttractionState = createFeatureSelector<Attraction.State>(Attrac
 
 export const selectAttractions = createSelector(getAttractionState, (state) => state.attractions);
 
+export const selectAttractionByIds = (ids: string[]) =>
+  createSelector(selectAttractions, (attractions) => {
+    return attractions.filter((attraction) => ids.includes(attraction._id));
+  });
+
 export const selectNewAttractions = createSelector(getAttractionState, (state) => state.newAttractions);
 
 export const selectAttractionFilters = createSelector(getAttractionState, (state) => state.filters);

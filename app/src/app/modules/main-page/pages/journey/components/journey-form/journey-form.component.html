@@ -1,0 +1,21 @@
+<input type="text" placeholder="nazwa" />
+<input type="text" placeholder="opis" />
+<input type="date" placeholder="startdate" />
+<input type="date" placeholder="startdate" />
+
+<div *ngIf="userGroups$ | async as groups">
+  <div *ngFor="let group of groups">
+    {{ group.name }}
+  </div>
+</div>
+
+<div *ngIf="selectedAttractions$ | async as attractions">
+  <div *ngFor="let attraction of attractions">
+    {{ attraction?.name }}
+    <input type="datetime-local" />
+    <input type="text" placeholder="czas trwania" />
+    <input type="text" placeholder="dodatkowe informacje" />
+  </div>
+</div>
+
+<div></div>

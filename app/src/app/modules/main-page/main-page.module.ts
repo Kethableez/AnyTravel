@@ -20,6 +20,15 @@ import { GroupComponent } from './pages/group/group.component';
 import { GroupListComponent } from './pages/group/components/group-list/group-list.component';
 import { GroupCardComponent } from './pages/group/components/group-card/group-card.component';
 import { GroupFormComponent } from './pages/group/components/group-form/group-form.component';
+import { JourneyComponent } from './pages/journey/journey.component';
+import { WizardComponent } from './pages/journey/components/wizard/wizard.component';
+import { StepperComponent } from './pages/journey/components/wizard/stepper/stepper.component';
+import { BarComponent } from './pages/journey/components/wizard/bar/bar.component';
+import { StepsComponent } from './pages/journey/components/wizard/steps/steps.component';
+import { SelectGroupComponent } from './pages/journey/components/wizard/steps/select-group/select-group.component';
+import { SelectAttractionsComponent } from './pages/journey/components/wizard/steps/select-attractions/select-attractions.component';
+import { AddDetailsComponent } from './pages/journey/components/wizard/steps/add-details/add-details.component';
+import { JourneyFormComponent } from './pages/journey/components/journey-form/journey-form.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +46,17 @@ import { GroupFormComponent } from './pages/group/components/group-form/group-fo
     GroupComponent,
     GroupListComponent,
     GroupCardComponent,
-    GroupFormComponent
+    GroupFormComponent,
+    JourneyComponent,
+    WizardComponent,
+    StepperComponent,
+    BarComponent,
+    StepsComponent,
+    SelectGroupComponent,
+    SelectAttractionsComponent,
+    AddDetailsComponent,
+    JourneyFormComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })
-export class MainPageModule { }
+export class MainPageModule {}
