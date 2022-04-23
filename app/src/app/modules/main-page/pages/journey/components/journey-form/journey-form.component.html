@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="box">
+    <form>
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Informacje</mat-panel-title>
+            <mat-panel-description>Podaj podstawowe informacje</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Nazwa wycieczki</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Nazwa atrakcji"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Zakres dat</label>
+            </div>
+            <div class="field-body">
+              <div class="field is-grouped">
+                <div class="control is-expanded">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Nazwa atrakcji"
+                  />
+                </div>
+
+                <div class="control is-expanded">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Nazwa atrakcji"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Nazwa wycieczki</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <textarea
+                  class="textarea has-fixed-size"
+                  rows="5"
+                  type="text"
+                  placeholder="Opis"
+                ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <mat-action-row>
+            <div class="button is-danger" (click)="prevStep()">Powróć</div>
+            <div class="button is-primary" (click)="nextStep()">Dalej</div>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Cel podróży</mat-panel-title>
+            <!-- <mat-panel-description>Podaj podstawowe informacje</mat-panel-description> -->
+          </mat-expansion-panel-header>
+
+          <mat-action-row>
+            <div class="button is-danger" (click)="prevStep()">Powróć</div>
+            <div class="button is-primary" (click)="nextStep()">Dalej</div>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Wybierz grupę</mat-panel-title>
+            <!-- <mat-panel-description>Podaj podstawowe informacje</mat-panel-description> -->
+          </mat-expansion-panel-header>
+
+
+          <mat-action-row>
+            <div class="button is-danger" (click)="prevStep()">Powróć</div>
+            <div class="button is-primary" (click)="nextStep()">Dalej</div>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Informacje o atrakcjach</mat-panel-title>
+          </mat-expansion-panel-header>
+
+
+          <mat-action-row>
+            <div class="button is-danger" (click)="prevStep()">Powróć</div>
+            <div class="button is-primary" (click)="nextStep()">Dalej</div>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Zameldowanie</mat-panel-title>
+          </mat-expansion-panel-header>
+
+
+          <mat-action-row>
+            <div class="button is-danger" (click)="prevStep()">Powróć</div>
+            <div class="button is-primary" (click)="nextStep()">Dalej</div>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+
+      </mat-accordion>
+    </form>
+  </div>
+</div>

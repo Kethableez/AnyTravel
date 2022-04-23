@@ -23,6 +23,7 @@ import { NotificationStateModule } from '@store/notification';
 import { SharedModule } from './shared/shared.module';
 import { NotificationComponent } from './main/notification/notification.component';
 import { GroupStateModule } from './core/store/group';
+import { JourneyStateModule } from '@store/journey';
 
 @NgModule({
   declarations: [AppComponent, NotificationComponent],
@@ -37,6 +38,7 @@ import { GroupStateModule } from './core/store/group';
     GroupStateModule,
     AttractionStateModule,
     NotificationStateModule,
+    JourneyStateModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([HydrationEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
@@ -63,4 +65,4 @@ import { GroupStateModule } from './core/store/group';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
