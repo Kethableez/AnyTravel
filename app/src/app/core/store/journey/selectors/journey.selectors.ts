@@ -1,5 +1,5 @@
-import { WizardStep } from '@models/journey/wizard-step.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { WizardSteps } from 'src/app/modules/main-page/pages/journey/components/journey-form/journey-form.component';
 import * as Journey from '../reducers/journeys.reducers';
 import * as Wizard from '../reducers/wizard.reduers';
 
@@ -8,12 +8,15 @@ interface JourneyState {
   wizard: Wizard.State;
 }
 
-export const getJourneyState = createFeatureSelector<JourneyState>('journey');
+enum WizardData {
+  INFORMATION = 'information',
+  DESTINATION = 'destination',
+  GROUP = 'group',
+  ATTRACTIONS = 'attractions',
+  ACCOMODATION = 'accomodation'
+}
 
-export const selectIsWizardEnabled = createSelector(
-  getJourneyState,
-  (state) => state.wizard.step !== WizardStep.STEP_NONE
-);
+export const getJourneyState = createFeatureSelector<JourneyState>('journey');
 
 export const selectIsAttractionSelected = (attractionId: string | undefined) =>
   createSelector(getJourneyState, (state) =>
@@ -22,4 +25,36 @@ export const selectIsAttractionSelected = (attractionId: string | undefined) =>
 
 export const selectAttractions = createSelector(getJourneyState, (state) => state.wizard.selectedAttractions);
 
-export const selectGroup = createSelector(getJourneyState, (state) => state.wizard.selectedGroup);
+export const selectWizardState = (key: string) =>
+  createSelector(getJourneyState, (state) => state.wizard[key as keyof Wizard.State]);
+
+export const selectWizardData = createSelector(
+  selectWizardState(WizardData.INFORMATION),
+  selectWizardState(WizardData.DESTINATION),
+  selectWizardState(WizardData.GROUP),
+  selectWizardState(WizardData.ATTRACTIONS),
+  selectWizardState(WizardData.ACCOMODATION),
+  (information, destination, group, attractions, accomodation) => ({
+    information,
+    destination,
+    group,
+    attractions,
+    accomodation
+  })
+);
+
+export const selectCurrentStep = createSelector(selectWizardData, (data) => {
+  if (!data.information) {
+    return WizardSteps.INFORMATION;
+  } else if (!data.destination) {
+    return WizardSteps.DESTINATION;
+  } else if (!data.group) {
+    return WizardSteps.GROUP;
+  } else if (data.attractions.length === 0) {
+    return WizardSteps.ATTRACTIONS;
+  } else if (!data.accomodation) {
+    return WizardSteps.ACCOMODATION;
+  } else {
+    return WizardSteps.SUMMARY;
+  }
+});

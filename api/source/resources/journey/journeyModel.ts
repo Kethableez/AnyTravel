@@ -8,6 +8,7 @@ interface JourneyModel extends Document {
   cover: string;
   startDate: Date;
   endDate: Date;
+  groupId: any;
   destination: BaseAddress;
   attractions: AttractionInfo[];
   accomodation: Accomodation;

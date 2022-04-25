@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { Group } from '../../models/group/group.model';
-import { deleteGroup, getDataSuccess, getNewGroupSuccess, groupError } from './group.actions';
+import { deleteGroup, getUserGroupsSuccess, getNewGroupSuccess, groupError } from './group.actions';
 
 export interface State {
   groups: Group[];
@@ -13,10 +13,9 @@ export const initialState: State = {
   errorMessage: ''
 };
 
-
 export const groupsReducer = createReducer(
   initialState,
-  on(getDataSuccess, (state, action) => ({
+  on(getUserGroupsSuccess, (state, action) => ({
     ...state,
     groups: action.groups,
     errorMessage: ''

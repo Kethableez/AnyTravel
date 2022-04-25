@@ -1,22 +1,30 @@
+import mongoose from 'mongoose';
 import BaseResponse from '../../utils/models/baseResponseModel';
-import JourneyProcess from './journeyProcessModel';
-import journeyProcessSchema from './journeyProcessSchema';
+import groupSchema from '../group/groupSchema';
+import JourneyModel from './journeyModel';
 import journeySchema from './journeySchema';
+import CreateJourneyPayload from './payload/createJourney';
 
 class JourneyService {
   private journeySchema = journeySchema;
-  private journeyProcessSchema = journeyProcessSchema;
+  private groupSchema = groupSchema;
 
-  public async createProcess(senderId: string, journeyObject: any, step: string): Promise<BaseResponse | Error> {
+  public async createJourney(payload: CreateJourneyPayload): Promise<BaseResponse | Error> {
     try {
-      await this.journeyProcessSchema.create({
-        senderId,
-        journeyObject,
-        step
+      const journey = new this.journeySchema({
+        ...payload.information,
+        ...payload,
+        cover: 'journey/default.png',
+        groupId: new mongoose.Types.ObjectId(payload.group.id)
       });
-      return {
-        message: 'Journey process created'
-      };
+
+      const group = await this.groupSchema.findById(payload.group.id);
+      if (!group) throw new Error('Invalid group ID');
+      group.journeys.push(new mongoose.Types.ObjectId(journey._id));
+      await journey.save();
+      await group.save();
+
+      return { message: 'Created' };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -25,42 +33,26 @@ class JourneyService {
     }
   }
 
-  public async updateProcess(processId: string, journeyObject: any, step: string): Promise<BaseResponse | Error> {
+  public async getJourneysByGroupId(groupId: string): Promise<JourneyModel[] | Error> {
     try {
-      await this.journeyProcessSchema.findByIdAndUpdate(processId, {
-        journeyObject,
-        step
+      const journeys = await this.journeySchema.find({ groupId: groupId });
+      return journeys;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
+  public async getJourneysByGroups(groupIds: string[]): Promise<JourneyModel[] | Error> {
+    try {
+      const journeys = await this.journeySchema.find({
+        groupId: {
+          $in: groupIds.map((id) => new mongoose.Types.ObjectId(id))
+        }
       });
-      return {
-        message: 'Journey process updated'
-      };
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-      throw new Error('Unexpected error');
-    }
-  }
-
-  public async deleteProcess(processId: string): Promise<BaseResponse | Error> {
-    try {
-      await this.journeyProcessSchema.findByIdAndDelete(processId);
-      return {
-        message: 'Journey process deleted'
-      };
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-      throw new Error('Unexpected error');
-    }
-  }
-
-  public async getProcess(processId: string): Promise<JourneyProcess | Error> {
-    try {
-      const process = await this.journeyProcessSchema.findById(processId);
-      if (!process) throw new Error('Invalid process Id');
-      return process;
+      return journeys;
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);

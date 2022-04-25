@@ -12,7 +12,7 @@ enum ViewSelector {
   styleUrls: ['./journey.component.scss']
 })
 export class JourneyComponent extends CleanableDirective implements OnInit {
-  currentView = ViewSelector.ALL;
+  currentView = ViewSelector.CREATOR;
 
   constructor() {
     super();

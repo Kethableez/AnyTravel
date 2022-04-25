@@ -1,6 +1,6 @@
 interface AttractionInfo {
-  attractionId: any;
-  attractionDate: Date;
+  id: any;
+  date: Date;
   duration: string;
   additionalInfo: string;
 }

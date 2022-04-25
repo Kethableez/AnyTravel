@@ -1,0 +1,87 @@
+<form [formGroup]="informationForm">
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Nazwa wycieczki</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('name')"
+            type="text"
+            formControlName="name"
+            placeholder="Nazwa wycieczki"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('name')">
+            <div *ngFor="let error of getError('name')">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Zakres dat</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-grouped">
+        <div class="control is-expanded">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('startDate')"
+            type="date"
+            formControlName="startDate"
+            placeholder="Nazwa atrakcji"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('startDate')">
+            <div *ngFor="let error of getError('startDate')">{{ error | formError }}</div>
+          </div>
+        </div>
+
+        <div class="control is-expanded">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('endDate')"
+            type="date"
+            formControlName="endDate"
+            placeholder="Nazwa atrakcji"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('endDate')">
+            <div *ngFor="let error of getError('endDate')">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Opis</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <textarea
+            class="textarea has-fixed-size"
+            [ngClass]="isFieldValid('description')"
+            rows="5"
+            type="text"
+            formControlName="description"
+            placeholder="Opis"
+          ></textarea>
+          <div class="help is-danger" *ngIf="isErrorEnabled('description')">
+            <div *ngFor="let error of getError('description')">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-action-row>
+    <button type="button" class="button is-primary" [disabled]="informationForm.invalid" (click)="nextStep()">
+      Dalej
+    </button>
+  </mat-action-row>
+</form>

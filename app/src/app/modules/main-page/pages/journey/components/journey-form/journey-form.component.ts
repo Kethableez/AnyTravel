@@ -1,43 +1,84 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
-import { selectAttractionByIds } from '@store/attraction';
-import { selectGroupData } from '@store/group';
-import { selectAttractions, selectGroup } from '@store/journey/selectors/journey.selectors';
-import { switchMap } from 'rxjs';
+import { WizardActions } from '@store/journey';
+import { selectCurrentStep, selectWizardData } from '@store/journey/selectors/journey.selectors';
+import { combineLatest, of } from 'rxjs';
+import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
+export interface JourneyBase {
+  information: any;
+  destination: any;
+  group: any;
+  attractions: any;
+  accomodation: any;
+}
+
+export enum WizardSteps {
+  INFORMATION = 'Information',
+  DESTINATION = 'Destination',
+  GROUP = 'Group',
+  ATTRACTIONS = 'Attractions',
+  ACCOMODATION = 'Accomodation',
+  SUMMARY = 'Summary'
+}
 @Component({
   selector: 'majk-journey-form',
   templateUrl: './journey-form.component.html',
   styleUrls: ['./journey-form.component.scss'],
   providers: [FormService]
 })
-export class JourneyFormComponent implements OnInit {
-  constructor(protected formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {}
-
-  step = 0;
-
-  setStep(index: number) {
-    this.step = index;
+export class JourneyFormComponent extends CleanableDirective implements OnInit {
+  constructor(protected formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {
+    super();
   }
 
-  nextStep() {
-    this.step++;
+  step = this.steps.INFORMATION;
+  infoStep = of(false);
+
+  base: JourneyBase = {
+    information: {},
+    destination: {},
+    group: {},
+    attractions: [],
+    accomodation: {}
+  };
+
+  get steps() {
+    return WizardSteps;
   }
 
-  prevStep() {
-    this.step--;
+  setStep(step: WizardSteps) {
+    this.step = step;
   }
 
-  selectedAttractions$ = this.store$.pipe(
-    select(selectAttractions),
-    switchMap((ids) => this.store$.select(selectAttractionByIds(ids)))
-  );
+  submitStep(formData: any, stepKey: string, nextStep: WizardSteps) {
+    this.base[stepKey as keyof JourneyBase] = formData;
+    this.step = nextStep;
+  }
 
-  selectedGroup$ = this.store$.select(selectGroup);
-  userGroups$ = this.store$.select(selectGroupData);
+  ngOnInit(): void {
+    this.addSubscription(
+      combineLatest([this.store$.select(selectWizardData), this.store$.select(selectCurrentStep)]).subscribe(
+        ([data, step]) => {
+          this.step = step;
+          this.base = {
+            ...data
+          };
+        }
+      )
+    );
+  }
 
-  ngOnInit(): void {}
+  createJourney() {
+    const payload = this.base;
+
+    this.store$.dispatch(WizardActions.createJourney({ journeyPayload: payload }));
+  }
+
+  clearJourney() {
+    this.store$.dispatch(WizardActions.clearWizard());
+  }
 }

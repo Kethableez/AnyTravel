@@ -1,0 +1,64 @@
+<form [formGroup]="destinationForm">
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Kraj</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('country')"
+            type="text"
+            formControlName="country"
+            placeholder="Kraj"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('country')">
+            <div *ngFor="let error of getError('country')">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Kod pocztowy, miejscowość</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-grouped">
+        <div class="control is-expanded">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('zipCode')"
+            type="text"
+            formControlName="zipCode"
+            placeholder="Kod pocztowy"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('zipCode')">
+            <div *ngFor="let error of getError('zipCode')">{{ error | formError }}</div>
+          </div>
+        </div>
+
+        <div class="control is-expanded">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('city')"
+            type="text"
+            formControlName="city"
+            placeholder="Miejscowość"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('city')">
+            <div *ngFor="let error of getError('city')">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-action-row>
+    <button type="button" class="button is-primary" [disabled]="destinationForm.invalid" (click)="nextStep()">
+      Dalej
+    </button>
+  </mat-action-row>
+</form>

@@ -9,6 +9,8 @@ import { NotificationType, showNotification } from '../notification/notification
 import { clearData, getData } from '../user/user.actions';
 import { authError, confirm, login, loginSuccess, logout, refresh, refreshSuccess } from './auth.actions';
 import { selectIsLoggedIn } from './auth.selectors';
+import { getAttractions } from '@store/attraction/attraction.actions';
+import { getUserGroups } from '@store/group/group.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -44,7 +46,12 @@ export class AuthEffects {
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
       // map(() => getData()),
-      concatMap(() => [getData(), showNotification({ message: 'asd', notificationType: NotificationType.SUCCESS })]),
+      concatMap(() => [
+        getData(),
+        getAttractions(),
+        getUserGroups(),
+        showNotification({ message: 'asd', notificationType: NotificationType.SUCCESS })
+      ]),
       tap(() => this.router.navigateByUrl('/home'))
     )
   );

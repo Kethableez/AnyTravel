@@ -7,7 +7,16 @@ import { FileService } from '../../services/file/file.service';
 import { GroupService } from '../../services/group/group.service';
 import { RootState } from '../app.states';
 import { selectIsLoggedIn } from '../auth';
-import { getData, getDataSuccess, groupError, createGroup, getNewGroupSuccess, getNewGroup, deleteGroup, editGroup } from './group.actions';
+import {
+  groupError,
+  createGroup,
+  getNewGroupSuccess,
+  getNewGroup,
+  deleteGroup,
+  editGroup,
+  getUserGroups,
+  getUserGroupsSuccess
+} from './group.actions';
 
 @Injectable()
 export class GroupEffects {
@@ -15,16 +24,17 @@ export class GroupEffects {
     private store$: Store<RootState>,
     private actions$: Actions,
     private groupService: GroupService,
-    private fileService: FileService) { }
+    private fileService: FileService
+  ) {}
 
   getGroup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getData),
+      ofType(getUserGroups),
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
       switchMap(() =>
         this.groupService.doGetAllUserGroups().pipe(
-          map((response) => getDataSuccess({ groups: response })),
+          map((response) => getUserGroupsSuccess({ groups: response })),
           catchError((error) => of(groupError({ message: error.error.message })))
         )
       )
@@ -33,7 +43,7 @@ export class GroupEffects {
 
   getNewGroup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getData),
+      ofType(getUserGroups),
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
       switchMap(() =>
@@ -59,8 +69,10 @@ export class GroupEffects {
           }),
           switchMap((payload: CreateGroupPayload) => {
             return this.groupService.doCreateGroup(payload).pipe(
-              map(() => getData(),
-                catchError((error) => of(groupError({ message: error.error.message }))))
+              map(
+                () => getUserGroups(),
+                catchError((error) => of(groupError({ message: error.error.message })))
+              )
             );
           }),
           catchError((error) => of(groupError({ message: error.error.message })))
@@ -69,15 +81,13 @@ export class GroupEffects {
     )
   );
 
-
   deleteGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteGroup),
       switchMap((action) => {
         return this.groupService.doDeleteGroup(action.groupId).pipe(
-          switchMap(() => [getData(), getNewGroup()]),
-          catchError((error) => of(groupError({ message: error.error.message })
-          ))
+          switchMap(() => [getUserGroups(), getNewGroup()]),
+          catchError((error) => of(groupError({ message: error.error.message })))
         );
       })
     )
@@ -88,11 +98,12 @@ export class GroupEffects {
       ofType(editGroup),
       switchMap((action) =>
         this.groupService.doEdit(action.groupId, action.payload).pipe(
-          map(() => getData(),
-            catchError((error) => of(groupError({ message: error.error.message }))))
+          map(
+            () => getUserGroups(),
+            catchError((error) => of(groupError({ message: error.error.message })))
+          )
         )
       )
     )
   );
-
 }

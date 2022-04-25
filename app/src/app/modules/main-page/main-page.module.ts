@@ -21,14 +21,15 @@ import { GroupListComponent } from './pages/group/components/group-list/group-li
 import { GroupCardComponent } from './pages/group/components/group-card/group-card.component';
 import { GroupFormComponent } from './pages/group/components/group-form/group-form.component';
 import { JourneyComponent } from './pages/journey/journey.component';
-import { WizardComponent } from './pages/journey/components/wizard/wizard.component';
-import { StepperComponent } from './pages/journey/components/wizard/stepper/stepper.component';
-import { BarComponent } from './pages/journey/components/wizard/bar/bar.component';
-import { StepsComponent } from './pages/journey/components/wizard/steps/steps.component';
-import { SelectGroupComponent } from './pages/journey/components/wizard/steps/select-group/select-group.component';
-import { SelectAttractionsComponent } from './pages/journey/components/wizard/steps/select-attractions/select-attractions.component';
-import { AddDetailsComponent } from './pages/journey/components/wizard/steps/add-details/add-details.component';
 import { JourneyFormComponent } from './pages/journey/components/journey-form/journey-form.component';
+import { InformationStepComponent } from './pages/journey/components/journey-form/steps/information-step/information-step.component';
+import { DestinationStepComponent } from './pages/journey/components/journey-form/steps/destination-step/destination-step.component';
+import { GroupStepComponent } from './pages/journey/components/journey-form/steps/group-step/group-step.component';
+import { AttractionsStepComponent } from './pages/journey/components/journey-form/steps/attractions-step/attractions-step.component';
+import { AccomodationStepComponent } from './pages/journey/components/journey-form/steps/accomodation-step/accomodation-step.component';
+import { SummaryStepComponent } from './pages/journey/components/journey-form/steps/summary-step/summary-step.component';
+import { SelectedAttractionsComponent } from './pages/attraction/components/selected-attractions/selected-attractions.component';
+import { JourneyListComponent } from './pages/journey/components/journey-list/journey-list.component';
 
 @NgModule({
   declarations: [
@@ -48,14 +49,15 @@ import { JourneyFormComponent } from './pages/journey/components/journey-form/jo
     GroupCardComponent,
     GroupFormComponent,
     JourneyComponent,
-    WizardComponent,
-    StepperComponent,
-    BarComponent,
-    StepsComponent,
-    SelectGroupComponent,
-    SelectAttractionsComponent,
-    AddDetailsComponent,
-    JourneyFormComponent
+    JourneyFormComponent,
+    InformationStepComponent,
+    DestinationStepComponent,
+    GroupStepComponent,
+    AttractionsStepComponent,
+    AccomodationStepComponent,
+    SummaryStepComponent,
+    SelectedAttractionsComponent,
+    JourneyListComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

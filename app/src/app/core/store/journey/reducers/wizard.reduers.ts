@@ -1,23 +1,33 @@
-import { WizardStep } from '@models/journey/wizard-step.model';
 import { createReducer, on } from '@ngrx/store';
-import { addAttraction, addGroup, removeAttraction, removeGroup, setStep } from '../actions/wizard.actions';
+import {
+  addAttraction,
+  addGroup,
+  clearWizard,
+  createJourneySuccess,
+  removeAttraction,
+  removeAttractions,
+  removeGroup,
+  setStep,
+  updateWizard,
+  wizardError
+} from '../actions/wizard.actions';
 
 export interface State {
-  step: WizardStep;
-  journeyObject: any;
-  processId: string | null;
-  error: '';
+  information: any | null;
+  destination: any | null;
+  group: any | null;
+  attractions: any[];
+  accomodation: any | null;
   selectedAttractions: string[];
-  selectedGroup: string;
 }
 
 export const initialState: State = {
-  step: WizardStep.STEP_FINISH,
-  journeyObject: {},
-  processId: null,
-  error: '',
-  selectedAttractions: [],
-  selectedGroup: ''
+  information: null,
+  destination: null,
+  group: null,
+  attractions: [],
+  accomodation: null,
+  selectedAttractions: []
 };
 
 export const wizardReducer = createReducer(
@@ -25,6 +35,19 @@ export const wizardReducer = createReducer(
   on(setStep, (state, action) => ({
     ...state,
     step: action.step
+  })),
+  on(updateWizard, (state, action) => ({
+    ...state,
+    [action.key]: action.object
+  })),
+  on(createJourneySuccess, (state) => ({
+    ...state,
+    information: null,
+    destination: null,
+    group: null,
+    attractions: [],
+    selectedAttractions: [],
+    accomodation: null
   })),
   on(addAttraction, (state, action) => ({
     ...state,
@@ -34,6 +57,10 @@ export const wizardReducer = createReducer(
     ...state,
     selectedAttractions: state.selectedAttractions.filter((a) => a !== action.attractionId)
   })),
+  on(removeAttractions, (state) => ({
+    ...state,
+    selectedAttractions: []
+  })),
   on(addGroup, (state, action) => ({
     ...state,
     selectedGroup: action.groupId
@@ -41,6 +68,18 @@ export const wizardReducer = createReducer(
   on(removeGroup, (state) => ({
     ...state,
     selectedGroup: ''
+  })),
+  on(clearWizard, (state) => ({
+    ...state,
+    information: null,
+    destination: null,
+    group: null,
+    attractions: [],
+    accomodation: null
+  })),
+  on(wizardError, (state, action) => ({
+    ...state,
+    errorMessage: action.message
   }))
 );
 export const wizardFeatureKey = 'wizard';
