@@ -1,15 +1,17 @@
 <div *ngIf="selectedAttractions$ | async as attractions">
-  <div class="flex full">
-    <h3>Wybrane atrakcje</h3>
-    <button class="button is-info" (click)="removeAll()">Usuń wybrane</button>
-  </div>
-  <div class="flex">
-    <div class="mx-1" *ngFor="let attraction of attractions">
-      <div class="tag is-info is-light" (click)="removeAttraction(attraction._id)">
-        {{ attraction.name }}
-        <!-- <i class="fa-solid fa-xmark"></i> -->
-        X
+  <ng-container *ngIf="attractions.length !== 0">
+    <div class="flex full">
+      <h3>Wybrane atrakcje</h3>
+      <button class="button is-info" (click)="removeAll()">Usuń wybrane</button>
+    </div>
+    <div class="flex">
+      <div class="mx-1" *ngFor="let attraction of attractions">
+        <div class="tag is-info is-light" (click)="removeAttraction(attraction._id)">
+          {{ attraction.name }}
+          <!-- <i class="fa-solid fa-xmark"></i> -->
+          X
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>

@@ -3,10 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { JourneyService } from '@services/journey/journey.service';
 import { RootState } from '@store/app.states';
-import { selectGroupData, selectGroupsId } from '@store/group';
 import { NotificationType, showNotification } from '@store/notification/notification.actions';
-import { catchError, concatMap, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { getJourneys } from '../actions/journeys.actions';
+import { catchError, concatMap, filter, map, of, switchMap } from 'rxjs';
+import { getUserJourneys, getUserJourneySuccess, journeyError } from '../actions/journeys.actions';
 import { createJourney, createJourneySuccess, wizardError } from '../actions/wizard.actions';
 
 @Injectable({
@@ -30,9 +29,21 @@ export class JourneyEffects {
     )
   );
 
+  getUserJourneys$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserJourneys),
+      switchMap(() => {
+        return this.journeyService.doGetByUser().pipe(
+          map((response) => getUserJourneySuccess({ journeys: response })),
+          catchError((error) => of(journeyError(error.error.message)))
+        );
+      })
+    )
+  );
+
   error$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(wizardError),
+      ofType(journeyError),
       map((action) => action),
       filter((action) => action.dispatchNotification),
       map((action) => showNotification({ message: action.message, notificationType: NotificationType.ERROR }))

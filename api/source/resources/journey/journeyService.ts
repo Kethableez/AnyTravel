@@ -4,6 +4,7 @@ import groupSchema from '../group/groupSchema';
 import JourneyModel from './journeyModel';
 import journeySchema from './journeySchema';
 import CreateJourneyPayload from './payload/createJourney';
+import { byUserId } from './../group/groupQuery';
 
 class JourneyService {
   private journeySchema = journeySchema;
@@ -33,9 +34,15 @@ class JourneyService {
     }
   }
 
-  public async getJourneysByGroupId(groupId: string): Promise<JourneyModel[] | Error> {
+  public async getUserJourneys(userId: string): Promise<JourneyModel[] | Error> {
     try {
-      const journeys = await this.journeySchema.find({ groupId: groupId });
+      const groups = await this.groupSchema.find(byUserId(userId));
+      const groupIds = groups.map((group) => group._id);
+      const journeys = await this.journeySchema.find({
+        groupId: {
+          $in: groupIds
+        }
+      });
       return journeys;
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -45,13 +52,9 @@ class JourneyService {
     }
   }
 
-  public async getJourneysByGroups(groupIds: string[]): Promise<JourneyModel[] | Error> {
+  public async getJourneysByGroupId(groupId: string): Promise<JourneyModel[] | Error> {
     try {
-      const journeys = await this.journeySchema.find({
-        groupId: {
-          $in: groupIds.map((id) => new mongoose.Types.ObjectId(id))
-        }
-      });
+      const journeys = await this.journeySchema.find({ groupId: groupId });
       return journeys;
     } catch (error: unknown) {
       if (error instanceof Error) {

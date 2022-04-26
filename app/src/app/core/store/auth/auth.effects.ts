@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, concatMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { RootState } from '@store/app.states';
 import { AuthService } from '@services/auth/auth.service';
+import { RootState } from '@store/app.states';
+import { getAttractions } from '@store/attraction/attraction.actions';
+import { getUserGroups } from '@store/group/group.actions';
+import { getUserJourneys } from '@store/journey/actions/journeys.actions';
+import { catchError, concatMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { NotificationType, showNotification } from '../notification/notification.actions';
 import { clearData, getData } from '../user/user.actions';
 import { authError, confirm, login, loginSuccess, logout, refresh, refreshSuccess } from './auth.actions';
 import { selectIsLoggedIn } from './auth.selectors';
-import { getAttractions } from '@store/attraction/attraction.actions';
-import { getUserGroups } from '@store/group/group.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -45,13 +46,7 @@ export class AuthEffects {
       ofType(loginSuccess),
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
-      // map(() => getData()),
-      concatMap(() => [
-        getData(),
-        getAttractions(),
-        getUserGroups(),
-        showNotification({ message: 'asd', notificationType: NotificationType.SUCCESS })
-      ]),
+      concatMap(() => [getData(), getAttractions(), getUserGroups(), getUserJourneys()]),
       tap(() => this.router.navigateByUrl('/home'))
     )
   );

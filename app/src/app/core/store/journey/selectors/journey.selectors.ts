@@ -25,6 +25,11 @@ export const selectIsAttractionSelected = (attractionId: string | undefined) =>
 
 export const selectAttractions = createSelector(getJourneyState, (state) => state.wizard.selectedAttractions);
 
+export const selectUserJourneys = createSelector(getJourneyState, (state) => state.journeys.journeys);
+
+export const selectJourney = (journeyId: string) =>
+  createSelector(getJourneyState, (state) => state.journeys.journeys.find((journey) => journey._id === journeyId));
+
 export const selectWizardState = (key: string) =>
   createSelector(getJourneyState, (state) => state.wizard[key as keyof Wizard.State]);
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { RootState } from '@store/app.states';
+import { JourneysActions } from '@store/journey';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
 enum ViewSelector {
@@ -12,13 +15,15 @@ enum ViewSelector {
   styleUrls: ['./journey.component.scss']
 })
 export class JourneyComponent extends CleanableDirective implements OnInit {
-  currentView = ViewSelector.CREATOR;
+  currentView = ViewSelector.ALL;
 
-  constructor() {
+  constructor(private store$: Store<RootState>) {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store$.dispatch(JourneysActions.getUserJourneys());
+  }
 
   changeView(selector: ViewSelector) {
     this.currentView = selector;

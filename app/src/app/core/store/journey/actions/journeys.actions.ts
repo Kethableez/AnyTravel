@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
-export const createJourney = createAction('[Journey Wizard] Create Journey', props<{ payload: any }>());
+export const getUserJourneys = createAction('[Journeys] Get journeys');
 
-export const getJourneys = createAction('[Journeys] Get journeys');
+export const getUserJourneySuccess = createAction('[Journeys] Get journeys success', props<{ journeys: any[] }>());
 
-export const getJourneySuccess = createAction('[Journeys] Get journeys');
+export const journeyError = createAction(
+  '[Journeys] Journey Error',
+  props<{ message: string; dispatchNotification: boolean }>()
+);

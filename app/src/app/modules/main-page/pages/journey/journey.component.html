@@ -16,6 +16,7 @@
 <div [ngSwitch]="currentView">
   <div *ngSwitchCase="ViewSelector.ALL">
     <!-- <majk-attraction-list [attractionList$]="attractionList$" [isModeratorView]="false"></majk-attraction-list> -->
+    <majk-journey-list></majk-journey-list>
   </div>
   <div *ngSwitchCase="ViewSelector.CREATOR">
     <!-- <majk-wizard></majk-wizard> -->

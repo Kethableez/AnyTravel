@@ -1,24 +1,31 @@
-import { createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+import { getUserJourneySuccess, journeyError } from '../actions/journeys.actions';
 
 export interface State {
-  newJourneys: any[];
-  incomingJourneys: any[];
-  pastJourneys: any[];
+  journeys: any[];
   sortType: string;
   searchQuery: string | null;
   errorMessage: string;
 }
 
 export const initialState: State = {
-  newJourneys: [],
-  incomingJourneys: [],
-  pastJourneys: [],
+  journeys: [],
   sortType: 'nameAsc',
   searchQuery: null,
   errorMessage: ''
 };
 
-export const journeysReducer = createReducer(initialState);
+export const journeysReducer = createReducer(
+  initialState,
+  on(getUserJourneySuccess, (state, action) => ({
+    ...state,
+    journeys: action.journeys
+  })),
+  on(journeyError, (state, action) => ({
+    ...state,
+    errorMessage: action.message
+  }))
+);
 
 export const journeysFeatureKey = 'journeys';
 

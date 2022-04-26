@@ -30,6 +30,7 @@ import { AccomodationStepComponent } from './pages/journey/components/journey-fo
 import { SummaryStepComponent } from './pages/journey/components/journey-form/steps/summary-step/summary-step.component';
 import { SelectedAttractionsComponent } from './pages/attraction/components/selected-attractions/selected-attractions.component';
 import { JourneyListComponent } from './pages/journey/components/journey-list/journey-list.component';
+import { JourneyCardComponent } from './pages/journey/components/journey-card/journey-card.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { JourneyListComponent } from './pages/journey/components/journey-list/jo
     AccomodationStepComponent,
     SummaryStepComponent,
     SelectedAttractionsComponent,
-    JourneyListComponent
+    JourneyListComponent,
+    JourneyCardComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

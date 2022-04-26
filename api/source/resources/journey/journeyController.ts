@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import { authMiddleware } from '../../middleware/authMiddleware';
 import { HttpException } from '../../middleware/errorMiddleware';
 import Controller from '../../utils/models/controllerModel';
 import JourneyService from './journeyService';
@@ -13,9 +14,9 @@ class JourneyController implements Controller {
   }
 
   private initRoutes(): void {
-    this.router.get(`${this.path}/by-group/:groupId`, this.getJourneyByGroupId);
-    this.router.get(`${this.path}/by-groups`, this.getJourneyByGroups);
-    this.router.post(`${this.path}/create`, this.createJourney);
+    this.router.get(`${this.path}/by-group/:groupId`, authMiddleware, this.getJourneyByGroupId);
+    this.router.get(`${this.path}/by-user`, authMiddleware, this.getUserJourneys);
+    this.router.post(`${this.path}/create`, authMiddleware, this.createJourney);
   }
 
   private createJourney = async (req: Request, res: Response, next: NextFunction) => {
@@ -37,10 +38,10 @@ class JourneyController implements Controller {
     }
   };
 
-  private getJourneyByGroups = async (req: Request, res: Response, next: NextFunction) => {
+  private getUserJourneys = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { groups } = req.body;
-      const journeys = await this.journeyService.getJourneysByGroups(groups);
+      const userId = res.locals.user._id;
+      const journeys = await this.journeyService.getUserJourneys(userId);
       res.status(200).json(journeys);
     } catch (error: any) {
       next(new HttpException(400, error.message));

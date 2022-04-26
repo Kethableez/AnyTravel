@@ -31,7 +31,6 @@ export class AttractionEffects {
     private attractionService: AttractionService
   ) {}
 
-  // Better login error responses
   createAttraction$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createAttraction),
