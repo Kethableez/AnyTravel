@@ -5,12 +5,12 @@
     </figure>
   </div>
   <header class="card-header">
-    <div class="title is-4"> {{attraction.name}}</div>
+    <div class="title is-4">{{ attraction.name }}</div>
   </header>
   <div class="card-content">
     <div class="content flex">
-      <span class="tag is-link is-light"> {{attraction.category | label }}</span>
-      <span class="tag is-info is-light"> {{attraction.attractionType | label }}</span>
+      <span class="tag is-link is-light"> {{ attraction.category | label }}</span>
+      <span class="tag is-info is-light"> {{ attraction.attractionType | label }}</span>
       <span *ngIf="attraction.isPaid" class="tag is-success is-light"> {{ attraction.ticketPrice }}</span>
       <span *ngIf="!attraction.isPaid" class="tag is-success is-light"> Free </span>
     </div>
@@ -21,11 +21,11 @@
     </div>
     <div class="content">
       <div class="label">Adres:</div>
-      {{ attraction.address.zipCode }}, {{ attraction.address.city }}<br>
+      {{ attraction.address.zipCode }}, {{ attraction.address.city }}<br />
       Ul. {{ attraction.address.street }}, {{ attraction.address.apartment }}
     </div>
 
-    <hr>
+    <hr />
 
     <div class="content mb-0 flex-col">
       <div class="info">
@@ -47,22 +47,28 @@
       </div>
     </div>
 
-    <hr>
+    <!-- <hr>
 
     <div class="content is-center medium">
       <i class="fa-solid fa-heart"></i> {{ reviews.sum}} ({{reviews.all }})
-    </div>
+    </div> -->
   </div>
   <footer class="card-footer" *ngIf="isModeratorView">
     <button (click)="approveAttraction()" class="button is-success">Zatwierdź</button>
     <button (click)="deleteAttraction()" class="button is-danger">Usuń</button>
   </footer>
   <footer class="card-footer" *ngIf="!isModeratorView">
-      <button [disabled]="!(enableRating() | async)" (click)="addReview(+1)" class="button is-success">
+    <ng-container *ngIf="isAttractionSelected$ | async as isAttractionSelected; else xx">
+      <button class="button is-danger" (click)="removeAttractionFromJourney(attraction._id)">Usuń</button>
+    </ng-container>
+    <ng-template #xx>
+      <button class="button is-info" (click)="addAttractionToJourney(attraction._id)">Dodaj</button>
+    </ng-template>
+    <!-- <button [disabled]="!(enableRating() | async)" (click)="addReview(+1)" class="button is-success">
         <i class="fa-solid fa-thumbs-up"></i>
       </button>
       <button [disabled]="!(enableRating() | async)" (click)="addReview(-1)" class="button is-danger">
         <i class="fa-solid fa-thumbs-down"></i>
-      </button>
+      </button> -->
   </footer>
 </div>

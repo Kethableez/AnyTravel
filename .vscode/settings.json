@@ -1,27 +1,26 @@
-
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "editor.renderWhitespace": "all",
+    "editor.acceptSuggestionOnEnter": "off"
+  },
+  "editor.tabSize": 2,
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjYyZjYxNGM1ZjQxZjEzNDg4NTBjMDkiLCJpYXQiOjE2NTA5MTEyMTgsImV4cCI6MTY1MDkxMzAxOCwiaXNzIjoiYW55LXRyYXZlbC1pc3N1ZXIifQ.R6_UzqMZzI7hDnDGVG4eDJ4G5PQhNTcO2F0TEzuFlcE",
+      "contentType": "application/json"
     },
-    "[typescript]": {
-        "editor.formatOnSave": true,
-        "editor.formatOnPaste": true,
-    },
-    "[markdown]": {
-        "editor.formatOnSave": true,
-        "editor.wordWrap": "on",
-        "editor.renderWhitespace": "all",
-        "editor.acceptSuggestionOnEnter": "off"
-    },
-    "editor.tabSize": 2,
-    "rest-client.environmentVariables": {
-        "$shared": {
-            "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyM2IyYmJhOTRiYTBlODg0YmE0MzJjMyIsImlhdCI6MTY0ODEyNjg5NSwiZXhwIjoxNjQ4MTMwNDk1LCJpc3MiOiJhbnktdHJhdmVsLWlzc3VlciJ9.ZSyDQxKC570dHW-e30jRO_l7yq7v2XNuFje-QPWDZDk",
-            "contentType": "application/json"
-        },
-        "local": {
-            "baseUrl": "http://localhost:9000/api"
-        }
+    "local": {
+      "baseUrl": "http://localhost:9000/api"
     }
+  }
 }

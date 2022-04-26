@@ -1,0 +1,26 @@
+<div class="card" *ngIf="journey">
+  <div class="card-content">
+    <div class="title is-4">{{ journey.information.name }}</div>
+    <div class="content">
+      <div class="label">Termin wycieczki:</div>
+      {{ journey.information.startDate | date: 'dd.MM.yyyy' }} - {{ journey.information.endDate | date: 'dd.MM.yyyy' }}
+      <hr />
+      <div class="label">Opis:</div>
+      {{ journey.information.description }}
+      <hr />
+      <div class="label">Cel podróży</div>
+      {{ journey.destination.city }}, {{ journey.destination.country }}
+      <hr />
+      <div class="label">Grupa</div>
+      {{ journey.group.name }}
+      <hr />
+      <div class="label">Atrakcje:</div>
+      <div class="tag mx-1" *ngFor="let attraction of journey.attractions">
+        {{ attraction.name }}
+      </div>
+      <hr />
+      <div class="label">Zameldowanie:</div>
+      {{ valueWrapper(journey.accomodation) }}
+    </div>
+  </div>
+</div>

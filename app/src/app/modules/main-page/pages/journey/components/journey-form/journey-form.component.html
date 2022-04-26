@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="box">
+    <form>
+      <mat-accordion class="example-headers-align" *ngIf="step !== steps.SUMMARY">
+        <mat-expansion-panel [expanded]="step === steps.INFORMATION" (opened)="setStep(steps.INFORMATION)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Informacje</mat-panel-title>
+            <mat-panel-description>Podaj podstawowe informacje</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <majk-information-step
+            (submitStep)="submitStep($event, 'information', steps.DESTINATION)"
+          ></majk-information-step>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === steps.DESTINATION" (opened)="setStep(steps.DESTINATION)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Cel podróży</mat-panel-title>
+            <mat-panel-description>Podaj miejsce podróży</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <majk-destination-step (submitStep)="submitStep($event, 'destination', steps.GROUP)"></majk-destination-step>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === steps.GROUP" (opened)="setStep(steps.GROUP)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Wybierz grupę</mat-panel-title>
+            <mat-panel-description>Wybierz grupę wycieczkową</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <majk-group-step (submitStep)="submitStep($event, 'group', steps.ATTRACTIONS)"></majk-group-step>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === steps.ATTRACTIONS" (opened)="setStep(steps.ATTRACTIONS)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Informacje o atrakcjach</mat-panel-title>
+            <mat-panel-description>Dodaj informacje</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <majk-attractions-step
+            (submitStep)="submitStep($event, 'attractions', steps.ACCOMODATION)"
+          ></majk-attractions-step>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === steps.ACCOMODATION" (opened)="setStep(steps.ACCOMODATION)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Zameldowanie</mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <majk-accomodation-step
+            (submitStep)="submitStep($event, 'accomodation', steps.SUMMARY)"
+          ></majk-accomodation-step>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div *ngIf="step === steps.SUMMARY">
+        <majk-summary-step [journey]="base"></majk-summary-step>
+        <div class="buttons my-2">
+          <button type="button" class="button is-danger is-outlined" (click)="clearJourney()">Anuluj</button>
+          <button type="button" class="button is-info" (click)="setStep(steps.INFORMATION)">Korekta</button>
+          <button type="button" class="button is-primary" (click)="createJourney()">Stwórz</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

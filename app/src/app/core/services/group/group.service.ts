@@ -8,7 +8,7 @@ import { Group } from '../../models/group/group.model';
 import { CreateGroupPayload } from '../../models/group/crate-group-payload';
 import { RootState } from '../../store/app.states';
 import { Store } from '@ngrx/store';
-import { getNewGroup, getData } from '../../store/group/group.actions';
+import { getNewGroup, getUserGroups } from '../../store/group/group.actions';
 import { EditGroupPayload } from '../../models/group/edit-group-payload';
 
 enum GroupActions {
@@ -28,9 +28,11 @@ enum GroupActions {
   providedIn: 'root'
 })
 export class GroupService extends BaseRequestService {
-  constructor(protected override http: HttpClient,
+  constructor(
+    protected override http: HttpClient,
     protected override injector: ParametersInjectorService,
-    private store$: Store<RootState>) {
+    private store$: Store<RootState>
+  ) {
     super(http, injector);
   }
 
@@ -74,13 +76,11 @@ export class GroupService extends BaseRequestService {
     return this.post<EditGroupPayload>(url, payload);
   }
 
-
   doAdd(memberEmail: string): Observable<Response> {
     const url = this.getUrl(GroupActions.ADD_USER, { groupID: memberEmail });
 
     return this.post<Response>(url);
   }
-
 
   doRemove(memberId: string): Observable<Response> {
     const url = this.getUrl(GroupActions.REMOVE_USER, { groupID: memberId });
@@ -94,13 +94,11 @@ export class GroupService extends BaseRequestService {
     return this.post<Response>(url);
   }
 
-
-
   initData() {
     return this.store$.pipe(
       first(),
       tap(() => {
-        this.store$.dispatch(getData());
+        this.store$.dispatch(getUserGroups());
         this.store$.dispatch(getNewGroup());
       })
     );

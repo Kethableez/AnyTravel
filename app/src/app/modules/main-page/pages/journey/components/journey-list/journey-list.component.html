@@ -1,0 +1,5 @@
+<div class="list" *ngIf="journeys$ | async as journeys">
+  <div *ngFor="let journey of journeys">
+    <majk-journey-card [journey]="journey"></majk-journey-card>
+  </div>
+</div>

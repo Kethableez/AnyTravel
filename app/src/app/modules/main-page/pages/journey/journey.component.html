@@ -1,0 +1,25 @@
+<div class="tabs is-centered is-large is-boxed mb-0">
+  <ul>
+    <li [ngClass]="isViewActive(ViewSelector.ALL)" (click)="changeView(ViewSelector.ALL)">
+      <a>
+        <span>Twoje wycieczki</span>
+      </a>
+    </li>
+    <li [ngClass]="isViewActive(ViewSelector.CREATOR)" (click)="changeView(ViewSelector.CREATOR)">
+      <a>
+        <span>Kreator</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div [ngSwitch]="currentView">
+  <div *ngSwitchCase="ViewSelector.ALL">
+    <!-- <majk-attraction-list [attractionList$]="attractionList$" [isModeratorView]="false"></majk-attraction-list> -->
+    <majk-journey-list></majk-journey-list>
+  </div>
+  <div *ngSwitchCase="ViewSelector.CREATOR">
+    <!-- <majk-wizard></majk-wizard> -->
+    <majk-journey-form></majk-journey-form>
+  </div>
+</div>

@@ -20,6 +20,17 @@ import { GroupComponent } from './pages/group/group.component';
 import { GroupListComponent } from './pages/group/components/group-list/group-list.component';
 import { GroupCardComponent } from './pages/group/components/group-card/group-card.component';
 import { GroupFormComponent } from './pages/group/components/group-form/group-form.component';
+import { JourneyComponent } from './pages/journey/journey.component';
+import { JourneyFormComponent } from './pages/journey/components/journey-form/journey-form.component';
+import { InformationStepComponent } from './pages/journey/components/journey-form/steps/information-step/information-step.component';
+import { DestinationStepComponent } from './pages/journey/components/journey-form/steps/destination-step/destination-step.component';
+import { GroupStepComponent } from './pages/journey/components/journey-form/steps/group-step/group-step.component';
+import { AttractionsStepComponent } from './pages/journey/components/journey-form/steps/attractions-step/attractions-step.component';
+import { AccomodationStepComponent } from './pages/journey/components/journey-form/steps/accomodation-step/accomodation-step.component';
+import { SummaryStepComponent } from './pages/journey/components/journey-form/steps/summary-step/summary-step.component';
+import { SelectedAttractionsComponent } from './pages/attraction/components/selected-attractions/selected-attractions.component';
+import { JourneyListComponent } from './pages/journey/components/journey-list/journey-list.component';
+import { JourneyCardComponent } from './pages/journey/components/journey-card/journey-card.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +48,19 @@ import { GroupFormComponent } from './pages/group/components/group-form/group-fo
     GroupComponent,
     GroupListComponent,
     GroupCardComponent,
-    GroupFormComponent
+    GroupFormComponent,
+    JourneyComponent,
+    JourneyFormComponent,
+    InformationStepComponent,
+    DestinationStepComponent,
+    GroupStepComponent,
+    AttractionsStepComponent,
+    AccomodationStepComponent,
+    SummaryStepComponent,
+    SelectedAttractionsComponent,
+    JourneyListComponent,
+    JourneyCardComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })
-export class MainPageModule { }
+export class MainPageModule {}

@@ -6,6 +6,7 @@ import Server from './server';
 import config from './config/config';
 import AuthController from './resources/auth/authController';
 import ConfigController from './resources/config/configController';
+import JourneyController from './resources/journey/journeyController';
 
 const server = new Server(
   [
@@ -14,7 +15,8 @@ const server = new Server(
     new GroupController(),
     new FileController(),
     new AttractionController(),
-    new ConfigController()
+    new ConfigController(),
+    new JourneyController()
   ],
   Number(config.server.port)
 );

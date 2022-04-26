@@ -5,4 +5,6 @@ export const getGroupState = createFeatureSelector<formGroup.State>(formGroup.gr
 
 export const selectGroupData = createSelector(getGroupState, (state) => state.groups);
 
+export const selectGroupsId = createSelector(getGroupState, (state) => state.groups.map((group) => group._id));
+
 export const selectNewGroupData = createSelector(getGroupState, (state) => state.newGroups);
