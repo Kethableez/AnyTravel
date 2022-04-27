@@ -2,17 +2,17 @@
   <div class="container">
     <div *ngIf="group" class="row">
       <div class="col">
-        <figure class="image">
+        <figure class="image is-square">
           <img [src]="groupCover" alt="Placeholder image" />
         </figure>
       </div>
       <div class="col">
-        <div class="title is-4">{{group?.name}}</div>
+        <div class="title is-4">{{ group?.name }}</div>
         <div class="row">
-          <span class="tag is-link is-light">Creator: {{group?.founder.username| label }}</span>
-          <span class="tag is-info is-light">Invitation Code: {{group?.invitationCode| label }}</span>
-          <span class="tag is-info is-light"> {{group?.journeys| label }}</span>
-          <span class="tag is-info is-light"> {{group?.members| label }}</span>
+          <span class="tag is-link is-light">Creator: {{ group?.founder.username | label }}</span>
+          <span class="tag is-info is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
+          <span class="tag is-info is-light"> {{ group?.journeys | label }}</span>
+          <span class="tag is-info is-light"> {{ group?.members | label }}</span>
         </div>
 
         <div class="row">
