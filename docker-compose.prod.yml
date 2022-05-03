@@ -3,7 +3,8 @@ version: "3.8"
 services:
   any-travel-api:
     build:
-      context: ./api
+      context: .
+      target: api-prod
     container_name: any-travel-api
     command: pm2-runtime process.yaml
     environment:
@@ -29,7 +30,8 @@ services:
 
   any-travel-app:
     build:
-      context: ./app
+      context: .
+      target: ui-prod
     container_name: any-travel-app
     expose:
       - 80
@@ -38,4 +40,3 @@ services:
 
 volumes:
   storage:
-

@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  any-travel-api:
+    build:
+      context: .
+      target: api-dev
+    container_name: any-travel-api
+    command: npm run dev
+    environment:
+      - DOCKER=true
+    expose:
+      - 9000
+    restart: always
+    links:
+      - any-travel-db
+    volumes:
+      - ./storage:/usr/src/api/storage
+    ports:
+      - "9000:9000"
+
+  any-travel-db:
+    container_name: any-travel-db
+    image: mongo
+    command: mongod --port 27000
+    expose:
+      - 27000
+    ports:
+      - "27000:27000"
+
+  any-travel-app:
+    build:
+      context: .
+      target: ui-dev
+    command: ng serve -c local --host 0.0.0.0
+    volumes:
+      - ./app/src:/app/src
+    container_name: any-travel-app
+    expose:
+      - 4200
+      - 49153
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+
+volumes:
+  storage:
