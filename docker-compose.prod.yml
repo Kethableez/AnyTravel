@@ -33,10 +33,14 @@ services:
       context: .
       target: ui-prod
     container_name: any-travel-app
-    expose:
-      - 80
+
+  nginx:
+    build:
+      context: .
+      target: ngi
     ports:
       - "80:80"
+    restart: unless-stopped
 
 volumes:
   storage:
