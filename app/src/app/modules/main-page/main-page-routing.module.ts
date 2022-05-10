@@ -6,6 +6,7 @@ import { MainPageComponent } from './main-page.component';
 import { AttractionComponent } from './pages/attraction/attraction.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { JourneyComponent } from './pages/journey/journey.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,11 @@ const routes: Routes = [
       {
         path: 'journey',
         component: JourneyComponent
-      }
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
     ]
   }
 ];

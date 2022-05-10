@@ -1,0 +1,47 @@
+<div class="column is-12">
+  <div *ngIf="userJourneys$ | async as userJourneys">
+    
+
+    <tr *ngIf="userJourneys[0] as journey">
+
+      <div>
+
+        <div class="card is-full">
+          <div class="card-header">
+            <p class="title is-4">
+              Nadchodząca wycieczka
+            </p>
+          </div>
+
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <div class="title is-4">{{ journey.name }}</div>
+                <p class="subtitle is-6">{{ journey.destination.country }}</p>
+              </div>
+            </div>
+
+            <div class="content">
+              <div>{{ journey.description }}</div>
+              <br>
+                <time type="datetime-local">{{ journey.startDate | date: 'dd.MM.yyyy' }}</time>
+                <time type="datetime-local"> - {{ journey.endDate | date: 'dd.MM.yyyy' }}</time>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </tr>
+
+<!--
+    {{ userJourneys | json }}
+-->
+  </div>
+</div>
+
+
+<!--
+<div class="card">
+</div>
+-->

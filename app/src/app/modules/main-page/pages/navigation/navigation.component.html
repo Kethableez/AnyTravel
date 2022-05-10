@@ -7,7 +7,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <div class="button" [ngClass]="isActive('dashboard')">Dashboard</div>
+            <div class="button" [ngClass]="isActive('dashboard')" (click)="navigate('dashboard')">Dashboard</div>
             <div class="button" [ngClass]="isActive('group')" (click)="navigate('groups')">Twoje grupy</div>
             <div class="button" [ngClass]="isActive('journey')" (click)="navigate('journey')">Twoje wycieczki</div>
             <div class="button" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>

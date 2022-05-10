@@ -27,6 +27,11 @@ export const selectAttractions = createSelector(getJourneyState, (state) => stat
 
 export const selectUserJourneys = createSelector(getJourneyState, (state) => state.journeys.journeys);
 
+export const selectUpcomingUserJourneys = createSelector(selectUserJourneys, (journeys) => journeys.filter(
+  journey => new Date(journey.startDate) > new Date()).sort(
+  (journey1, journey2) => new Date(journey1.startDate).getTime() - new Date(journey2.startDate).getTime()
+));
+
 export const selectJourney = (journeyId: string) =>
   createSelector(getJourneyState, (state) => state.journeys.journeys.find((journey) => journey._id === journeyId));
 
