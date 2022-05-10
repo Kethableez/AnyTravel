@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
-import { selectWizardState, WizardActions } from '@store/journey';
+import { selectWizardAccomodation, WizardActions } from '@store/journey';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
 @Component({
@@ -16,8 +16,7 @@ export class AccomodationStepComponent extends CleanableDirective implements OnI
   constructor(protected formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {
     super();
     this.addSubscription(
-      this.store$.select(selectWizardState('accomodation')).subscribe((accomodation) => {
-        console.log(accomodation);
+      this.store$.select(selectWizardAccomodation).subscribe((accomodation) => {
         if (accomodation) {
           this.isAccomodationFormEnabled = true;
           this.accomodationForm.patchValue(accomodation);

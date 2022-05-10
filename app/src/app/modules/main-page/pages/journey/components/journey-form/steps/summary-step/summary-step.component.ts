@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { JourneyBase } from '@models/journey/wizard-data.model';
 import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
-import { JourneyBase } from '../../journey-form.component';
 
 @Component({
   selector: 'majk-summary-step',

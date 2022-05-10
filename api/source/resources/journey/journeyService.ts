@@ -34,6 +34,20 @@ class JourneyService {
     }
   }
 
+  public async getJourney(journeyId: string): Promise<JourneyModel | Error> {
+    try {
+      const journey = await this.journeySchema.findById(journeyId);
+      if (!journey) throw new Error('Invalid ID');
+
+      return journey;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
   public async getUserJourneys(userId: string): Promise<JourneyModel[] | Error> {
     try {
       const groups = await this.groupSchema.find(byUserId(userId));

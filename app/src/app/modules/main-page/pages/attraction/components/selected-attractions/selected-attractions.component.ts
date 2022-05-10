@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
 import { selectAttractionByIds } from '@store/attraction';
 import { WizardActions } from '@store/journey';
-import { selectAttractions } from '@store/journey/selectors/journey.selectors';
+import { selectWizardAttractions } from '@store/journey/selectors/journey.selectors';
 import { first, switchMap } from 'rxjs';
 
 @Component({
@@ -12,10 +12,7 @@ import { first, switchMap } from 'rxjs';
   styleUrls: ['./selected-attractions.component.scss']
 })
 export class SelectedAttractionsComponent implements OnInit {
-  selectedAttractions$ = this.store$.pipe(
-    select(selectAttractions),
-    switchMap((ids) => this.store$.select(selectAttractionByIds(ids)))
-  );
+  selectedAttractions$ = this.store$.select(selectWizardAttractions);
 
   constructor(private store$: Store<RootState>) {}
 

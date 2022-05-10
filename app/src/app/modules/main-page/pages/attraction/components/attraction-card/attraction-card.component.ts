@@ -6,7 +6,7 @@ import { Attraction } from '@models/attraction/attration.model';
 import { RootState } from '@store/app.states';
 import { AttractionActions } from '@store/attraction';
 import { selectUserId } from '@store/user';
-import { selectIsAttractionSelected } from '@store/journey/selectors/journey.selectors';
+import { isAttractionSelected } from '@store/journey/selectors/journey.selectors';
 import { WizardActions } from '@store/journey';
 
 @Component({
@@ -37,7 +37,7 @@ export class AttractionCardComponent implements OnInit {
   ngOnInit(): void {
     if (this.attraction) {
       this.isAttractionSelected$ = this.store$
-        .select(selectIsAttractionSelected(this.attraction?._id))
+        .select(isAttractionSelected(this.attraction?._id))
         .pipe(tap(console.log));
     }
   }
@@ -76,8 +76,8 @@ export class AttractionCardComponent implements OnInit {
     }
   }
 
-  addAttractionToJourney(id: string) {
-    this.store$.dispatch(WizardActions.addAttraction({ attractionId: id }));
+  addAttractionToJourney(id: string, name: string) {
+    this.store$.dispatch(WizardActions.addAttraction({ attractionId: id, name: name }));
   }
 
   removeAttractionFromJourney(id: string) {

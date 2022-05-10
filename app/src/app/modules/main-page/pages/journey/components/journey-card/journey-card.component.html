@@ -29,7 +29,7 @@
 
     <div class="content" *ngIf="selectedTab === tab.ATTRACTION">
       <div *ngFor="let data of mapAttractions(journey.attractions)">
-        <div class="label">{{ data.date | date: 'dd.MM.yyyy' }}</div>
+        <div class="label">{{ data.date | date: 'MMM d' }}</div>
         <div class="mb-2" *ngFor="let attraction of data.attractions">
           <strong>Nazwa</strong> {{ attraction.name }} <br />
           <strong>Godzina:</strong> {{ attraction.date | date: 'HH:mm' }} <br />
