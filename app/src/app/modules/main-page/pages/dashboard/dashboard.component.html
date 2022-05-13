@@ -1,47 +1,80 @@
 <div class="column is-12">
-  <div *ngIf="userJourneys$ | async as userJourneys">
-    
 
-    <tr *ngIf="userJourneys[0] as journey">
+  <div class="content">
+    <div class="paragraph-title">
+      <h2 class="title is-3"> Najbliższa wycieczka </h2>
+    </div>
+    <div *ngIf="userJourneys$ | async as userJourneys">
+      <tr *ngIf="userJourneys[0] as journey">
 
-      <div>
-
-        <div class="card is-full">
-          <div class="card-header">
-            <p class="title is-4">
-              Nadchodząca wycieczka
-            </p>
-          </div>
-
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <div class="title is-4">{{ journey.name }}</div>
-                <p class="subtitle is-6">{{ journey.destination.country }}</p>
-              </div>
+        <div>
+          <div class="card is-full">
+            <div class="card-header">
+              <p class="title is-4">
+                {{ journey.name }}
+              </p>
             </div>
 
-            <div class="content">
-              <div>{{ journey.description }}</div>
-              <br>
-                <time type="datetime-local">{{ journey.startDate | date: 'dd.MM.yyyy' }}</time>
-                <time type="datetime-local"> - {{ journey.endDate | date: 'dd.MM.yyyy' }}</time>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <div class="title is-4">{{ journey.name }}</div>
+                  <p class="subtitle is-6">{{ journey.destination.country }}</p>
+                </div>
+              </div>
+
+              <div class="content">
+                <div>{{ journey.description }}</div>
+                <br>
+                  <time type="datetime-local">{{ journey.startDate | date: 'dd.MM.yyyy' }}</time>
+                  <time type="datetime-local"> - {{ journey.endDate | date: 'dd.MM.yyyy' }}</time>
+              </div>
+
             </div>
           </div>
         </div>
 
+      </tr>
+    </div>
+  </div>
+
+
+  <div class="content">
+    <div *ngIf="pastJourneys$ | async as pastJourneys">
+      <div class="paragraph-title">
+        <h2 class="title is-3"> Przebyte wycieczki </h2>
       </div>
 
-    </tr>
+      <tr *ngFor="let pastJourney of pastJourneys">
+        <div>
+          <div class="card is-full">
+            <div class="card-header">
+              <p class="title is-4">
+                {{ pastJourney.name }}
+              </p>
+            </div>
 
-<!--
-    {{ userJourneys | json }}
--->
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-6">{{ pastJourney.destination.country }}</p>
+                </div>
+              </div>
+
+              <div class="content">
+                <div>{{ pastJourney.description }}</div>
+                <br>
+                  <time type="datetime-local">{{ pastJourney.startDate | date: 'dd.MM.yyyy' }}</time>
+                  <time type="datetime-local"> - {{ pastJourney.endDate | date: 'dd.MM.yyyy' }}</time>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </tr>
+    </div>  
   </div>
+  
 </div>
 
-
-<!--
-<div class="card">
-</div>
--->

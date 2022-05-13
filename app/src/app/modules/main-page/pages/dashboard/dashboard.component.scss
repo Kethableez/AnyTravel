@@ -62,3 +62,15 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.title {
+  font-weight: bold;
+}
+
+
+.content:hover {
+  .paragraph-title > .title{
+    text-decoration: solid underline transparent;
+    transition: text-decoration 4s ease;
+  }
+}
