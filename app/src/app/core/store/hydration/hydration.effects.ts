@@ -11,13 +11,13 @@ export class HydrationEffects implements OnInitEffects {
     this.action$.pipe(
       ofType(hydrate),
       map(() => {
-        const storageValue = localStorage.getItem('state');
+        const storageValue = window.localStorage.getItem('state');
         if (storageValue) {
           try {
             const state = JSON.parse(storageValue);
             return hydrateSuccess({ state });
           } catch {
-            localStorage.removeItem('state');
+            window.localStorage.removeItem('state');
           }
         }
         return hydrateFailure();
@@ -31,7 +31,7 @@ export class HydrationEffects implements OnInitEffects {
         ofType(hydrateSuccess, hydrateFailure),
         switchMap(() => this.store),
         distinctUntilChanged(),
-        tap((state) => localStorage.setItem('state', JSON.stringify(state)))
+        tap((state) => window.localStorage.setItem('state', JSON.stringify(state)))
       ),
     { dispatch: false }
   );

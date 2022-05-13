@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
-import { selectAttractionByIds } from '@store/attraction';
 import { WizardActions } from '@store/journey';
 import { selectWizardAttractions } from '@store/journey/selectors/journey.selectors';
-import { first, switchMap } from 'rxjs';
 
 @Component({
   selector: 'majk-selected-attractions',
