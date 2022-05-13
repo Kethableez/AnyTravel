@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { RootState } from '@store/app.states';
+import { selectJourneyById } from '@store/journey';
+import { tap, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'majk-journey-profile',
@@ -6,10 +11,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./journey-profile.component.scss']
 })
 export class JourneyProfileComponent implements OnInit {
+  constructor(private route: ActivatedRoute, private store$: Store<RootState>) {}
 
-  constructor() { }
+  journey$ = this.route.params.pipe(
+    map((params) => params['journeyId']),
+    switchMap((id) => this.store$.select(selectJourneyById(id)))
+  );
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

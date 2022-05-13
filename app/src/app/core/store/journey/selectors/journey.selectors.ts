@@ -1,4 +1,3 @@
-import { SortOptions } from '@models/journey/sort-options.model';
 import { WizardStep } from '@models/journey/wizard-step.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as Journey from '../reducers/journeys.reducers';
@@ -30,6 +29,9 @@ export const selectWizardAttractions = createSelector(getJourneyState, (state) =
 export const selectWizardAccomodation = createSelector(getJourneyState, (state) => state.wizard.accomodation);
 
 export const selectUserJourneys = createSelector(selectJourneys, (journeys) => journeys);
+
+export const selectJourneyById = (id: string) =>
+  createSelector(selectJourneys, (journeys) => journeys.find((j) => j._id === id));
 
 export const isAttractionSelected = (attractionId: string | undefined) =>
   createSelector(
