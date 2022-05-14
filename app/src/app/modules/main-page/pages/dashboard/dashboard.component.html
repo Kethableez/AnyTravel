@@ -9,6 +9,13 @@
 
         <div>
           <div class="card is-full">
+
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ journeyCoverFromAttraction }}" alt="Placeholder image">
+              </figure>
+            </div>
+
             <div class="card-header">
               <p class="title is-4">
                 {{ journey.name }}
@@ -18,7 +25,6 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
-                  <div class="title is-4">{{ journey.name }}</div>
                   <p class="subtitle is-6">{{ journey.destination.country }}</p>
                 </div>
               </div>
@@ -48,6 +54,13 @@
       <tr *ngFor="let journey of futureJourneys">
         <div>
           <div class="card is-full">
+
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ journeyCoverFromAttraction }}" alt="Placeholder image">
+              </figure>
+            </div>
+
             <div class="card-header">
               <p class="title is-4">
                 {{ journey.name }}
@@ -84,6 +97,13 @@
       <tr *ngFor="let pastJourney of pastJourneys">
         <div>
           <div class="card is-full">
+
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ journeyCoverFromAttraction }}" alt="Placeholder image">
+              </figure>
+            </div>
+
             <div class="card-header">
               <p class="title is-4">
                 {{ pastJourney.name }}
