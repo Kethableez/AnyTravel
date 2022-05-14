@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
-import { selectPastUserJourneys, selectUpcomingUserJourneys } from '@store/journey/selectors/journey.selectors'
+import { selectFutureUserJourneys, selectPastUserJourneys, selectUpcomingUserJourneys } from '@store/journey/selectors/journey.selectors'
 
 
 @Component({
@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor(private store$: Store<RootState>) {}
   
   userJourneys$ = this.store$.select(selectUpcomingUserJourneys);
+  futureJourneys$ = this.store$.select(selectFutureUserJourneys);
   pastJourneys$ = this.store$.select(selectPastUserJourneys);
 
   ngOnInit(): void {}

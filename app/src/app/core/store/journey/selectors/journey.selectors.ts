@@ -36,6 +36,10 @@ export const selectPastUserJourneys = createSelector(selectUserJourneys, (journe
   journey => new Date(journey.endDate) < new Date()
 ))
 
+export const selectFutureUserJourneys = createSelector(selectUserJourneys, (journeys) => journeys.filter(
+  journey => new Date(journey.endDate) > new Date()
+))
+
 export const selectJourney = (journeyId: string) =>
   createSelector(getJourneyState, (state) => state.journeys.journeys.find((journey) => journey._id === journeyId));
 
