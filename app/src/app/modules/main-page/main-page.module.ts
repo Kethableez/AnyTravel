@@ -31,6 +31,8 @@ import { SummaryStepComponent } from './pages/journey/components/journey-form/st
 import { SelectedAttractionsComponent } from './pages/attraction/components/selected-attractions/selected-attractions.component';
 import { JourneyListComponent } from './pages/journey/components/journey-list/journey-list.component';
 import { JourneyCardComponent } from './pages/journey/components/journey-card/journey-card.component';
+import { MeetingStepComponent } from './pages/journey/components/journey-form/steps/meeting-step/meeting-step.component';
+import { JourneyProfileComponent } from './pages/journey/components/journey-profile/journey-profile.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { JourneyCardComponent } from './pages/journey/components/journey-card/jo
     SummaryStepComponent,
     SelectedAttractionsComponent,
     JourneyListComponent,
-    JourneyCardComponent
+    JourneyCardComponent,
+    MeetingStepComponent,
+    JourneyProfileComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

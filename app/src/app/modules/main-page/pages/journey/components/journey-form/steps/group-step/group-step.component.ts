@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
 import { selectGroupData } from '@store/group';
-import { selectWizardState, WizardActions } from '@store/journey';
+import { selectWizardGroup, WizardActions } from '@store/journey';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
 @Component({
@@ -22,7 +22,7 @@ export class GroupStepComponent extends CleanableDirective implements OnInit {
   constructor(protected formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {
     super();
     this.addSubscription(
-      this.store$.select(selectWizardState('group')).subscribe((group) => {
+      this.store$.select(selectWizardGroup).subscribe((group) => {
         if (group) {
           this.selectedGroupId = group.id;
           this.selectedGroupName = group.name;

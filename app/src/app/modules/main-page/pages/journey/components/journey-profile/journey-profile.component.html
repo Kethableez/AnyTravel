@@ -1,0 +1,9 @@
+<ng-container *ngIf="journey$ | async as journey; else error">
+  <pre>
+    {{ journey | json }}
+  </pre>
+</ng-container>
+
+<ng-template #error>
+  <p>404 journey not found</p>
+</ng-template>

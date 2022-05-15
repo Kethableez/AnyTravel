@@ -1,6 +1,8 @@
 import { Document } from 'mongoose';
 import Accomodation from '../../utils/models/accomodationModel';
+import Address from '../../utils/models/addressModel';
 import AttractionInfo from '../../utils/models/attractionInfoModel';
+import Break from '../../utils/models/breakModel';
 
 interface JourneyModel extends Document {
   name: string;
@@ -10,6 +12,8 @@ interface JourneyModel extends Document {
   endDate: Date;
   groupId: any;
   destination: BaseAddress;
+  meetingPlace: Address;
+  breaks: Break[];
   attractions: AttractionInfo[];
   accomodation: Accomodation;
 }

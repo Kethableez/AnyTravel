@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
 
@@ -19,7 +20,7 @@ export class JourneyCardComponent implements OnInit {
 
   selectedTab = CardTab.INFORMATION;
 
-  constructor(private store$: Store<RootState>) {}
+  constructor(private store$: Store<RootState>, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -29,6 +30,10 @@ export class JourneyCardComponent implements OnInit {
 
   selectTab(tab: CardTab) {
     this.selectedTab = tab;
+  }
+
+  navigate(id: string) {
+    this.router.navigateByUrl(`/home/journey/${id}`);
   }
 
   isActive(tab: CardTab) {

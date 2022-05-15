@@ -1,5 +1,6 @@
+import { SortOptions } from '@models/journey/sort-options.model';
 import { createReducer, on } from '@ngrx/store';
-import { getUserJourneySuccess, journeyError } from '../actions/journeys.actions';
+import { getUserJourneySuccess, journeyError, searchQueryChange, sortChange } from '../actions/journeys.actions';
 
 export interface State {
   journeys: any[];
@@ -10,7 +11,7 @@ export interface State {
 
 export const initialState: State = {
   journeys: [],
-  sortType: 'nameAsc',
+  sortType: SortOptions.NAME_ASC,
   searchQuery: null,
   errorMessage: ''
 };
@@ -20,6 +21,14 @@ export const journeysReducer = createReducer(
   on(getUserJourneySuccess, (state, action) => ({
     ...state,
     journeys: action.journeys
+  })),
+  on(sortChange, (state, action) => ({
+    ...state,
+    sortType: action.option
+  })),
+  on(searchQueryChange, (state, action) => ({
+    ...state,
+    searchQuery: action.query
   })),
   on(journeyError, (state, action) => ({
     ...state,
