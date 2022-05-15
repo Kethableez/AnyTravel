@@ -1,4 +1,9 @@
 <div class="content-scroll attraction-box">
+  <div *ngIf="attractions.length === 0">
+    <p>Nie znaleziono atrakcji</p>
+    <p>Kliknij <a routerLink="/home/attraction">TUTAJ</a> aby dodać wycieczki</p>
+  </div>
+
   <div *ngFor="let attraction of attractions.controls; let i = index">
     <div class="box" *ngIf="getFormGroup(attraction) as attractionForm">
       <form [formGroup]="attractionForm">

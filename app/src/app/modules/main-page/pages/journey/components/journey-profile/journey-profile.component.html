@@ -1,7 +1,44 @@
 <ng-container *ngIf="journey$ | async as journey; else error">
-  <pre>
+  <!-- <h1>{{ journey.name }}</h1>
+  <p>{{ journey.description }}</p> -->
+
+  <div class="box">
+    <h1 class="is-1">{{ journey.name }}</h1>
+    <p class="is-4">{{ journey.description }}</p>
+  </div>
+
+  <div class="box">
+    <!-- <p class="is-3 has-text-weight-bold">Termin wycieczki:</p>
+    <p class="is-3"></p> -->
+    <p class="is-3">
+      <span class="has-text-weight-bold">Termin wycieczki: </span>
+      <span>{{ journey.startDate | date: 'dd.MM.yyyy' }} - {{ journey.endDate | date: 'dd.MM.yyyy' }}</span>
+    </p>
+
+    <p class="is-3">
+      <span class="has-text-weight-bold">Grupa wycieczkowa: </span>
+      <span>{{ journey.group.name }}</span>
+    </p>
+
+    <p class="is-3">
+      <span class="has-text-weight-bold">Cel wycieczki: </span>
+      <span> {{ journey.destination.city }}, {{ journey.destination.country }} </span>
+    </p>
+  </div>
+
+  <div *ngIf="journey.accomodation">
+    <h3>Pobyt:</h3>
+    <p>{{ journey.accomodation.name }}</p>
+    <p>{{ journey.accomodation.address }}</p>
+    <p>{{ journey.accomodation.description }}</p>
+  </div>
+
+  <h3>Plan podróży:</h3>
+  <p *ngFor="let attraction of journey.attractions">{{ attraction.name }}</p>
+
+  <!-- <pre>
     {{ journey | json }}
-  </pre>
+  </pre> -->
 </ng-container>
 
 <ng-template #error>

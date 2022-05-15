@@ -8,3 +8,6 @@ export const selectGroupData = createSelector(getGroupState, (state) => state.gr
 export const selectGroupsId = createSelector(getGroupState, (state) => state.groups.map((group) => group._id));
 
 export const selectNewGroupData = createSelector(getGroupState, (state) => state.newGroups);
+
+export const selectGroupById = (groupId: string) =>
+  createSelector(getGroupState, (state) => state.groups.find((g) => g._id === groupId));

@@ -1,3 +1,4 @@
+import { DisplayType } from '@models/journey/display-type.model';
 import { WizardStep } from '@models/journey/wizard-step.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as Journey from '../reducers/journeys.reducers';
@@ -12,7 +13,7 @@ export const getJourneyState = createFeatureSelector<JourneyState>('journey');
 
 export const selectJourneys = createSelector(getJourneyState, (state) => state.journeys.journeys);
 
-export const selectSortingType = createSelector(getJourneyState, (state) => state.journeys.sortType);
+export const selectDisplayType = createSelector(getJourneyState, (state) => state.journeys.displayType);
 
 export const selectSearchQuery = createSelector(getJourneyState, (state) => state.journeys.searchQuery);
 
@@ -28,7 +29,15 @@ export const selectWizardAttractions = createSelector(getJourneyState, (state) =
 
 export const selectWizardAccomodation = createSelector(getJourneyState, (state) => state.wizard.accomodation);
 
-export const selectUserJourneys = createSelector(selectJourneys, (journeys) => journeys);
+export const selectUserJourneys = createSelector(
+  selectJourneys,
+  selectDisplayType,
+  selectSearchQuery,
+  (journeys, displayType, query) =>
+    journeys
+      .filter((j) => applyDisplayType(j, displayType))
+      .filter((j) => (query ? j.name.toLowerCase().includes(query.toLowerCase()) : true))
+);
 
 export const selectJourneyById = (id: string) =>
   createSelector(selectJourneys, (journeys) => journeys.find((j) => j._id === id));
@@ -73,3 +82,9 @@ export const selectCurrentStep = createSelector(selectWizardData, (data) => {
     return WizardStep.SUMMARY;
   }
 });
+
+function applyDisplayType(journey: any, displayType: DisplayType) {
+  if (displayType === 'past') return new Date(journey.startDate) < new Date();
+  else if (displayType === 'future') return new Date(journey.startDate) > new Date();
+  else return true;
+}

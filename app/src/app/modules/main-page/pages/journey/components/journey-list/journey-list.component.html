@@ -1,3 +1,25 @@
+<div class="flexy">
+  <div class="field">
+    <p class="control has-icons-right">
+      <input class="input" type="text" placeholder="Wyszukaj" (change)="applyQuery($event)" />
+      <span class="icon is-small is-right">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+    </p>
+  </div>
+
+  <label class="label"> Wyświetl: </label>
+  <div class="field" *ngIf="displayType$ | async as displayType">
+    <div class="control">
+      <div class="select is-fullwidth">
+        <select (change)="changeDisplayType($event)">
+          <option [selected]="displayType === type" *ngFor="let type of DisplayType">{{ type | label }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="list" *ngIf="journeys$ | async as journeys">
   <div *ngFor="let journey of journeys">
     <majk-journey-card [journey]="journey"></majk-journey-card>
