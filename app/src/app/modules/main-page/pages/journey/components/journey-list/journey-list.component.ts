@@ -24,7 +24,9 @@ export class JourneyListComponent implements OnInit {
   ngOnInit(): void {}
 
   changeDisplayType(event: any) {
+    console.log(event.target);
     const value = event.target.value as DisplayType;
+    console.log(value);
     if (value) {
       this.store$.dispatch(JourneysActions.displayTypeChange({ option: value }));
     }

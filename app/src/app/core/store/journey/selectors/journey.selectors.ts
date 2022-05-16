@@ -33,10 +33,12 @@ export const selectUserJourneys = createSelector(
   selectJourneys,
   selectDisplayType,
   selectSearchQuery,
-  (journeys, displayType, query) =>
-    journeys
+  (journeys, displayType, query) => {
+    console.log(displayType);
+    return journeys
       .filter((j) => applyDisplayType(j, displayType))
-      .filter((j) => (query ? j.name.toLowerCase().includes(query.toLowerCase()) : true))
+      .filter((j) => (query ? j.name.toLowerCase().includes(query.toLowerCase()) : true));
+  }
 );
 
 export const selectJourneyById = (id: string) =>

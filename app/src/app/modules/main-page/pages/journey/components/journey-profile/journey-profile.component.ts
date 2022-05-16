@@ -16,17 +16,22 @@ export class JourneyProfileComponent implements OnInit {
 
   journey$ = this.route.params.pipe(
     map((params) => params['journeyId']),
-    switchMap((id) => this.store$.select(selectJourneyById(id))),
+    switchMap((id) =>
+      this.store$.select(selectJourneyById(id)).pipe(
+        map((journey) => {
+          return {
+            ...journey,
+            plan: this.mapAttractions(journey.attractions)
+          };
+        })
+      )
+    ),
     switchMap((journey) =>
       this.store$.select(selectGroupById(journey.groupId)).pipe(
         map((group) => {
           return {
             ...journey,
-            group: {
-              _id: group?._id,
-              name: group?.name,
-              cover: group?.cover
-            }
+            group
           };
         })
       )
@@ -34,4 +39,18 @@ export class JourneyProfileComponent implements OnInit {
   );
 
   ngOnInit(): void {}
+
+  getAvatar(avatarRef: string) {
+    return `http://localhost:9000/api/file/download/${avatarRef}`;
+  }
+
+  mapAttractions(attractions: any[]) {
+    const dates = [...new Set(attractions.map((attraction: any) => attraction.date.split('T')[0]))] as string[];
+    return dates.map((date: string) => {
+      return {
+        date,
+        attractions: attractions.filter((attraction: any) => attraction.date.split('T')[0] === date)
+      };
+    });
+  }
 }

@@ -13,7 +13,7 @@
     <div class="control">
       <div class="select is-fullwidth">
         <select (change)="changeDisplayType($event)">
-          <option [selected]="displayType === type" *ngFor="let type of DisplayType">{{ type | label }}</option>
+          <option [selected]="displayType === type" *ngFor="let type of DisplayType">{{ type }}</option>
         </select>
       </div>
     </div>

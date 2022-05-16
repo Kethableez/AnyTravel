@@ -12,4 +12,4 @@ export const journeyError = createAction(
 
 export const searchQueryChange = createAction('[Journeys] Search query change', props<{ query: string | null }>());
 
-export const displayTypeChange = createAction('[Attraction] Sort change', props<{ option: DisplayType }>());
+export const displayTypeChange = createAction('[Attraction] Display change', props<{ option: DisplayType }>());
