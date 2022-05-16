@@ -1,4 +1,4 @@
-import { SortOptions } from '@models/journey/sort-options.model';
+import { DisplayType } from '@models/journey/display-type.model';
 import { createAction, props } from '@ngrx/store';
 
 export const getUserJourneys = createAction('[Journeys] Get journeys');
@@ -12,4 +12,4 @@ export const journeyError = createAction(
 
 export const searchQueryChange = createAction('[Journeys] Search query change', props<{ query: string | null }>());
 
-export const sortChange = createAction('[Attraction] Sort change', props<{ option: SortOptions }>());
+export const displayTypeChange = createAction('[Attraction] Display change', props<{ option: DisplayType }>());

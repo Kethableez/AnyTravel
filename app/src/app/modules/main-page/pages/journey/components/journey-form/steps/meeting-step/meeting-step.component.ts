@@ -62,7 +62,7 @@ export class MeetingStepComponent extends CleanableDirective implements OnInit {
       ...this.meetingForm.value,
       address: this.addressForm.value
     };
-    this.store$.dispatch(WizardActions.updateWizard({ key: 'meeting', object: formData }));
+    this.store$.dispatch(WizardActions.updateWizard({ key: 'meetingPlace', object: formData }));
     this.submitStep.emit(formData);
   }
 }

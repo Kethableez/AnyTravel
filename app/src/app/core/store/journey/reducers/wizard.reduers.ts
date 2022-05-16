@@ -20,7 +20,7 @@ import {
 
 export interface State {
   information: Information | null;
-  meeting: Meeting | null;
+  meetingPlace: Meeting | null;
   destination: Destination | null;
   group: Group | null;
   attractions: Attraction[];
@@ -29,7 +29,7 @@ export interface State {
 
 export const initialState: State = {
   information: null,
-  meeting: null,
+  meetingPlace: null,
   destination: null,
   group: null,
   attractions: [],
@@ -49,7 +49,7 @@ export const wizardReducer = createReducer(
   on(createJourneySuccess, (state) => ({
     ...state,
     information: null,
-    meeting: null,
+    meetingPlace: null,
     destination: null,
     group: null,
     attractions: [],
