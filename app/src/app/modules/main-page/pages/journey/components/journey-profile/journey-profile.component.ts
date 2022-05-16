@@ -35,7 +35,8 @@ export class JourneyProfileComponent implements OnInit {
           };
         })
       )
-    )
+    ),
+    tap(console.log)
   );
 
   ngOnInit(): void {}

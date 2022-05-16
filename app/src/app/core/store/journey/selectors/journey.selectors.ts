@@ -19,7 +19,7 @@ export const selectSearchQuery = createSelector(getJourneyState, (state) => stat
 
 export const selectWizardInformation = createSelector(getJourneyState, (state) => state.wizard.information);
 
-export const selectWizardMeeting = createSelector(getJourneyState, (state) => state.wizard.meeting);
+export const selectWizardMeeting = createSelector(getJourneyState, (state) => state.wizard.meetingPlace);
 
 export const selectWizardDestination = createSelector(getJourneyState, (state) => state.wizard.destination);
 
@@ -34,7 +34,6 @@ export const selectUserJourneys = createSelector(
   selectDisplayType,
   selectSearchQuery,
   (journeys, displayType, query) => {
-    console.log(displayType);
     return journeys
       .filter((j) => applyDisplayType(j, displayType))
       .filter((j) => (query ? j.name.toLowerCase().includes(query.toLowerCase()) : true));
@@ -57,9 +56,9 @@ export const selectWizardData = createSelector(
   selectWizardGroup,
   selectWizardAttractions,
   selectWizardAccomodation,
-  (information, meeting, destination, group, attractions, accomodation) => ({
+  (information, meetingPlace, destination, group, attractions, accomodation) => ({
     information,
-    meeting,
+    meetingPlace,
     destination,
     group,
     attractions,
@@ -70,7 +69,7 @@ export const selectWizardData = createSelector(
 export const selectCurrentStep = createSelector(selectWizardData, (data) => {
   if (!data.information) {
     return WizardStep.INFORMATION;
-  } else if (!data.meeting) {
+  } else if (!data.meetingPlace) {
     return WizardStep.MEETING;
   } else if (!data.destination) {
     return WizardStep.DESTINATION;
