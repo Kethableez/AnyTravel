@@ -1,71 +1,81 @@
-<div *ngIf="selectedAttractions$ | async as attractionList">
-  <div class="content-scroll attraction-box">
-    <div *ngFor="let attraction of attractions.controls; let i = index">
-      <div class="box" *ngIf="getFormGroup(attraction) as attractionForm">
-        <form [formGroup]="attractionForm">
-          <h4 class="title is-4">{{ attractionList[i].name }}</h4>
-          <hr />
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Data, czas trwania</label>
-            </div>
-            <div class="field-body">
-              <div class="field is-grouped">
-                <div class="control is-expanded">
-                  <input
-                    class="input"
-                    [ngClass]="isFieldValid('date', attractionForm)"
-                    formControlName="date"
-                    type="datetime-local"
-                  />
-                  <div class="help is-danger" *ngIf="isErrorEnabled('date', attractionForm)">
-                    <div *ngFor="let error of getError('date', attractionForm)">{{ error | formError }}</div>
-                  </div>
-                </div>
-
-                <div class="control is-expanded">
-                  <input
-                    class="input"
-                    [ngClass]="isFieldValid('duration', attractionForm)"
-                    formControlName="duration"
-                    type="text"
-                    placeholder="Czas trwania"
-                  />
-                  <div class="help is-danger" *ngIf="isErrorEnabled('duration', attractionForm)">
-                    <div *ngFor="let error of getError('duration', attractionForm)">{{ error | formError }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Dodatkowe informacje</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                    class="input"
-                    [ngClass]="isFieldValid('additionalInfo', attractionForm)"
-                    formControlName="additionalInfo"
-                    type="text"
-                    placeholder="Dodatkowe informacje"
-                  />
-                  <div class="help is-danger" *ngIf="isErrorEnabled('additionalInfo', attractionForm)">
-                    <div *ngFor="let error of getError('additionalInfo', attractionForm)">{{ error | formError }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+<div class="content-scroll attraction-box">
+  <div *ngIf="attractions.length === 0">
+    <p>Nie znaleziono atrakcji</p>
+    <p>Kliknij <a routerLink="/home/attraction">TUTAJ</a> aby dodać wycieczki</p>
   </div>
 
-  <mat-action-row>
-    <button type="button" class="button is-primary" [disabled]="attractions.invalid" (click)="nextStep()">Dalej</button>
-  </mat-action-row>
+  <div *ngFor="let attraction of attractions.controls; let i = index">
+    <div class="box" *ngIf="getFormGroup(attraction) as attractionForm">
+      <form [formGroup]="attractionForm">
+        <h4 class="title is-4">{{ attractionForm.controls['name'].value }}</h4>
+        <hr />
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Data, czas trwania</label>
+          </div>
+          <div class="field-body">
+            <div class="field is-grouped">
+              <div class="control is-expanded">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('date', attractionForm)"
+                  formControlName="date"
+                  type="datetime-local"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('date', attractionForm)">
+                  <div *ngFor="let error of getError('date', attractionForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+
+              <div class="control is-expanded">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('duration', attractionForm)"
+                  formControlName="duration"
+                  type="text"
+                  placeholder="Czas trwania"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('duration', attractionForm)">
+                  <div *ngFor="let error of getError('duration', attractionForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Dodatkowe informacje</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  [ngClass]="isFieldValid('additionalInfo', attractionForm)"
+                  formControlName="additionalInfo"
+                  type="text"
+                  placeholder="Dodatkowe informacje"
+                />
+                <div class="help is-danger" *ngIf="isErrorEnabled('additionalInfo', attractionForm)">
+                  <div *ngFor="let error of getError('additionalInfo', attractionForm)">{{ error | formError }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
+<mat-action-row>
+  <button
+    type="button"
+    class="button is-primary"
+    [disabled]="attractions.invalid || attractions.length === 0"
+    (click)="nextStep()"
+  >
+    Dalej
+  </button>
+</mat-action-row>

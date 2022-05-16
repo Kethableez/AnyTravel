@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { JourneyBase } from '@models/journey/wizard-data.model';
+import { WizardStep } from '@models/journey/wizard-step.model';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
@@ -8,22 +10,6 @@ import { selectCurrentStep, selectWizardData } from '@store/journey/selectors/jo
 import { combineLatest, of } from 'rxjs';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
-export interface JourneyBase {
-  information: any;
-  destination: any;
-  group: any;
-  attractions: any;
-  accomodation: any;
-}
-
-export enum WizardSteps {
-  INFORMATION = 'Information',
-  DESTINATION = 'Destination',
-  GROUP = 'Group',
-  ATTRACTIONS = 'Attractions',
-  ACCOMODATION = 'Accomodation',
-  SUMMARY = 'Summary'
-}
 @Component({
   selector: 'majk-journey-form',
   templateUrl: './journey-form.component.html',
@@ -38,23 +24,17 @@ export class JourneyFormComponent extends CleanableDirective implements OnInit {
   step = this.steps.INFORMATION;
   infoStep = of(false);
 
-  base: JourneyBase = {
-    information: {},
-    destination: {},
-    group: {},
-    attractions: [],
-    accomodation: {}
-  };
+  base!: JourneyBase;
 
   get steps() {
-    return WizardSteps;
+    return WizardStep;
   }
 
-  setStep(step: WizardSteps) {
+  setStep(step: WizardStep) {
     this.step = step;
   }
 
-  submitStep(formData: any, stepKey: string, nextStep: WizardSteps) {
+  submitStep(formData: any, stepKey: string, nextStep: WizardStep) {
     this.base[stepKey as keyof JourneyBase] = formData;
     this.step = nextStep;
   }
@@ -65,7 +45,7 @@ export class JourneyFormComponent extends CleanableDirective implements OnInit {
         ([data, step]) => {
           this.step = step;
           this.base = {
-            ...data
+            ...(data as JourneyBase)
           };
         }
       )

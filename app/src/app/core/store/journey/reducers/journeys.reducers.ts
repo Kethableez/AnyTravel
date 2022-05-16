@@ -1,16 +1,17 @@
+import { DisplayType } from '@models/journey/display-type.model';
 import { createReducer, on } from '@ngrx/store';
-import { getUserJourneySuccess, journeyError } from '../actions/journeys.actions';
+import { displayTypeChange, getUserJourneySuccess, journeyError, searchQueryChange } from '../actions/journeys.actions';
 
 export interface State {
   journeys: any[];
-  sortType: string;
+  displayType: DisplayType;
   searchQuery: string | null;
   errorMessage: string;
 }
 
 export const initialState: State = {
   journeys: [],
-  sortType: 'nameAsc',
+  displayType: DisplayType.ALL,
   searchQuery: null,
   errorMessage: ''
 };
@@ -20,6 +21,14 @@ export const journeysReducer = createReducer(
   on(getUserJourneySuccess, (state, action) => ({
     ...state,
     journeys: action.journeys
+  })),
+  on(displayTypeChange, (state, action) => ({
+    ...state,
+    displayType: action.option
+  })),
+  on(searchQueryChange, (state, action) => ({
+    ...state,
+    searchQuery: action.query
   })),
   on(journeyError, (state, action) => ({
     ...state,

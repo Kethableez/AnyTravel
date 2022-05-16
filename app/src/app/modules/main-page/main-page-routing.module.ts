@@ -6,6 +6,9 @@ import { MainPageComponent } from './main-page.component';
 import { AttractionComponent } from './pages/attraction/attraction.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { JourneyComponent } from './pages/journey/journey.component';
+import { JourneyProfileComponent } from './pages/journey/components/journey-profile/journey-profile.component';
+import { JourneyFormComponent } from './pages/journey/components/journey-form/journey-form.component';
+import { JourneyListComponent } from './pages/journey/components/journey-list/journey-list.component';
 
 const routes: Routes = [
   {
@@ -27,7 +30,21 @@ const routes: Routes = [
       },
       {
         path: 'journey',
-        component: JourneyComponent
+        component: JourneyComponent,
+        children: [
+          {
+            path: 'creator',
+            component: JourneyFormComponent
+          },
+          {
+            path: 'all',
+            component: JourneyListComponent
+          },
+          {
+            path: ':journeyId',
+            component: JourneyProfileComponent
+          }
+        ]
       }
     ]
   }

@@ -1,0 +1,137 @@
+<form [formGroup]="meetingForm">
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Nazwa miejsca zbiórki</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('placeName', meetingForm)"
+            type="text"
+            formControlName="placeName"
+            placeholder="Nazwa obiektu"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('placeName', meetingForm)">
+            <div *ngFor="let error of getError('placeName', meetingForm)">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Data zbiórki</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-grouped">
+        <div class="control is-expanded">
+          <input
+            class="input"
+            [ngClass]="isFieldValid('meetingDate', meetingForm)"
+            type="datetime-local"
+            formControlName="meetingDate"
+          />
+          <div class="help is-danger" *ngIf="isErrorEnabled('meetingDate', meetingForm)">
+            <div *ngFor="let error of getError('meetingDate', meetingForm)">{{ error | formError }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="addressForm" class="mb-3">
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Adres</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('zipCode', addressForm)"
+              formControlName="zipCode"
+              type="text"
+              placeholder="Kod pocztowy"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('zipCode', addressForm)">
+              <div *ngFor="let error of getError('zipCode', addressForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('city', addressForm)"
+              formControlName="city"
+              type="text"
+              placeholder="Miasto"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('city', addressForm)">
+              <div *ngFor="let error of getError('city', addressForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('country', addressForm)"
+              formControlName="country"
+              type="text"
+              placeholder="Kraj"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('country', addressForm)">
+              <div *ngFor="let error of getError('country', addressForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label"></label>
+      </div>
+      <div class="field-body">
+        <div class="field grow-3">
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('street', addressForm)"
+              formControlName="street"
+              type="text"
+              placeholder="Ulica"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('street', addressForm)">
+              <div *ngFor="let error of getError('street', addressForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input class="input" formControlName="apartment" type="text" placeholder="Nr. budynku/mieszkania" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</form>
+
+<mat-action-row>
+  <button
+    type="button"
+    class="button is-primary"
+    [disabled]="addressForm.invalid && meetingForm.invalid"
+    (click)="nextStep()"
+  >
+    Dalej
+  </button>
+</mat-action-row>

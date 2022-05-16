@@ -9,7 +9,10 @@ export const createJourney = createAction('[Journey Wizard] Create Journey', pro
 
 export const createJourneySuccess = createAction('[Journey Wizard] Create Journey Success');
 
-export const addAttraction = createAction('[Journey Wizard] Add Attraction', props<{ attractionId: string }>());
+export const addAttraction = createAction(
+  '[Journey Wizard] Add Attraction',
+  props<{ attractionId: string; name: string }>()
+);
 
 export const removeAttraction = createAction('[Journey Wizard] Remove Attraction', props<{ attractionId: string }>());
 

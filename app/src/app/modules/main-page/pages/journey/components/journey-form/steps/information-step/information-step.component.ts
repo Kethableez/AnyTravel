@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
-import { selectWizardState, WizardActions } from '@store/journey';
+import { selectWizardInformation, WizardActions } from '@store/journey';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
 @Component({
@@ -16,7 +16,7 @@ export class InformationStepComponent extends CleanableDirective implements OnIn
   constructor(private formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {
     super();
     this.addSubscription(
-      this.store$.select(selectWizardState('information')).subscribe((information) => {
+      this.store$.select(selectWizardInformation).subscribe((information) => {
         if (information) this.informationForm.patchValue(information);
       })
     );

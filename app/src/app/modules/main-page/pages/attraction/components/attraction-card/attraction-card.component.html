@@ -62,7 +62,7 @@
       <button class="button is-danger" (click)="removeAttractionFromJourney(attraction._id)">Usuń</button>
     </ng-container>
     <ng-template #xx>
-      <button class="button is-info" (click)="addAttractionToJourney(attraction._id)">Dodaj</button>
+      <button class="button is-info" (click)="addAttractionToJourney(attraction._id, attraction.name)">Dodaj</button>
     </ng-template>
     <!-- <button [disabled]="!(enableRating() | async)" (click)="addReview(+1)" class="button is-success">
         <i class="fa-solid fa-thumbs-up"></i>

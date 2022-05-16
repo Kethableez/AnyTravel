@@ -6,7 +6,7 @@
     </div>
     <div class="flex">
       <div class="mx-1" *ngFor="let attraction of attractions">
-        <div class="tag is-info is-light" (click)="removeAttraction(attraction._id)">
+        <div class="tag is-info is-light" (click)="removeAttraction(attraction.id)">
           {{ attraction.name }}
           <!-- <i class="fa-solid fa-xmark"></i> -->
           X

@@ -11,6 +11,8 @@ const JourneySchema = new Schema({
   groupId: { type: mongoose.Types.ObjectId, required: true },
   destination: { type: Object, required: true },
   attractions: { type: [Object], required: true },
+  meetingPlace: { type: Object, required: true },
+  breaks: { type: [Object] },
   accomodation: { type: Object }
 });
 

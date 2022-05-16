@@ -26,8 +26,6 @@ const AttractionSchema = new Schema({
   ticketPrice: { type: String },
   link: { type: String },
   hours: { type: String }
-
-  // additionalInfo: { type: [Object] }
 });
 
 export default mongoose.model<Attraction>('Attraction', AttractionSchema);

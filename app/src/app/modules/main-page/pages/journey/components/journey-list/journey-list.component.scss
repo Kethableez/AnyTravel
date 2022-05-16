@@ -3,3 +3,10 @@
   flex-flow: column wrap;
   align-items: center;
 }
+
+.flexy {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  padding: 0 2rem;
+}
