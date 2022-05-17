@@ -50,4 +50,16 @@ export class UserService extends BaseRequestService {
     const url = this.getUrl(UserActions.AVAILABILITY);
     return this.post<CheckResponse>(url, body).pipe(map((res) => res.available));
   }
+
+  doEditData(payload: any): Observable<any> {
+    const url = this.getUrl(UserActions.EDIT);
+
+    return this.post<any>(url, payload);
+  }
+
+  doDelete(payload: any): Observable<any> {
+    const url = this.getUrl(UserActions.DELETE);
+
+    return this.post<any>(url, payload);
+  }
 }

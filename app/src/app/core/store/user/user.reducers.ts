@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { User } from '@models/user/user.model';
-import { clearData, getDataSuccess, registerSuccess, userError } from './user.actions';
+import { changeDataSuccess, clearData, getDataSuccess, registerSuccess, userError } from './user.actions';
 
 export interface State {
   user: User | null;
@@ -22,6 +22,10 @@ export const userReducer = createReducer(
   on(registerSuccess, (state) => ({
     ...state,
     errorMessage: ''
+  })),
+  on(changeDataSuccess, (state, action) => ({
+    ...state,
+    user: action.user
   })),
   on(clearData, () => ({
     ...initialState
