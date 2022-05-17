@@ -10,9 +10,15 @@ export const getData = createAction('[User] Fetch data');
 
 export const getDataSuccess = createAction('[User] Fetch data success', props<{ user: User }>());
 
-// export const editUser = createAction('[User] Edit user', props<{ data: any }>());
+export const changeData = createAction('[User] Change data', props<{ changePayload: any }>());
 
-// export const editUserSuccess = createAction('[User] Edit user success', props<{ changedUser: any }>());
+export const changeAvatar = createAction('[User] Change avatar', props<{ file: FormData }>());
+
+export const changeDataSuccess = createAction('[User] Change data success', props<{ user: any }>());
+
+export const deleteAccount = createAction('[User] Delete account', props<{ payload: any }>());
+
+export const deleteAccountSuccess = createAction('[User] Delete account success');
 
 export const clearData = createAction('[User] Clear data');
 

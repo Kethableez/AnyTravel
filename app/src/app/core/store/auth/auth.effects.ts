@@ -84,7 +84,6 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(confirm),
       switchMap((action) => {
-        console.log(action.payload);
         return this.authService.doConfirm(action.payload).pipe(
           map((response) =>
             showNotification({ message: response.message, notificationType: NotificationType.SUCCESS })

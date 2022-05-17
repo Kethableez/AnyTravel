@@ -20,6 +20,7 @@ const edit = Joi.object({
   password: Joi.string(),
   firstName: Joi.string(),
   lastName: Joi.string(),
+  avatar: Joi.string(),
   birthdate: Joi.date().less('now'),
   isSubscribed: Joi.boolean()
 });

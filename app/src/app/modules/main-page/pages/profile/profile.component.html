@@ -1,43 +1,237 @@
-<div class="columns is-mobile is-centered" *ngIf="(currentUser$ | async) as currentUser">
-  <div class="column is-one-quarter">
-    <div class="box">
-      <div class="field">
-        <label class="label">Avatar {{currentUser.avatar}} </label>
-      </div>
-      <div>
-        <button class="button is-link is-rounded">Edit user avatar</button>
-      </div>
-    </div>
-  </div>
-  <div class="column is-half">
-    <div class="box">
-      <div class="field">
-        <label class="label">User name: {{ currentUser.firstName + " " + currentUser.lastName }} </label>
-      </div>
+<div class="columns is-mobile is-centered" *ngIf="currentUser$ | async as currentUser">
+  <div class="box profile">
+    <figure class="image">
+      <img [src]="getAvatar(currentUser.avatar)" />
+    </figure>
+    <div class="content flexy">
+      <div *ngIf="stats$ | async as stats">
+        <p class="title">
+          {{ currentUser.firstName }} {{ currentUser.lastName }}
 
-      <div class="field">
-        <label class="label">Nick: {{ currentUser.username }} </label>
-      </div>
+          <span class="tag"> {{ currentUser.role }}</span>
+        </p>
+        <hr />
 
-      <div class="field">
-        <label class="label">Birthdate: {{ currentUser.birthdate }}</label>
-      </div>
-
-      <div class="field">
-        <label class="label">Email: {{ currentUser.email }}</label>
-      </div>
-
-      <div class="field">
-        <label class="label">User role: {{currentUser.role}}</label>
+        <p class="subtitle"><strong>Ilość wycieczek: </strong> {{ stats.journeys }}</p>
+        <p class="subtitle"><strong>Ilość zwiedzonych państw: </strong> {{ stats.countries }}</p>
+        <p class="subtitle"><strong>Twoje grupy: </strong> {{ stats.group }}</p>
       </div>
 
       <div>
-        <button class="button is-link is-rounded">Edit User Data</button>
+        <div class="field is-grouped is-grouped-right">
+          <button type="button" class="button is-info" (click)="toggleForm()">Edytuj dane</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<div class="box form" *ngIf="formEnabled">
+  <div class="tabs is-centered">
+    <ul>
+      <li [ngClass]="isFormActive(FormSelector.DATA)" (click)="selectForm(FormSelector.DATA)">
+        <a>
+          <span>Dane</span>
+        </a>
+      </li>
+      <li [ngClass]="isFormActive(FormSelector.AVATAR)" (click)="selectForm(FormSelector.AVATAR)">
+        <a>
+          <span>Avatar</span>
+        </a>
+      </li>
+      <li [ngClass]="isFormActive(FormSelector.PASSWORD)" (click)="selectForm(FormSelector.PASSWORD)">
+        <a>
+          <span>Hasło</span>
+        </a>
+      </li>
+      <li [ngClass]="isFormActive(FormSelector.DELETE)" (click)="selectForm(FormSelector.DELETE)">
+        <a>
+          <span>Usuń konto</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
-<div>
-  <button class="button is-danger">Delete User</button>
+  <div [ngSwitch]="selectedForm">
+    <div *ngSwitchCase="FormSelector.DATA">
+      <form [formGroup]="dataForm">
+        <div class="field">
+          <label class="label">Imię</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('firstName', dataForm)"
+              formControlName="firstName"
+              type="text"
+              placeholder="Imię"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('firstName', dataForm)">
+              <div *ngFor="let error of getError('firstName', dataForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Nazwisko</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('lastName', dataForm)"
+              formControlName="lastName"
+              type="text"
+              placeholder="Nazwisko"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('lastName', dataForm)">
+              <div *ngFor="let error of getError('lastName', dataForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Data urodzenia</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('birthdate', dataForm)"
+              formControlName="birthdate"
+              type="date"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('birthdate', dataForm)">
+              <div *ngFor="let error of getError('birthdate', dataForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-grouped is-grouped-right">
+          <button type="button" class="button is-primary" [disabled]="dataForm.invalid" (click)="changeData(dataForm)">
+            Zmień dane
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngSwitchCase="FormSelector.AVATAR">
+      <div class="field">
+        <div class="file has-name is-boxed" [ngClass]="filename !== '...' ? 'is-primary' : ''">
+          <label class="file-label">
+            <input class="file-input" type="file" name="resume" (change)="uploadFile($event)" />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label"> Choose a file… </span>
+            </span>
+            <span class="file-name"> {{ filename }} </span>
+          </label>
+        </div>
+      </div>
+      <div class="field is-grouped is-grouped-right">
+        <button type="button" class="button is-primary" [disabled]="filename === '...'" (click)="changeAvatar()">
+          Zmień zdjęcie
+        </button>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="FormSelector.PASSWORD">
+      <form [formGroup]="passwordForm">
+        <div class="field">
+          <label class="label">Stare Hasło</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('oldPassword', passwordForm)"
+              formControlName="oldPassword"
+              type="password"
+              placeholder="Stare hasło"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('oldPassword', passwordForm)">
+              <div *ngFor="let error of getError('oldPassword', passwordForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Nowe Hasło</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('password', passwordForm)"
+              formControlName="password"
+              type="password"
+              placeholder="Nowe hasło"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('password', passwordForm)">
+              <div *ngFor="let error of getError('password', passwordForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Powtórz hasło</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('confirmPassword', passwordForm)"
+              formControlName="confirmPassword"
+              type="password"
+              placeholder="Powtórz hasło"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('confirmPassword', passwordForm)">
+              <div *ngFor="let error of getError('confirmPassword', passwordForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-grouped is-grouped-right">
+          <button
+            type="button"
+            class="button is-primary"
+            [disabled]="passwordForm.invalid"
+            (click)="changeData(passwordForm)"
+          >
+            Zmień hasło
+          </button>
+        </div>
+      </form>
+    </div>
+    <div *ngSwitchCase="FormSelector.DELETE">
+      <form [formGroup]="deleteForm">
+        <div class="field">
+          <label class="label">Hasło</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('password', deleteForm)"
+              formControlName="password"
+              type="password"
+              placeholder="Hasło"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('password', deleteForm)">
+              <div *ngFor="let error of getError('password', deleteForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Powtórz hasło</label>
+          <div class="control">
+            <input
+              class="input"
+              [ngClass]="isFieldValid('confirmPassword', deleteForm)"
+              formControlName="confirmPassword"
+              type="password"
+              placeholder="Powtórz hasło"
+            />
+            <div class="help is-danger" *ngIf="isErrorEnabled('confirmPassword', deleteForm)">
+              <div *ngFor="let error of getError('confirmPassword', deleteForm)">{{ error | formError }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-grouped is-grouped-right">
+          <button type="button" class="button is-danger" [disabled]="deleteForm.invalid" (click)="deleteAccount()">
+            Usuń konto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
