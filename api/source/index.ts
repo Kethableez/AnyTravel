@@ -7,11 +7,13 @@ import config from './config/config';
 import AuthController from './resources/auth/authController';
 import ConfigController from './resources/config/configController';
 import JourneyController from './resources/journey/journeyController';
+import GeneratorController from './resources/generator/generatorController';
 
 const server = new Server(
   [
     new AuthController(),
     new UserController(),
+    new GeneratorController(),
     new GroupController(),
     new FileController(),
     new AttractionController(),
