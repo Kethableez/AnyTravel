@@ -62,7 +62,7 @@ export class ProfileComponent implements OnInit {
   });
 
   getAvatar(avatarRef: string) {
-    return `http://localhost:9000/api/file/download/${avatarRef}`;
+    return avatarRef.startsWith('avatar/') ? `http://localhost:9000/api/file/download/${avatarRef}` : avatarRef;
   }
 
   toggleForm() {

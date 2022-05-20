@@ -12,7 +12,11 @@ interface JourneyModel extends Document {
   endDate: Date;
   groupId: any;
   destination: BaseAddress;
-  meetingPlace: Address;
+  meetingPlace: {
+    place: string;
+    date: Date;
+    address: Address;
+  };
   breaks: Break[];
   attractions: AttractionInfo[];
   accomodation: Accomodation;

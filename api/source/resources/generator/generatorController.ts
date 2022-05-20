@@ -14,14 +14,17 @@ class GeneratorController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}/user/:number`, this.generateUsers);
+    this.router.post(`${this.path}/:selector/:number`, this.generate);
   }
 
-  private generateUsers = async (req: Request, res: Response, next: NextFunction) => {
+  private generate = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const selector = req.params.selector;
       const number = Number(req.params.number);
-      const users = await this.GeneratorService.generateUsers(number);
-      res.status(200).json(users);
+
+      const response = await this.GeneratorService.generate(selector, number);
+
+      res.status(200).json(response);
     } catch (error: any) {
       next(new HttpException(400, error.message));
     }
