@@ -1,24 +1,19 @@
 <div class="container">
   <div class="box">
     <form [formGroup]="newGroupForm">
-
-      <div>
-        <label for="name">
-          Name
-        </label>
-        <input id="name" type="text" formControlName="name">
+      <div class="space">
+        <!-- <label for="name" class="label"> Name </label> -->
+        <input id="name" type="text" formControlName="name" class="input" placeholder="Podaj nazwę grupy" />
       </div>
 
       <div class="field">
         <label class="file-label">
           <input class="file-input" type="file" (change)="uploadFile($event)" />
-          <span class="file-cta">
+          <span class="file-cta space">
             <span class="file-icon">
               <i class="fas fa-upload"></i>
             </span>
-            <span *ngIf="!getControl(newGroupForm, 'cover').touched" class="file-label">
-              Wybierz plik...
-            </span>
+            <span *ngIf="!getControl(newGroupForm, 'cover').touched" class="file-label field"> Wybierz plik... </span>
             <span *ngIf="getControl(newGroupForm, 'cover').touched" class="file-label">
               {{ getControl(newGroupForm, 'cover').value }}
             </span>
@@ -26,8 +21,7 @@
         </label>
       </div>
 
-      <button class="button" type="submit" (click)="createNewGroup()">Purchase</button>
-
+      <button class="button" type="submit" (click)="createNewGroup()" class="button is-primary">Stwórz grupę</button>
     </form>
   </div>
 </div>

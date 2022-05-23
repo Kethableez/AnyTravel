@@ -3,11 +3,16 @@
     <div *ngIf="group" class="row">
       <div class="col">
         <figure class="image is-square">
+<<<<<<< HEAD
           <img [src]="getGroupCover(group.cover)" alt="Placeholder image" />
+=======
+          <img [src]="groupCover" alt="Placeholder image" class="image" />
+>>>>>>> cd0d3f8 (update second part of response website)
         </figure>
       </div>
       <div class="col">
-        <div class="title is-4">{{ group?.name }}</div>
+        <div class="title is-4 lol">{{ group?.name }}</div>
+
         <div class="row">
           <span class="tag is-link is-light">Creator: {{ group?.founder.username | label }}</span>
           <span class="tag is-info is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
