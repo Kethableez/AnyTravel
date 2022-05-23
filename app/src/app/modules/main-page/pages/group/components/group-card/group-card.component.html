@@ -5,6 +5,7 @@
       <div class="col">
         <figure class="image is-square">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <img [src]="getGroupCover(group.cover)" alt="Placeholder image" />
 =======
 =======
@@ -26,6 +27,19 @@
           <span class="tag  is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
           <span class="tag  is-light"> {{ group?.journeys | label }}</span>
           <span class="tag  is-light"> {{ group?.members | label }}</span>
+=======
+          <img [src]="groupCover" alt="Placeholder image" class="image" />
+        </figure>
+      </div>
+      <div class="col">
+        <div class="title is-4 lol">{{ group?.name }}</div>
+
+        <div class="row">
+          <span class="tag is-link is-light">Creator: {{ group?.founder.username | label }}</span>
+          <span class="tag is-info is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
+          <span class="tag is-info is-light"> {{ group?.journeys | label }}</span>
+          <span class="tag is-info is-light"> {{ group?.members | label }}</span>
+>>>>>>> cd0d3f8 (update second part of response website)
         </div>
 
         <div class="mid">
