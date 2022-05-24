@@ -13,6 +13,7 @@
 }
 .limitv2 {
   width: 75%;
+  line-height: 55px;
 }
 .container {
   display: flex;
@@ -21,7 +22,7 @@
 .buttons {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 .content {
   width: 80%;
@@ -62,7 +63,7 @@
     text-align: center;
   }
 }
-@media screen and (max-width: 928px) {
+@media screen and (max-width: 1008px) {
   .button {
     margin-top: -50px;
     margin-bottom: -50px;
@@ -89,6 +90,7 @@
   }
   .limitv2 {
     width: 100%;
+    margin-top: 50px;
   }
 }
 @media screen and (max-width: 630px) {
@@ -118,6 +120,7 @@
     width: 100%;
   }
   .limitv2 {
-    width: 100%;
+    width: 110%;
+    line-height: 45px;
   }
 }

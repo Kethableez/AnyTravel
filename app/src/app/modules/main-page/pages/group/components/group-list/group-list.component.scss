@@ -1,8 +1,10 @@
-.container-fluid
-{
+.container-fluid {
   padding-right: 5%;
-   padding-left: 5%;
-  width: 80%;
+  padding-left: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .list-group {
   width: 85%;
@@ -11,11 +13,14 @@
   justify-content: space-evenly;
 }
 
-
 .majk-container {
   width: 85%;
   position: relative;
   display: flex;
   flex-direction: row;
   height: fit-content;
+}
+.nodecor {
+  text-decoration: none;
+  list-style-type: none;
 }

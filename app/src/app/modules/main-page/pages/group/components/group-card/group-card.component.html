@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="list-group-item list-group-item-action flex-column align-items-start active">
   <div class="container">
     <div *ngIf="group" class="row">
@@ -6,21 +7,28 @@
 <<<<<<< HEAD
           <img [src]="getGroupCover(group.cover)" alt="Placeholder image" />
 =======
+=======
+<div class="nodecor">
+  <div class="container mid">
+    <div *ngIf="group" class="box row1 minimalLatestBox">
+      <div class="column box mid">
+        <figure class="image">
+>>>>>>> a71f4fe (last changes with RWD and design update)
           <img [src]="groupCover" alt="Placeholder image" class="image" />
 >>>>>>> cd0d3f8 (update second part of response website)
         </figure>
       </div>
-      <div class="col">
-        <div class="title is-4 lol">{{ group?.name }}</div>
+      <div class="column box">
+        <div class="title is-4 row box">{{ group?.name }}</div>
 
-        <div class="row">
+        <div class="box column">
           <span class="tag is-link is-light">Creator: {{ group?.founder.username | label }}</span>
           <span class="tag is-info is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
           <span class="tag is-info is-light"> {{ group?.journeys | label }}</span>
           <span class="tag is-info is-light"> {{ group?.members | label }}</span>
         </div>
 
-        <div class="row">
+        <div class="mid">
           <button (click)="deleteGroup(group._id)" class="button is-danger">Usuń</button>
         </div>
       </div>
