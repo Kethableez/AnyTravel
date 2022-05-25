@@ -38,13 +38,13 @@
           </p>
         </article>
         <article class="tile is-child notification is-primary-light">
+          <p class="subtitle"><strong>Miejsce zbiórki: </strong> {{ journey.meetingPlace.place }}</p>
           <p class="subtitle">
-            <strong>Miejsce zbiórki: </strong> {{ journey.destination.city }}, {{ journey.destination.country }}
+            <strong>Adres:</strong> {{ journey.meetingPlace.address.street }}
+            {{ journey.meetingPlace.address.apartment }}, {{ journey.meetingPlace.address.city }}
+            {{ journey.meetingPlace.address.country }}
           </p>
-          <p class="subtitle">
-            <strong>Data:</strong> {{ journey.startDate | date: 'dd.MM.yyyy' }} -
-            {{ journey.endDate | date: 'dd.MM.yyyy' }}
-          </p>
+          <p class="subtitle"><strong>Data:</strong> {{ journey.meetingPlace.date | date: 'dd.MM.yyyy' }}</p>
         </article>
       </div>
     </div>

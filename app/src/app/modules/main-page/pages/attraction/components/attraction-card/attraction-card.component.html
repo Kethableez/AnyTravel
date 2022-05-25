@@ -1,7 +1,7 @@
 <div *ngIf="attraction" class="card">
   <div class="card-image">
     <figure class="image is-4by3">
-      <img [src]="attractionCover" alt="Placeholder image" />
+      <img [src]="getAttractionCover(attraction.cover)" alt="Placeholder image" />
     </figure>
   </div>
   <header class="card-header">

@@ -33,6 +33,7 @@ import { JourneyListComponent } from './pages/journey/components/journey-list/jo
 import { JourneyCardComponent } from './pages/journey/components/journey-card/journey-card.component';
 import { MeetingStepComponent } from './pages/journey/components/journey-form/steps/meeting-step/meeting-step.component';
 import { JourneyProfileComponent } from './pages/journey/components/journey-profile/journey-profile.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { JourneyProfileComponent } from './pages/journey/components/journey-prof
     JourneyListComponent,
     JourneyCardComponent,
     MeetingStepComponent,
-    JourneyProfileComponent
+    JourneyProfileComponent,
+    DashboardComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
 })

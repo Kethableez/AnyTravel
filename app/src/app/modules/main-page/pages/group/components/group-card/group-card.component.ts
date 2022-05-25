@@ -10,23 +10,20 @@ import { GroupActions } from 'src/app/core/store/group';
   styleUrls: ['./group-card.component.scss']
 })
 export class GroupCardComponent implements OnInit {
-
   @Input()
   group?: Group;
 
-  constructor(private store$: Store<RootState>) { }
+  constructor(private store$: Store<RootState>) {}
 
-  get groupCover(): string {
-    return ['http://localhost:9000/api/file/download', this.group?.cover].join('/');
+  getGroupCover(coverRef: string): string {
+    return coverRef.startsWith('group/') ? `http://localhost:9000/api/file/download/${coverRef}` : coverRef;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   deleteGroup(id: string) {
     if (this.group) {
       this.store$.dispatch(GroupActions.deleteGroup({ groupId: id }));
     }
   }
-
 }
