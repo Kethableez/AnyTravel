@@ -9,6 +9,7 @@ import { JourneyComponent } from './pages/journey/journey.component';
 import { JourneyProfileComponent } from './pages/journey/components/journey-profile/journey-profile.component';
 import { JourneyFormComponent } from './pages/journey/components/journey-form/journey-form.component';
 import { JourneyListComponent } from './pages/journey/components/journey-list/journey-list.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,12 @@ const routes: Routes = [
           }
         ]
       }
+        component: JourneyComponent
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
     ]
   }
 ];

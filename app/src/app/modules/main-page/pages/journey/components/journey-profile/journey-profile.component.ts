@@ -42,7 +42,7 @@ export class JourneyProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   getAvatar(avatarRef: string) {
-    return `http://localhost:9000/api/file/download/${avatarRef}`;
+    return avatarRef.startsWith('attraction/') ? `http://localhost:9000/api/file/download/${avatarRef}` : avatarRef;
   }
 
   mapAttractions(attractions: any[]) {
@@ -50,7 +50,9 @@ export class JourneyProfileComponent implements OnInit {
     return dates.map((date: string) => {
       return {
         date,
-        attractions: attractions.filter((attraction: any) => attraction.date.split('T')[0] === date)
+        attractions: attractions
+          .filter((attraction: any) => attraction.date.split('T')[0] === date)
+          .sort((a1, a2) => new Date(a1.date).getTime() - new Date(a2.date).getTime())
       };
     });
   }
