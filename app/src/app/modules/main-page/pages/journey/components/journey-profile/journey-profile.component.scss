@@ -1,0 +1,59 @@
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+}
+
+img {
+  border-radius: 0.5rem;
+}
+
+.day {
+  height: 100%;
+}
+
+.attraction {
+  position: relative;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0.2rem;
+  border: 1px solid #888888;
+
+  .attraction-info {
+    visibility: hidden;
+  }
+}
+
+.attraction-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.attraction:hover {
+  .attraction-info {
+    visibility: hidden;
+  }
+}
+
+.member-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.flexy-plan {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+}
+
+.flexy {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 1rem;
+}

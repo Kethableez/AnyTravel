@@ -16,6 +16,7 @@ class JourneyController implements Controller {
   private initRoutes(): void {
     this.router.get(`${this.path}/by-group/:groupId`, authMiddleware, this.getJourneyByGroupId);
     this.router.get(`${this.path}/by-user`, authMiddleware, this.getUserJourneys);
+    this.router.get(`${this.path}/by-id/:journeyId`, authMiddleware, this.getJourneyById);
     this.router.post(`${this.path}/create`, authMiddleware, this.createJourney);
   }
 
@@ -23,6 +24,16 @@ class JourneyController implements Controller {
     try {
       const response = await this.journeyService.createJourney(req.body);
       res.status(200).json(response);
+    } catch (error: any) {
+      next(new HttpException(400, error.message));
+    }
+  };
+
+  private getJourneyById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const journeyId = req.params.journeyId;
+      const journey = await this.journeyService.getJourney(journeyId);
+      res.status(200).json(journey);
     } catch (error: any) {
       next(new HttpException(400, error.message));
     }

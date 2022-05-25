@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
 import { WizardActions } from '@store/journey';
-import { selectWizardState } from '@store/journey/selectors/journey.selectors';
+import { selectWizardDestination } from '@store/journey/selectors/journey.selectors';
 import { CleanableDirective } from 'src/app/shared/directives/cleanable.directive';
 
 @Component({
@@ -17,7 +17,7 @@ export class DestinationStepComponent extends CleanableDirective implements OnIn
   constructor(private formService: FormService, private builder: FormBuilder, private store$: Store<RootState>) {
     super();
     this.addSubscription(
-      this.store$.select(selectWizardState('destination')).subscribe((destination) => {
+      this.store$.select(selectWizardDestination).subscribe((destination) => {
         if (destination) this.destinationForm.patchValue(destination);
       })
     );

@@ -1,0 +1,35 @@
+img {
+  object-fit: cover;
+  height: 20rem;
+}
+
+.card {
+  width: 30%;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+}
+
+.form {
+  width: 60%;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.box {
+  margin: auto;
+}
+
+.file-label {
+  margin: auto;
+}
+
+.flexy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

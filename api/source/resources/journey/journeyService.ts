@@ -10,8 +10,49 @@ class JourneyService {
   private journeySchema = journeySchema;
   private groupSchema = groupSchema;
 
+  query = (groupsId: mongoose.Types.ObjectId[]) => {
+    return [
+      {
+        $match: {
+          groupId: {
+            $in: groupsId
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: 'attractions',
+          localField: 'attractions.id',
+          foreignField: '_id',
+          as: 'attractionsObj'
+        }
+      },
+      {
+        $addFields: {
+          attractions: {
+            $map: {
+              input: {
+                $zip: {
+                  inputs: ['$attractions', '$attractionsObj']
+                }
+              },
+              in: {
+                $mergeObjects: '$$this'
+              }
+            }
+          }
+        }
+      },
+      {
+        $unset: ['attractionsObj', 'attractions.id']
+      }
+    ];
+  };
+
   public async createJourney(payload: CreateJourneyPayload): Promise<BaseResponse | Error> {
     try {
+      payload.attractions.forEach((a: any) => delete (a as any).name);
+
       const journey = new this.journeySchema({
         ...payload.information,
         ...payload,
@@ -34,15 +75,25 @@ class JourneyService {
     }
   }
 
+  public async getJourney(journeyId: string): Promise<JourneyModel | Error> {
+    try {
+      const journey = await this.journeySchema.findById(journeyId);
+      if (!journey) throw new Error('Invalid ID');
+
+      return journey;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unexpected error');
+    }
+  }
+
   public async getUserJourneys(userId: string): Promise<JourneyModel[] | Error> {
     try {
       const groups = await this.groupSchema.find(byUserId(userId));
       const groupIds = groups.map((group) => group._id);
-      const journeys = await this.journeySchema.find({
-        groupId: {
-          $in: groupIds
-        }
-      });
+      const journeys = await this.journeySchema.aggregate(this.query(groupIds));
       return journeys;
     } catch (error: unknown) {
       if (error instanceof Error) {

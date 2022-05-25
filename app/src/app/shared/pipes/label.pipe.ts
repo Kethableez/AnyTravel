@@ -91,6 +91,15 @@ export class LabelPipe implements PipeTransform {
       case '$$$$':
         return 'Bardzo drogie';
 
+      case 'all':
+        return 'Wszystkie';
+
+      case 'future':
+        return 'Nadchodzące';
+
+      case 'past':
+        return 'Przeszłe';
+
       default:
         return label;
     }

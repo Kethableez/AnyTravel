@@ -46,24 +46,26 @@ class UserService {
     }
   }
 
-  public async editUser(userId: string, payload: EditPayload): Promise<BaseResponse | Error> {
+  public async editUser(userId: string, payload: EditPayload): Promise<any | Error> {
     try {
       const userToEdit = await this.userSchema.findById(userId);
 
       if (!userToEdit) throw new Error('Invalid ID');
 
       if (payload.password && payload.oldPassword) {
-        if (!(await bcrypt.compare(payload.oldPassword, userToEdit.password))) {
+        if (!(await bcrypt.compare(userToEdit.password, payload.oldPassword))) {
           payload.password = await bcrypt.hash(payload.password, 10);
         } else throw new Error('Invalid password');
       }
+      console.log(payload);
       if (payload.avatar) {
+        console.log(payload.avatar);
         payload.avatar = [avatarPrefix(), payload.avatar].join('/');
       }
 
-      await this.userSchema.findByIdAndUpdate(userId, payload);
+      const updated = await this.userSchema.findByIdAndUpdate(userId, payload, { new: true });
 
-      return { message: 'Updated' };
+      return { message: 'Updated', obj: updated };
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);

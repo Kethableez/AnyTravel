@@ -3,7 +3,7 @@
     <div *ngIf="group" class="row">
       <div class="col">
         <figure class="image is-square">
-          <img [src]="groupCover" alt="Placeholder image" />
+          <img [src]="getGroupCover(group.cover)" alt="Placeholder image" />
         </figure>
       </div>
       <div class="col">

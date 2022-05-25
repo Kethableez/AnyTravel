@@ -4,10 +4,19 @@ export enum AttractionCategory {
   COFFEE = 'COFFEE',
   PARK = 'PARK',
   GYM = 'GYM',
+  ZOO = 'ZOO',
   ART = 'ART',
   MUSEUM = 'MUSEUM',
   LIBRARY = 'LIBRARY',
   LAKE = 'LAKE',
   FOREST = 'FOREST',
-  BEACH = 'BEACH'
+  BEACH = 'BEACH',
+  PARKING = 'PARKING',
+  CINEMA = 'CINEMA',
+  THEATER = 'THEATER',
+  STADIUM = 'STADIUM',
+  CHURCH = 'CHURCH',
+  OCEAN = 'OCEAN',
+  SEA = 'SEA',
+  MOUNTAIN = 'MOUNTAIN'
 }

@@ -1,3 +1,9 @@
+import { Accomodation } from '@models/journey/accomodation.model';
+import { Attraction } from '@models/journey/attraction.model';
+import { Destination } from '@models/journey/destination.model';
+import { Group } from '@models/journey/group.model';
+import { Information } from '@models/journey/information.model';
+import { Meeting } from '@models/journey/meeting.model';
 import { createReducer, on } from '@ngrx/store';
 import {
   addAttraction,
@@ -13,21 +19,21 @@ import {
 } from '../actions/wizard.actions';
 
 export interface State {
-  information: any | null;
-  destination: any | null;
-  group: any | null;
-  attractions: any[];
-  accomodation: any | null;
-  selectedAttractions: string[];
+  information: Information | null;
+  meetingPlace: Meeting | null;
+  destination: Destination | null;
+  group: Group | null;
+  attractions: Attraction[];
+  accomodation: Accomodation | null;
 }
 
 export const initialState: State = {
   information: null,
+  meetingPlace: null,
   destination: null,
   group: null,
   attractions: [],
-  accomodation: null,
-  selectedAttractions: []
+  accomodation: null
 };
 
 export const wizardReducer = createReducer(
@@ -43,23 +49,23 @@ export const wizardReducer = createReducer(
   on(createJourneySuccess, (state) => ({
     ...state,
     information: null,
+    meetingPlace: null,
     destination: null,
     group: null,
     attractions: [],
-    selectedAttractions: [],
     accomodation: null
   })),
   on(addAttraction, (state, action) => ({
     ...state,
-    selectedAttractions: [...state.selectedAttractions, action.attractionId]
+    attractions: [...state.attractions, attractionMapper(action.attractionId, action.name)]
   })),
   on(removeAttraction, (state, action) => ({
     ...state,
-    selectedAttractions: state.selectedAttractions.filter((a) => a !== action.attractionId)
+    attractions: state.attractions.filter((a) => a.id !== action.attractionId)
   })),
   on(removeAttractions, (state) => ({
     ...state,
-    selectedAttractions: []
+    attractions: []
   })),
   on(addGroup, (state, action) => ({
     ...state,
@@ -86,4 +92,14 @@ export const wizardFeatureKey = 'wizard';
 
 export function reducer(state: State | undefined, action: any) {
   return wizardReducer(state, action);
+}
+
+function attractionMapper(attractionId: string, name: string): Attraction {
+  return {
+    id: attractionId,
+    name: name,
+    date: '',
+    duration: '',
+    additionalInfo: ''
+  };
 }

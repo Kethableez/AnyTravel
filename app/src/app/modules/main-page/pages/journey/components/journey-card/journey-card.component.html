@@ -1,67 +1,16 @@
 <div class="card" *ngIf="journey">
   <div class="card-header">
-    <div class="title is-4">{{ journey.name }}</div>
+    <div class="title is-4" (click)="navigate(journey._id)">{{ journey.name }}</div>
   </div>
 
   <div class="card-content">
-    <div class="tabs is-centered">
-      <ul>
-        <li [ngClass]="isActive(tab.INFORMATION)" (click)="selectTab(tab.INFORMATION)"><a>Informacje</a></li>
-        <li [ngClass]="isActive(tab.ATTRACTION)" (click)="selectTab(tab.ATTRACTION)"><a>Atrakcje</a></li>
-        <li *ngIf="journey.accomodation" [ngClass]="isActive(tab.ACCOMODATION)" (click)="selectTab(tab.ACCOMODATION)">
-          <a>Zameldowanie</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="content" *ngIf="selectedTab === tab.INFORMATION">
-      <div class="label">Cel podróży:</div>
-      {{ journey.destination.zipCode }} {{ journey.destination.city }}, {{ journey.destination.country }}
-      <hr />
-      <div class="label">Termin wycieczki</div>
-      {{ journey.startDate | date: 'dd.MM.yyyy' }} - {{ journey.endDate | date: 'dd.MM.yyyy' }}
-      <hr />
-      <div class="label">Opis:</div>
-      {{ journey.description }}
-    </div>
-
-    <!--  -->
-
-    <div class="content" *ngIf="selectedTab === tab.ATTRACTION">
-      <div *ngFor="let data of mapAttractions(journey.attractions)">
-        <div class="label">{{ data.date | date: 'dd.MM.yyyy' }}</div>
-        <div class="mb-2" *ngFor="let attraction of data.attractions">
-          <strong>Nazwa</strong> {{ attraction.name }} <br />
-          <strong>Godzina:</strong> {{ attraction.date | date: 'HH:mm' }} <br />
-          <strong>Czas trwania:</strong> {{ attraction.duration }}
-        </div>
-        <hr />
-      </div>
-    </div>
-
-    <!--  -->
-
-    <div class="content" *ngIf="selectedTab === tab.ACCOMODATION">
-      <div class="label">Obiekt:</div>
-      {{ journey.accomodation.placeName }}
-      <hr />
-
-      <div class="label">Zameldowanie i wymeldowanie</div>
-      {{ journey.accomodation.checkIn | date: 'dd.MM.yyyy, HH:mm' }} -
-      {{ journey.accomodation.checkOut | date: 'dd.MM.yyyy, HH:mm' }}
-      <hr />
-      <div class="label">Adres:</div>
-      {{ journey.accomodation.address.zipCode }} {{ journey.accomodation.address.city }},
-      {{ journey.accomodation.address.country }} <br />
-      {{ journey.accomodation.address.street }}, {{ journey.accomodation.address.apartment }}
-      <hr />
-      <div class="label">Dodatkowe informacje:</div>
-      {{ journey.accomodation.additionalInfo }}
-      <hr />
-      <div *ngIf="journey.accomodation.link">
-        <div class="label">Link</div>
-        <a href="{{ journey.accomodation.link }}">{{ journey.accomodation.link }}</a>
-      </div>
-    </div>
+    <div class="label">Cel podróży:</div>
+    {{ journey.destination.zipCode }} {{ journey.destination.city }}, {{ journey.destination.country }}
+    <hr />
+    <div class="label">Termin wycieczki</div>
+    {{ journey.startDate | date: 'dd.MM.yyyy' }} - {{ journey.endDate | date: 'dd.MM.yyyy' }}
+    <hr />
+    <div class="label">Opis:</div>
+    {{ journey.description }}
   </div>
 </div>

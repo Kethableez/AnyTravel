@@ -1,0 +1,118 @@
+<ng-container class="tile is-ancestor" *ngIf="journey$ | async as journey; else error">
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-primary-light">
+          <p class="title">{{ journey.name }}</p>
+          <p class="subtitle">{{ journey.description }}</p>
+        </article>
+
+        <article class="tile is-child notification is-primary-light">
+          <p class="title">Grupa: {{ journey.group.name }}</p>
+          <div class="flexy">
+            <div class="member-box">
+              <div class="avatar">
+                <img [src]="getAvatar(journey.group.founder.avatar)" alt="" />
+              </div>
+              <p class="subtitle">{{ journey.group.founder.firstName }} {{ journey.group.founder.lastName }}</p>
+            </div>
+
+            <div class="member-box" *ngFor="let user of journey.group.members">
+              <div class="avatar">
+                <img [src]="getAvatar(user.avatar)" alt="" />
+              </div>
+              <p class="subtitle">{{ user.firstName }} {{ user.lastName }}</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-primary-light">
+          <p class="subtitle">
+            <strong>Cel podróży: </strong> {{ journey.destination.city }}, {{ journey.destination.country }}
+          </p>
+          <p class="subtitle">
+            <strong>Data:</strong> {{ journey.startDate | date: 'dd.MM.yyyy' }} -
+            {{ journey.endDate | date: 'dd.MM.yyyy' }}
+          </p>
+        </article>
+        <article class="tile is-child notification is-primary-light">
+          <p class="subtitle"><strong>Miejsce zbiórki: </strong> {{ journey.meetingPlace.place }}</p>
+          <p class="subtitle">
+            <strong>Adres:</strong> {{ journey.meetingPlace.address.street }}
+            {{ journey.meetingPlace.address.apartment }}, {{ journey.meetingPlace.address.city }}
+            {{ journey.meetingPlace.address.country }}
+          </p>
+          <p class="subtitle"><strong>Data:</strong> {{ journey.meetingPlace.date | date: 'dd.MM.yyyy' }}</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="journey.accomodation as accomodation" class="tile is-parent">
+    <article class="tile is-child notification is-primary-light">
+      <p class="title">Zameldowanie:</p>
+      <div class="flexy">
+        <div class="column">
+          <p class="subtitle">
+            <strong>Miejsce:</strong><br />
+            {{ accomodation.placeName }}
+          </p>
+          <p class="subtitle">
+            <strong>Data:</strong> <br />{{ accomodation.checkIn | date: 'dd.MM.yyyy' }} -
+            {{ accomodation.checkOut | date: 'dd.MM.yyyy' }}
+          </p>
+
+          <p class="subtitle"></p>
+        </div>
+
+        <div class="column">
+          <p class="subtitle">
+            <strong>Adres:</strong> <br />
+            {{ accomodation.address.city }}, {{ accomodation.address.country }} <br />
+            {{ accomodation.address.street }} {{ accomodation.address.apartment }}
+          </p>
+        </div>
+
+        <div class="column">
+          <p class="subtitle">
+            <strong>Link:</strong> <br />
+            {{ accomodation.link }}
+          </p>
+
+          <p class="subtitle">
+            <strong>Dodatkowe informacje:</strong> <br />
+            {{ accomodation.additionalInfo }}
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div *ngIf="journey.plan as plan" class="tile is-parent">
+    <article class="tile is-child notification is-primary-light">
+      <p class="title">Plan wycieczki</p>
+      <div class="flexy-plan">
+        <div class="day" *ngFor="let day of plan; let i = index">
+          <p class="subtitle">
+            <strong>Dzień {{ i + 1 }}</strong>
+          </p>
+
+          <div class="attraction" *ngFor="let attraction of day.attractions">
+            {{ attraction.date | date: 'HH:mm' }} {{ attraction.name }} <br />
+            czas trwania: {{ attraction.duration }} <br />
+
+            <div class="attraction-info">
+              {{ attraction.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</ng-container>
+
+<ng-template #error>
+  <p>404 journey not found</p>
+</ng-template>

@@ -9,8 +9,17 @@
           </mat-expansion-panel-header>
 
           <majk-information-step
-            (submitStep)="submitStep($event, 'information', steps.DESTINATION)"
+            (submitStep)="submitStep($event, 'information', steps.MEETING)"
           ></majk-information-step>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === steps.MEETING" (opened)="setStep(steps.MEETING)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Zbiórka</mat-panel-title>
+            <mat-panel-description>Podaj informacje o zbiórce</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <majk-meeting-step (submitStep)="submitStep($event, 'meeting', steps.DESTINATION)"></majk-meeting-step>
         </mat-expansion-panel>
 
         <mat-expansion-panel [expanded]="step === steps.DESTINATION" (opened)="setStep(steps.DESTINATION)" hideToggle>
