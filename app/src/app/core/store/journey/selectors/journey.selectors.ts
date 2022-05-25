@@ -21,18 +21,30 @@ export const selectWizardInformation = createSelector(getJourneyState, (state) =
 
 export const selectWizardMeeting = createSelector(getJourneyState, (state) => state.wizard.meetingPlace);
 
-export const selectUpcomingUserJourneys = createSelector(selectUserJourneys, (journeys) => journeys.filter(
-  journey => new Date(journey.startDate) > new Date()).sort(
-  (journey1, journey2) => new Date(journey1.startDate).getTime() - new Date(journey2.startDate).getTime()
-));
+export const selectUserJourneys = createSelector(
+  selectJourneys,
+  selectDisplayType,
+  selectSearchQuery,
+  (journeys, displayType, query) => {
+    return journeys
+      .filter((j) => applyDisplayType(j, displayType))
+      .filter((j) => (query ? j.name.toLowerCase().includes(query.toLowerCase()) : true));
+  }
+);
 
-export const selectPastUserJourneys = createSelector(selectUserJourneys, (journeys) => journeys.filter(
-  journey => new Date(journey.endDate) < new Date()
-))
+export const selectUpcomingUserJourneys = createSelector(selectUserJourneys, (journeys) =>
+  journeys
+    .filter((journey) => new Date(journey.startDate) > new Date())
+    .sort((journey1, journey2) => new Date(journey1.startDate).getTime() - new Date(journey2.startDate).getTime())
+);
 
-export const selectFutureUserJourneys = createSelector(selectUserJourneys, (journeys) => journeys.filter(
-  journey => new Date(journey.endDate) > new Date()
-))
+export const selectPastUserJourneys = createSelector(selectUserJourneys, (journeys) =>
+  journeys.filter((journey) => new Date(journey.endDate) < new Date())
+);
+
+export const selectFutureUserJourneys = createSelector(selectUserJourneys, (journeys) =>
+  journeys.filter((journey) => new Date(journey.endDate) > new Date())
+);
 
 export const selectJourney = (journeyId: string) =>
   createSelector(getJourneyState, (state) => state.journeys.journeys.find((journey) => journey._id === journeyId));
@@ -44,17 +56,6 @@ export const selectWizardGroup = createSelector(getJourneyState, (state) => stat
 export const selectWizardAttractions = createSelector(getJourneyState, (state) => state.wizard.attractions);
 
 export const selectWizardAccomodation = createSelector(getJourneyState, (state) => state.wizard.accomodation);
-
-export const selectUserJourneys = createSelector(
-  selectJourneys,
-  selectDisplayType,
-  selectSearchQuery,
-  (journeys, displayType, query) => {
-    return journeys
-      .filter((j) => applyDisplayType(j, displayType))
-      .filter((j) => (query ? j.name.toLowerCase().includes(query.toLowerCase()) : true));
-  }
-);
 
 export const selectJourneyById = (id: string) =>
   createSelector(selectJourneys, (journeys) => journeys.find((j) => j._id === id));
