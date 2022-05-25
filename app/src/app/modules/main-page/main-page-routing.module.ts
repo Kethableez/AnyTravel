@@ -46,8 +46,6 @@ const routes: Routes = [
             component: JourneyProfileComponent
           }
         ]
-      }
-        component: JourneyComponent
       },
       {
         path: 'dashboard',

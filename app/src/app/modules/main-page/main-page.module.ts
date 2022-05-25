@@ -64,7 +64,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component'
     JourneyListComponent,
     JourneyCardComponent,
     MeetingStepComponent,
-    JourneyProfileComponent
+    JourneyProfileComponent,
     DashboardComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MainPageRoutingModule]
