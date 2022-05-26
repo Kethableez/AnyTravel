@@ -29,7 +29,7 @@ class FileController implements Controller {
 
   private upload = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-      const filename = req.file?.filename || `${req.params.selector}/mock-file`;
+      const filename = req.file?.filename || `${req.params.selector}/default.png`;
 
       res.status(200).json({
         message: 'Uploaded',

@@ -34,12 +34,14 @@
 </div>
 
 <div [ngSwitch]="currentView">
+  
   <div *ngSwitchCase="ViewSelector.ALL">
-    <majk-attraction-list [attractionList$]="attractionList$" [isModeratorView]="false"></majk-attraction-list>
-
+    
+    <majk-attraction-list [attractionList$]="attractionList$" [isModeratorView]="false" >  </majk-attraction-list>
+    
   </div>
   <div *ngSwitchCase="ViewSelector.CREATOR">
-    <majk-attraction-form></majk-attraction-form>
+    <majk-attraction-form> </majk-attraction-form>
   </div>
   <div *ngSwitchCase="ViewSelector.PENDING">
     <majk-attraction-list [attractionList$]="newAttractionList$" [isModeratorView]="true"></majk-attraction-list>
