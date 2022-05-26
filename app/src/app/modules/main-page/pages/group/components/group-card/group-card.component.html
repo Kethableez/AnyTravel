@@ -1,6 +1,3 @@
-
-
-
 <div class="nodecor">
   <div class="container mid">
     <div *ngIf="group" class="ideal box row1 minimalLatestBox">
@@ -18,17 +15,10 @@
           <span class="tag  is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
           <span class="tag  is-light"> {{ group?.journeys | label }}</span>
           <span class="tag  is-light"> {{ group?.members | label }}</span>
-
-          <img [src]="getGroupCover(group.cover)" alt="Placeholder image" />
       </div>
-      <div class="column box">
-        <div class="title is-4 row box">{{ group?.name }}</div>
-
-
         <div class="mid">
           <button (click)="deleteGroup(group._id)" class="button is-danger">Usuń</button>
         </div>
       </div>
     </div>
-  </div>
 </div>
