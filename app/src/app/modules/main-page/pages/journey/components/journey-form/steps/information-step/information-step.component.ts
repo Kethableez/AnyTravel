@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
@@ -32,6 +32,8 @@ export class InformationStepComponent extends CleanableDirective implements OnIn
     endDate: ['', Validators.required]
   });
 
+  file = new FormData();
+
   ngOnInit(): void {}
 
   isFieldValid(fieldName: string) {
@@ -50,5 +52,20 @@ export class InformationStepComponent extends CleanableDirective implements OnIn
     const formData = this.informationForm.value;
     this.store$.dispatch(WizardActions.updateWizard({ key: 'information', object: formData }));
     this.submitStep.emit(formData);
+  }
+
+  uploadFile(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.getControl(this.informationForm, 'cover').markAsTouched();
+      this.informationForm.patchValue({
+        cover: file.name
+      });
+      this.file.append('file', file);
+    }
+  }
+
+  getControl(form: FormGroup, controlName: string) {
+    return form.controls[controlName];
   }
 }
