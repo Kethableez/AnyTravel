@@ -15,7 +15,8 @@ import {
   deleteGroup,
   editGroup,
   getUserGroups,
-  getUserGroupsSuccess
+  getUserGroupsSuccess,
+  addUserToGroup
 } from './group.actions';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class GroupEffects {
     private actions$: Actions,
     private groupService: GroupService,
     private fileService: FileService
-  ) {}
+  ) { }
 
   getGroup$ = createEffect(() =>
     this.actions$.pipe(
@@ -96,14 +97,32 @@ export class GroupEffects {
   editGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editGroup),
-      switchMap((action) =>
-        this.groupService.doEdit(action.groupId, action.payload).pipe(
+      switchMap((action) => {
+        return this.groupService.doEdit(action.groupId, action.payload).pipe(
           map(
             () => getUserGroups(),
             catchError((error) => of(groupError({ message: error.error.message })))
           )
-        )
-      )
+        );
+      })
     )
   );
+
+
+  addUserToGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addUserToGroup),
+      switchMap((action) => {
+        return this.groupService.doAdd(action.groupId, action.payload).pipe(
+          map(
+            () => getUserGroups(),
+            catchError((error) => of(groupError({ message: error.error.message })))
+          )
+        );
+      })
+    )
+  );
+
 }
+
+
