@@ -14,9 +14,11 @@
           <span class="tag is-light">Creator: {{ group?.founder.username | label }}</span>
           <span class="tag  is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
           <span class="tag  is-light"> {{ group?.journeys | label }}</span>
-          <div *ngFor="let members of group?.members">
-            <span class="tag  is-light"> {{members.name| label }}</span>
-          </div>
+          <span class="tag  is-light">
+            <div *ngFor="let members of group.members">
+              {{members.username| label}} &nbsp;
+            </div>
+          </span>
         </div>
         <div class="mid">
           <button (click)="toggleFormEdit()" class="button is-info">Edytuj</button>
