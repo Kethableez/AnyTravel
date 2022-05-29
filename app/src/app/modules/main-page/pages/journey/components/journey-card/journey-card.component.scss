@@ -6,3 +6,8 @@
 .title {
   padding: 1rem;
 }
+
+.image img {
+  width: 100%;
+  object-fit: cover;
+}

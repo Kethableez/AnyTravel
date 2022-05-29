@@ -1,4 +1,10 @@
 <div class="card" *ngIf="journey">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img [src]="image" alt="Placeholder image" />
+    </figure>
+  </div>
+
   <div class="card-header">
     <div class="title is-4" (click)="navigate(journey._id)">{{ journey.name }}</div>
   </div>
