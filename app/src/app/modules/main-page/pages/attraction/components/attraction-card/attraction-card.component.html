@@ -1,10 +1,11 @@
-<div *ngIf="attraction" class="card">
+<div *ngIf="attraction" class="card smaller">
   <div class="card-image">
     <figure class="image is-4by3">
       <img [src]="getAttractionCover(attraction.cover)" alt="Placeholder image" />
     </figure>
   </div>
   <header class="card-header">
+    
     <div class="title is-4">{{ attraction.name }}</div>
   </header>
   <div class="card-content">
@@ -54,8 +55,8 @@
     </div> -->
   </div>
   <footer class="card-footer" *ngIf="isModeratorView">
-    <button (click)="approveAttraction()" class="button is-success">Zatwierdź</button>
-    <button (click)="deleteAttraction()" class="button is-danger">Usuń</button>
+    <button (click)="approveAttraction()" class="button is-success is-responsive">Zatwierdź</button>
+    <button (click)="deleteAttraction()" class="button is-danger is-responsive">Usuń</button>
   </footer>
   <footer class="card-footer" *ngIf="!isModeratorView">
     <ng-container *ngIf="isAttractionSelected$ | async as isAttractionSelected; else xx">
