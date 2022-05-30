@@ -11,8 +11,6 @@ import { selectIsLoggedIn } from '../auth';
 import {
   groupError,
   createGroup,
-  getNewGroupSuccess,
-  getNewGroup,
   deleteGroup,
   editGroup,
   getUserGroups,
@@ -44,19 +42,6 @@ export class GroupEffects {
     )
   );
 
-  getNewGroup$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(getUserGroups),
-      withLatestFrom(this.store$.select(selectIsLoggedIn)),
-      filter(([, isLoggedIn]) => isLoggedIn),
-      switchMap(() =>
-        this.groupService.doGetAllUserGroups().pipe(
-          map((response) => getNewGroupSuccess({ groups: response })),
-          catchError((error) => of(groupError({ message: error.error.message })))
-        )
-      )
-    )
-  );
 
   createGroup$ = createEffect(() =>
     this.actions$.pipe(
@@ -89,7 +74,7 @@ export class GroupEffects {
       ofType(deleteGroup),
       switchMap((action) => {
         return this.groupService.doDeleteGroup(action.groupId).pipe(
-          switchMap(() => [getUserGroups(), getNewGroup()]),
+          switchMap(() => [getUserGroups()]),
           catchError((error) => of(groupError({ message: error.error.message })))
         );
       })

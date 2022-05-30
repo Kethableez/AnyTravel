@@ -8,7 +8,7 @@ import { Group } from '../../models/group/group.model';
 import { CreateGroupPayload } from '../../models/group/crate-group-payload';
 import { RootState } from '../../store/app.states';
 import { Store } from '@ngrx/store';
-import { getNewGroup, getUserGroups } from '../../store/group/group.actions';
+import { getUserGroups } from '../../store/group/group.actions';
 import { EditGroupPayload } from '../../models/group/edit-group-payload';
 
 enum GroupActions {
@@ -100,7 +100,6 @@ export class GroupService extends BaseRequestService {
       first(),
       tap(() => {
         this.store$.dispatch(getUserGroups());
-        this.store$.dispatch(getNewGroup());
       })
     );
   }
