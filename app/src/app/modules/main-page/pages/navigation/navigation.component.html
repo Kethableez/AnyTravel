@@ -1,21 +1,17 @@
 <nav class="navbar is-primary">
-  <div class="container">
+  <div class="container doPrawej ">
     <div class="navbar-brand">
       <div class="navbar-item"></div>
     </div>
-    <div class="navbar-menu">
-      <div class="navbar-end">
-        <div class="navbar-item">
+   
           <div class="buttons">
-            <div class="button" [ngClass]="isActive('dashboard')" (click)="navigate('dashboard')">Dashboard</div>
-            <div class="button" [ngClass]="isActive('group')" (click)="navigate('groups')">Twoje grupy</div>
-            <div class="button" [ngClass]="isActive('journey')" (click)="navigate('journey/all')">Twoje wycieczki</div>
-            <div class="button" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>
-            <div class="button" [ngClass]="isActive('profile')" (click)="navigate('profile')">Profil</div>
-            <div class="button is-white" (click)="logout()">Wyloguj się</div>
+            <div class="button is-small" [ngClass]="isActive('dashboard')" (click)="navigate('dashboard')">Dashboard</div>
+            <div class="button is-small" [ngClass]="isActive('group')" (click)="navigate('groups')">Twoje grupy</div>
+            <div class="button is-small" [ngClass]="isActive('journey')" (click)="navigate('journey/all')">Twoje wycieczki</div>
+            <div class="button is-small" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>
+            <div class="button is-small" [ngClass]="isActive('profile')" (click)="navigate('profile')">Profil</div>
+            <div class="button is-small" (click)="logout()">Wyloguj się</div>
           </div>
-        </div>
-      </div>
-    </div>
+       
   </div>
 </nav>
