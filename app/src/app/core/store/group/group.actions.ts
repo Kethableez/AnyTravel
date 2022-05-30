@@ -13,7 +13,7 @@ export const createGroup = createAction(
   '[Group] Create Group',
   props<{ file: FormData; payload: CreateGroupPayload }>()
 );
-export const editGroup = createAction('[Group] Edit Group', props<{ groupId: string; payload: EditGroupPayload }>());
+export const editGroup = createAction('[Group] Edit Group', props<{ groupId: string; file: FormData; payload: EditGroupPayload }>());
 export const addUserToGroup = createAction('[Group] Add User to Group', props<{ groupId: string, payload: string }>());
 
 export const groupError = createAction('[Group] Error', props<{ message: string }>());

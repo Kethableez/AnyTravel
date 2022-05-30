@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EditGroupPayload } from '@models/group/edit-group-payload';
 import { Group } from '@models/group/group.model';
 import { Store } from '@ngrx/store';
 import { CreateGroupPayload } from 'src/app/core/models/group/crate-group-payload';

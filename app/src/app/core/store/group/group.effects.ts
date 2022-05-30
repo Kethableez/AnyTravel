@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EditGroupPayload } from '@models/group/edit-group-payload';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { withLatestFrom, filter, switchMap, map, catchError, of } from 'rxjs';
@@ -98,11 +99,23 @@ export class GroupEffects {
     this.actions$.pipe(
       ofType(editGroup),
       switchMap((action) => {
-        return this.groupService.doEdit(action.groupId, action.payload).pipe(
-          map(
-            () => getUserGroups(),
-            catchError((error) => of(groupError({ message: error.error.message })))
-          )
+        return this.fileService.doUploadFile('group', action.file).pipe(
+          map((response) => {
+            const group: CreateGroupPayload = {
+              ...action.payload,
+              cover: response.filename
+            };
+            return group;
+          }),
+          switchMap((payload: EditGroupPayload) => {
+            return this.groupService.doEdit(action.groupId, payload).pipe(
+              map(
+                () => getUserGroups(),
+                catchError((error) => of(groupError({ message: error.error.message })))
+              )
+            );
+          }),
+          catchError((error) => of(groupError({ message: error.error.message })))
         );
       })
     )

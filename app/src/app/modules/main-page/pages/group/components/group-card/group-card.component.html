@@ -1,4 +1,4 @@
-<div class="nodecor">
+<div class="nodecor" *ngIf="currentUser$ | async as currentUser">
   <div class="container mid">
     <div *ngIf="group" class="ideal box row1 minimalLatestBox">
       <div class="column ideal mid">
@@ -20,10 +20,13 @@
             </div>
           </span>
         </div>
-        <div class="mid">
+        <div class="mid" *ngIf="currentUser.username == group?.founder.username">
           <button (click)="toggleFormEdit()" class="button is-info">Edytuj</button>
           <button (click)="toggleFormAdd()" class="button is-info">Dodaj Użytkownika</button>
           <button (click)="deleteGroup(group._id)" class="button is-danger">Usuń</button>
+        </div>
+        <div class="mid" *ngIf="currentUser.username != group?.founder.username">
+          <button (click)="toggleFormEdit()" class="button is-danger">Wyjdź</button>
         </div>
       </div>
     </div>
