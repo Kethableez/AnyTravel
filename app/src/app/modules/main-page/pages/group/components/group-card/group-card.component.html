@@ -1,4 +1,4 @@
-<div class="nodecor">
+<div class="nodecor" *ngIf="currentUser$ | async as currentUser">
   <div class="container mid">
     <div *ngIf="group" class="ideal box row1 minimalLatestBox">
       <div class="column ideal mid">
@@ -14,11 +14,57 @@
           <span class="tag is-light">Creator: {{ group?.founder.username | label }}</span>
           <span class="tag  is-light">Invitation Code: {{ group?.invitationCode | label }}</span>
           <span class="tag  is-light"> {{ group?.journeys | label }}</span>
-          <span class="tag  is-light"> {{ group?.members | label }}</span>
-      </div>
-        <div class="mid">
+          <span class="tag  is-light">
+            <div *ngFor="let members of group.members">
+              {{members.username| label}} &nbsp;
+            </div>
+          </span>
+        </div>
+        <div class="mid" *ngIf="currentUser.username == group?.founder.username">
+          <button (click)="toggleFormEdit()" class="button is-info">Edytuj</button>
+          <button (click)="toggleFormAdd()" class="button is-info">Dodaj Użytkownika</button>
           <button (click)="deleteGroup(group._id)" class="button is-danger">Usuń</button>
+        </div>
+        <div class="mid" *ngIf="currentUser.username != group?.founder.username">
+          <button (click)="leaveGroup()" class="button is-danger">Wyjdź z grupy</button>
         </div>
       </div>
     </div>
+  </div>
+  <div class="container mid" *ngIf="formAddUserEnabled">
+    <div class="box">
+      <div class="space">
+        <form [formGroup]="addUserFormGroup" class="mid">
+          <!-- <label for="memberEmail" class="label"> memberEmail </label> -->
+          <input id="memberEmail" type="text" formControlName="memberEmail" class="input"
+            placeholder="Podaj mail użytkownika aby dodać" />
+        </form>
+      </div>
+      <button (click)="addUserToGroup()" class="button is-success">Dodaj</button>
+    </div>
+  </div>
+  <div class="container mid" *ngIf="formEditEnabled">
+    <form [formGroup]="editFormGroup" class="mid">
+      <div class="space">
+        <!-- <label for="name" class="label"> Name </label> -->
+        <input id="name" type="text" formControlName="name" class="input" placeholder={{group?.name}} />
+      </div>
+    </form>
+    <div class="field">
+      <label class="file-label">
+        <input class="file-input" type="file" (change)="uploadFile($event)" />
+        <span class="file-cta space">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span *ngIf="!getControl(editFormGroup, 'cover').touched" class="file-label field"> Wybierz plik... </span>
+          <span *ngIf="getControl(editFormGroup, 'cover').touched" class="file-label">
+            {{ getControl(editFormGroup, 'cover').value }}
+          </span>
+        </span>
+      </label>
+    </div>
+    <button (click)="editGroup()" class="button is-success">Edytuj</button>
+  </div>
+
 </div>

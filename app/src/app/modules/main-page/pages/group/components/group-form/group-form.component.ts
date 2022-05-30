@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Group } from '@models/group/group.model';
 import { Store } from '@ngrx/store';
 import { CreateGroupPayload } from 'src/app/core/models/group/crate-group-payload';
 import { GroupService } from 'src/app/core/services/group/group.service';
@@ -14,13 +15,16 @@ import { CleanableDirective } from 'src/app/shared/directives/cleanable.directiv
 })
 export class GroupFormComponent extends CleanableDirective implements OnInit {
 
+  @Input()
+  group?: Group;
+
   constructor(private store$: Store<RootState>, private service: GroupService, private formBuilder: FormBuilder) { super(); }
 
   file = new FormData();
 
   newGroupForm = this.formBuilder.group({
-    name: '',
-    cover: ''
+    name: this.group != null ? this.group.name : '',
+    cover: this.group != null ? this.group.cover : ''
   });
 
   ngOnInit(): void {
