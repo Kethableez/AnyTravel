@@ -17,7 +17,8 @@ import {
   editGroup,
   getUserGroups,
   getUserGroupsSuccess,
-  addUserToGroup
+  addUserToGroup,
+  leaveGroup
 } from './group.actions';
 
 @Injectable()
@@ -127,6 +128,20 @@ export class GroupEffects {
       ofType(addUserToGroup),
       switchMap((action) => {
         return this.groupService.doAdd(action.groupId, action.payload).pipe(
+          map(
+            () => getUserGroups(),
+            catchError((error) => of(groupError({ message: error.error.message })))
+          )
+        );
+      })
+    )
+  );
+
+  leaveGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(leaveGroup),
+      switchMap((action) => {
+        return this.groupService.doLeave(action.groupId).pipe(
           map(
             () => getUserGroups(),
             catchError((error) => of(groupError({ message: error.error.message })))

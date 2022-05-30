@@ -15,5 +15,8 @@ export const createGroup = createAction(
 );
 export const editGroup = createAction('[Group] Edit Group', props<{ groupId: string; file: FormData; payload: EditGroupPayload }>());
 export const addUserToGroup = createAction('[Group] Add User to Group', props<{ groupId: string, payload: string }>());
+export const leaveGroup = createAction('[Group] Leave Group', props<{ groupId: string }>());
+
 
 export const groupError = createAction('[Group] Error', props<{ message: string }>());
+

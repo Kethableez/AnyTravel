@@ -90,10 +90,15 @@ export class GroupCardComponent implements OnInit {
       const payload: EditGroupPayload = {
         ... this.editFormGroup.value,
       };
-      console.log(this.group?._id);
 
       this.store$.dispatch(GroupActions.editGroup({ groupId: this.group?._id, file: this.file, payload: payload }));
       this.file.delete('file');
+    }
+  }
+
+  leaveGroup() {
+    if (this.group) {
+      this.store$.dispatch(GroupActions.leaveGroup({ groupId: this.group?._id }));
     }
   }
 }

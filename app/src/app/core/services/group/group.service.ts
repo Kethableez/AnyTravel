@@ -89,8 +89,8 @@ export class GroupService extends BaseRequestService {
     return this.post<Response>(url);
   }
 
-  doLeave(memberId: string): Observable<Response> {
-    const url = this.getUrl(GroupActions.LEAVE, { groupId: memberId });
+  doLeave(groupId: string): Observable<Response> {
+    const url = this.getUrl(GroupActions.LEAVE, { groupId: groupId });
 
     return this.post<Response>(url);
   }

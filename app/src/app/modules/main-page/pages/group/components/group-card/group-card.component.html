@@ -26,7 +26,7 @@
           <button (click)="deleteGroup(group._id)" class="button is-danger">Usuń</button>
         </div>
         <div class="mid" *ngIf="currentUser.username != group?.founder.username">
-          <button (click)="toggleFormEdit()" class="button is-danger">Wyjdź</button>
+          <button (click)="leaveGroup()" class="button is-danger">Wyjdź z grupy</button>
         </div>
       </div>
     </div>
