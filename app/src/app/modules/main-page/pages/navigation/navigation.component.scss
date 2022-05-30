@@ -9,16 +9,21 @@
     width: 300px;
   }
 }
+
+.buttons {
+  justify-content: center;
+  align-items: center;
+}
+
 .doPrawej{
   display: flex;
   justify-content: space-between;
-
-
 }
 @media screen and (max-width: 680px) {
   .doPrawej{
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

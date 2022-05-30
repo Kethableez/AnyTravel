@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
@@ -13,6 +13,8 @@ import { HomeNavigationService } from '../../services/home-navigation.service';
   providers: [HomeNavigationService]
 })
 export class NavigationComponent extends CleanableDirective {
+  @Input() forMobile = false;
+
   constructor(
     protected navigationService: HomeNavigationService,
     private store$: Store<RootState>,
@@ -29,6 +31,10 @@ export class NavigationComponent extends CleanableDirective {
   }
 
   activeRoute = '';
+
+  isDesktop() {
+    return window.innerWidth > 768;
+  }
 
   logout() {
     this.store$.dispatch(AuthActions.logout());
