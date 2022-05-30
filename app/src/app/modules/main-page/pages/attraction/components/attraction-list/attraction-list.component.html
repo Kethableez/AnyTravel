@@ -1,17 +1,19 @@
-<div class="majk-container">
-  <div class="box filters" *ngIf="!isModeratorView">
-    <majk-search></majk-search>
+<div class="majk-container column" >
+  <div class="box  smaller TODOTUTAJ" *ngIf="!isModeratorView" >
+    <majk-search ></majk-search>
     <hr />
-    <majk-sort></majk-sort>
+    <majk-sort  ></majk-sort>
     <hr />
-    <majk-filters></majk-filters>
+    <majk-filters ></majk-filters>
   </div>
 
   <div class="column">
+    
     <majk-selected-attractions *ngIf="!isModeratorView"></majk-selected-attractions>
-    <div class="list">
-      <div *ngFor="let attraction of attractionList$ | async">
-        <majk-attraction-card [attraction]="attraction" [isModeratorView]="isModeratorView"></majk-attraction-card>
+    <div class="list smaller">
+      
+      <div *ngFor="let attraction of attractionList$ | async" >
+        <majk-attraction-card [attraction]="attraction" [isModeratorView]="isModeratorView" ></majk-attraction-card>
       </div>
     </div>
   </div>

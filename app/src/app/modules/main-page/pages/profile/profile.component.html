@@ -1,4 +1,4 @@
-<div class="columns is-mobile is-centered" *ngIf="currentUser$ | async as currentUser">
+<div class="columns is-mobile is-centered noMargin" *ngIf="currentUser$ | async as currentUser">
   <div class="box profile">
     <figure class="image">
       <img [src]="getAvatar(currentUser.avatar)" />
