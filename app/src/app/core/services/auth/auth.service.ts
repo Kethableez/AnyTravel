@@ -49,7 +49,6 @@ export class AuthService extends BaseRequestService {
 
   doConfirm(body: ConfirmPayload) {
     const url = this.getUrl(AuthActions.CONFIRM);
-    console.log(body);
     return this.post<BaseResponse>(url, body);
   }
 

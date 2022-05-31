@@ -57,9 +57,7 @@ class UserService {
           payload.password = await bcrypt.hash(payload.password, 10);
         } else throw new Error('Invalid password');
       }
-      console.log(payload);
       if (payload.avatar) {
-        console.log(payload.avatar);
         payload.avatar = [avatarPrefix(), payload.avatar].join('/');
       }
 

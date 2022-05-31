@@ -35,7 +35,6 @@ export class ConfirmComponent {
 
   confirm() {
     const payload = this.confirmForm.value;
-    console.log(payload);
     this.store$.dispatch(AuthActions.confirm({ payload: payload }));
   }
 
