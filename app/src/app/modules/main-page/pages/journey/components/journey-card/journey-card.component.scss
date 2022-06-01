@@ -1,5 +1,6 @@
 .card {
-  width: 50rem;
+  // width: 50rem;
+  width: 30rem;
   margin: 1rem;
 }
 
@@ -8,6 +9,7 @@
 }
 
 .image img {
-  width: 100%;
+  width: 30rem;
+  height: 30rem;
   object-fit: cover;
 }
