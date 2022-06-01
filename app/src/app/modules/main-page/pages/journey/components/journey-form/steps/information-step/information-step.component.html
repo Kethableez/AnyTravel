@@ -79,6 +79,23 @@
     </div>
   </div>
 
+  <!-- <div class="field">
+    <label class="file-label">
+      <input class="file-input" type="file" (change)="uploadFile($event)" />
+      <span class="file-cta">
+        <span class="file-icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span *ngIf="!getControl(informationForm, 'cover').touched" class="file-label">
+          Wybierz plik...
+        </span>
+        <span *ngIf="getControl(informationForm, 'cover').touched" class="file-label">
+          {{ getControl(informationForm, 'cover').value }}
+        </span>
+      </span>
+    </label>
+  </div> -->
+
   <mat-action-row>
     <button type="button" class="button is-primary" [disabled]="informationForm.invalid" (click)="nextStep()">
       Dalej

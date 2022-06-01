@@ -8,6 +8,7 @@ import BaseResponse from '../../utils/models/baseResponseModel';
 import { generateInvitationCode } from '../../functions/generators';
 import Group from '../group/groupModel';
 import Address from '../../utils/models/addressModel';
+import mongoose from 'mongoose';
 
 class GeneratorService {
   private userSchema = userSchema;
@@ -164,6 +165,9 @@ class GeneratorService {
     const groupIds = (await this.groupSchema.find()).map((g) => g._id);
     const attractionIds = (await this.attractionSchema.find()).map((a) => a._id);
 
+    const groupId = faker.helpers.arrayElement(groupIds).toString();
+    const journeyId = new mongoose.Types.ObjectId();
+
     const startDate = faker.date.soon();
     const endDate = faker.date.soon(10, startDate);
 
@@ -213,7 +217,14 @@ class GeneratorService {
       )
     };
 
+    const g = await this.groupSchema.findById(groupId);
+    if (g) {
+      g.journeys.push(journeyId);
+      await g.save();
+    } else throw new Error('Group not found');
+
     return await this.journeySchema.create({
+      _id: journeyId,
       ...data
     });
   }

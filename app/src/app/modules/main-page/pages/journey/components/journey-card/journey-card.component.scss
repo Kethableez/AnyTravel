@@ -1,11 +1,17 @@
 .card {
-  width: 50rem;
+  // width: 50rem;
+  width: 30rem;
   margin: 1rem;
 }
 
 .title {
   padding: 1rem;
 }
+
+.image img {
+  width: 30rem;
+  height: 30rem;
+  object-fit: cover;
 @media screen and (max-width: 840px) {
   .box {
     max-width: 739px !important;

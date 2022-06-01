@@ -36,9 +36,7 @@ export class AttractionCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.attraction) {
-      this.isAttractionSelected$ = this.store$
-        .select(isAttractionSelected(this.attraction?._id))
-        .pipe(tap(console.log));
+      this.isAttractionSelected$ = this.store$.select(isAttractionSelected(this.attraction?._id));
     }
   }
 

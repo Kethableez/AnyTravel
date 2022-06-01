@@ -1,9 +1,11 @@
 <div class="column is-12 center">
 
-  <div class="content">
+  <div class="content" *ngIf="userJourneys$ | async as userJourneys">
     <div class="paragraph-title">
       <h2 class="title is-3"> Najbliższa wycieczka </h2>
     </div>
+        <majk-journey-card [journey]="userJourneys[0]"></majk-journey-card>
+<!--   
     <div *ngIf="userJourneys$ | async as userJourneys">
       <tr *ngIf="userJourneys[0] as journey">
 
@@ -41,18 +43,17 @@
         </div>
 
       </tr>
-    </div>
+    </div> -->
   </div>
 
-
-  <div class="content">
-    <div *ngIf="futureJourneys$ | async as futureJourneys">
+  <div class="content" *ngIf="futureJourneys$ | async as futureJourneys">
       <div class="paragraph-title">
         <h2 class="title is-3"> Zaplanowane wycieczki </h2>
       </div>
 
       <tr *ngFor="let journey of futureJourneys">
-        <div>
+          <majk-journey-card [journey]="journey"></majk-journey-card>
+<!--         <div>
           <div class="card is-full wrapik">
 
             <div class="card-image">
@@ -82,19 +83,17 @@
               </div>
             </div>
           </div>
-        </div>
-      </tr>
-    </div>  
+        </div> -->
   </div>
 
-
-  <div class="content">
-    <div *ngIf="pastJourneys$ | async as pastJourneys">
+  <div class="content" *ngIf="pastJourneys$ | async as pastJourneys">
       <div class="paragraph-title">
         <h2 class="title is-3"> Przebyte wycieczki </h2>
       </div>
 
-      <tr *ngFor="let pastJourney of pastJourneys">
+      <tr *ngFor="let journey of pastJourneys">
+        <majk-journey-card [journey]="journey"></majk-journey-card>
+<!--       <tr *ngFor="let pastJourney of pastJourneys">
         <div>
           <div class="card is-full wrapik">
 
@@ -108,29 +107,11 @@
               <p class="title is-4">
                 {{ pastJourney.name }}
               </p>
-            </div>
+            </div> -->
 
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-6">{{ pastJourney.destination.country }}</p>
-                </div>
-              </div>
-
-              <div class="content">
-                <div>{{ pastJourney.description }}</div>
-                <br>
-                  <time type="datetime-local">{{ pastJourney.startDate | date: 'dd.MM.yyyy' }}</time>
-                  <time type="datetime-local"> - {{ pastJourney.endDate | date: 'dd.MM.yyyy' }}</time>
-              </div>
-            </div>
-          </div>
-
-        </div>
 
       </tr>
-    </div>  
-  </div>
-  
+    </div>
+
 </div>
 

@@ -1,4 +1,5 @@
-.card {
+.card,
+majk-journey-card {
   width: 30rem;
   margin: 1rem;
   .image img {
@@ -50,6 +51,12 @@
   }
 }
 
+.column {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
 .flex {
   display: flex;
   flex-direction: row;
@@ -65,11 +72,12 @@
 
 .title {
   font-weight: bold;
+  text-decoration: solid underline transparent;
 }
 
 .content:hover {
   .paragraph-title > .title{
-    text-decoration: solid underline transparent;
+    text-decoration: none;
     transition: text-decoration 4s ease;
   }
 }
