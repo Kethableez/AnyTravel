@@ -30,7 +30,6 @@ export class JourneyCardComponent extends CleanableDirective implements OnInit {
 
     this.addSubscription(
       timer(0, 5000).subscribe((val) => {
-        console.log(val);
         this.image = this.images[this.index];
         if (this.index === this.journey.attractions.length - 1) {
           this.index = 0;

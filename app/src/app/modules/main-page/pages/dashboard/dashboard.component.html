@@ -4,8 +4,11 @@
     <div class="paragraph-title">
       <h2 class="title is-3"> Najbliższa wycieczka </h2>
     </div>
-        <majk-journey-card [journey]="userJourneys[0]"></majk-journey-card>
-<!--   
+    <ng-container *ngIf="userJourneys[0]">
+
+      <majk-journey-card [journey]="userJourneys[0]"></majk-journey-card>
+    </ng-container>
+<!--
     <div *ngIf="userJourneys$ | async as userJourneys">
       <tr *ngIf="userJourneys[0] as journey">
 
