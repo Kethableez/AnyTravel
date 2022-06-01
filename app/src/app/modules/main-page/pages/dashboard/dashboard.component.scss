@@ -81,3 +81,13 @@ majk-journey-card {
     transition: text-decoration 4s ease;
   }
 }
+ .center{
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+ }
+ @media screen and (max-width: 769px) {
+  .wrapik {
+    width: 300px;
+  }
+}

@@ -6,3 +6,18 @@
   overflow-y: scroll;
   max-height: 60vh;
 }
+
+
+@media screen and (max-width: 900px) {
+  .small{
+    display: flex!important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+  .row{
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+}

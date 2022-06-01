@@ -14,7 +14,7 @@ export class AttractionListComponent implements OnInit {
   @Input()
   isModeratorView = false;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

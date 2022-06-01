@@ -1,24 +1,18 @@
 <div class="hero is-fullheight background">
   <div class="navbar my-3">
-    <div class="container">
+    <div class="container doPrawej">
       <div class="navbar-brand">
         <div class="navbar-item" (click)="navigate('')"></div>
-        <div class="navbar-burger">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </div>
+
       </div>
-      <div class="navbar-menu">
-        <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
               <div class="button is-white" [ngClass]="isActive('register')" (click)="navigate('register')"> Zarejestruj się </div>
               <div class="button is-white" [ngClass]="isActive('login')" (click)="navigate('login')"> Zaloguj się </div>
             </div>
           </div>
-        </div>
-      </div>
+
+
     </div>
   </div>
   <div class="hero-body">

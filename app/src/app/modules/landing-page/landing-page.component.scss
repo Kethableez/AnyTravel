@@ -4,7 +4,7 @@
   background-size: cover;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .navbar-item {
     width: 150px;
   }
@@ -14,7 +14,7 @@
   }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 800px) {
   .navbar-item {
     width: 300px;
   }
@@ -45,12 +45,16 @@ majk-login, majk-register {
   justify-content: center;
 }
 
+.buttons {
+  justify-content: center;
+}
+
 .w-50 {
   width: 50%;
 }
 
 .hidden {
-  visibility: hidden;
+  visibility: visible;
 }
 
 .visible {
@@ -67,4 +71,18 @@ majk-login, majk-register {
 
 .text-wht {
   color: #fff;
+}
+.doPrawej{
+ display: flex;
+ justify-content: space-between;
+ width: 100%;
+}
+@media screen and (max-width: 800px) {
+  .doPrawej{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+   }
 }

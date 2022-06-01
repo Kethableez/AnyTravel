@@ -1,3 +1,126 @@
 .text-wht {
   color: #fff;
 }
+.margin {
+  margin-bottom: 50px;
+}
+
+.spacing {
+  letter-spacing: 1px;
+}
+.limit {
+  width: 60%;
+}
+.limitv2 {
+  width: 75%;
+  line-height: 55px;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.content {
+  width: 80%;
+  margin-left: 200px;
+}
+.button {
+  margin-top: -50px;
+}
+.button:hover {
+  background-color: transparent;
+  color: white;
+  border-color: #fff;
+}
+.center1 {
+  text-align: center;
+}
+@media screen and (max-width: 1406px) {
+  .button {
+    margin-top: -50px;
+  }
+  .center {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+}
+@media screen and (max-width: 1215px) {
+  .button {
+    margin-top: -50px;
+    margin-bottom: -50px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    max-height: 250px;
+  }
+  .center {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 1008px) {
+  .button {
+    margin-top: -50px;
+    margin-bottom: -50px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: 400px;
+  }
+  .center {
+    text-align: center;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+  .limit {
+    width: 100%;
+  }
+  .limitv2 {
+    width: 100%;
+    margin-top: 50px;
+  }
+}
+@media screen and (max-width: 630px) {
+  .button {
+    margin-top: -50px;
+    margin-bottom: -50px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: 400px;
+    align-content: flex-start;
+  }
+  .center {
+    text-align: center;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+  .limit {
+    width: 100%;
+  }
+  .limitv2 {
+    width: 110%;
+    line-height: 45px;
+  }
+}

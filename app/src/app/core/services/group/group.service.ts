@@ -8,7 +8,7 @@ import { Group } from '../../models/group/group.model';
 import { CreateGroupPayload } from '../../models/group/crate-group-payload';
 import { RootState } from '../../store/app.states';
 import { Store } from '@ngrx/store';
-import { getNewGroup, getUserGroups } from '../../store/group/group.actions';
+import { getUserGroups } from '../../store/group/group.actions';
 import { EditGroupPayload } from '../../models/group/edit-group-payload';
 
 enum GroupActions {
@@ -59,37 +59,38 @@ export class GroupService extends BaseRequestService {
   }
 
   doDeleteGroup(groupID: string): Observable<Response> {
-    const url = this.getUrl(GroupActions.DELETE_GROUP, { groupID: groupID });
+    const url = this.getUrl(GroupActions.DELETE_GROUP, { groupId: groupID });
 
     return this.post<Response>(url);
   }
 
   doJoin(invitationCode: string): Observable<Response> {
-    const url = this.getUrl(GroupActions.JOIN, { groupID: invitationCode });
+    const url = this.getUrl(GroupActions.JOIN, { groupId: invitationCode });
+
 
     return this.post<Response>(url);
   }
 
   doEdit(groupId: string, payload: EditGroupPayload) {
-    const url = this.getUrl(GroupActions.EDIT_GROUP, { groupID: groupId });
+    const url = this.getUrl(GroupActions.EDIT_GROUP, { groupId: groupId });
 
     return this.post<EditGroupPayload>(url, payload);
   }
 
-  doAdd(memberEmail: string): Observable<Response> {
-    const url = this.getUrl(GroupActions.ADD_USER, { groupID: memberEmail });
+  doAdd(groupId: string, payload: string) {
+    const url = this.getUrl(GroupActions.ADD_USER, { groupId: groupId });
 
-    return this.post<Response>(url);
+    return this.post<string>(url, payload);
   }
 
   doRemove(memberId: string): Observable<Response> {
-    const url = this.getUrl(GroupActions.REMOVE_USER, { groupID: memberId });
+    const url = this.getUrl(GroupActions.REMOVE_USER, { groupId: memberId });
 
     return this.post<Response>(url);
   }
 
-  doLeave(memberId: string): Observable<Response> {
-    const url = this.getUrl(GroupActions.LEAVE, { groupID: memberId });
+  doLeave(groupId: string): Observable<Response> {
+    const url = this.getUrl(GroupActions.LEAVE, { groupId: groupId });
 
     return this.post<Response>(url);
   }
@@ -99,7 +100,6 @@ export class GroupService extends BaseRequestService {
       first(),
       tap(() => {
         this.store$.dispatch(getUserGroups());
-        this.store$.dispatch(getNewGroup());
       })
     );
   }

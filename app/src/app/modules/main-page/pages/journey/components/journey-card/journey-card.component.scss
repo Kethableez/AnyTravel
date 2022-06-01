@@ -12,4 +12,46 @@
   width: 30rem;
   height: 30rem;
   object-fit: cover;
+@media screen and (max-width: 840px) {
+  .box {
+    max-width: 739px !important;
+    min-width: 300px !important;
+    padding: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
+  }
+}
+@media screen and (max-width: 740px) {
+  .box {
+    max-width: 639px !important;
+    min-width: 300px !important;
+    padding: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .box {
+    max-width: 539px !important;
+    min-width: 300px !important;
+    padding: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .box {
+    max-width: 439px !important;
+    min-width: 300px !important;
+    padding: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .box {
+    max-width: 339px !important;
+    min-width: 300px !important;
+    padding: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
+  }
 }

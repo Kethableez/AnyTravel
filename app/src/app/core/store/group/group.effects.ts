@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EditGroupPayload } from '@models/group/edit-group-payload';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { withLatestFrom, filter, switchMap, map, catchError, of } from 'rxjs';
@@ -10,12 +11,12 @@ import { selectIsLoggedIn } from '../auth';
 import {
   groupError,
   createGroup,
-  getNewGroupSuccess,
-  getNewGroup,
   deleteGroup,
   editGroup,
   getUserGroups,
-  getUserGroupsSuccess
+  getUserGroupsSuccess,
+  addUserToGroup,
+  leaveGroup
 } from './group.actions';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class GroupEffects {
     private actions$: Actions,
     private groupService: GroupService,
     private fileService: FileService
-  ) {}
+  ) { }
 
   getGroup$ = createEffect(() =>
     this.actions$.pipe(
@@ -41,19 +42,6 @@ export class GroupEffects {
     )
   );
 
-  getNewGroup$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(getUserGroups),
-      withLatestFrom(this.store$.select(selectIsLoggedIn)),
-      filter(([, isLoggedIn]) => isLoggedIn),
-      switchMap(() =>
-        this.groupService.doGetAllUserGroups().pipe(
-          map((response) => getNewGroupSuccess({ groups: response })),
-          catchError((error) => of(groupError({ message: error.error.message })))
-        )
-      )
-    )
-  );
 
   createGroup$ = createEffect(() =>
     this.actions$.pipe(
@@ -86,7 +74,7 @@ export class GroupEffects {
       ofType(deleteGroup),
       switchMap((action) => {
         return this.groupService.doDeleteGroup(action.groupId).pipe(
-          switchMap(() => [getUserGroups(), getNewGroup()]),
+          switchMap(() => [getUserGroups()]),
           catchError((error) => of(groupError({ message: error.error.message })))
         );
       })
@@ -96,14 +84,58 @@ export class GroupEffects {
   editGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editGroup),
-      switchMap((action) =>
-        this.groupService.doEdit(action.groupId, action.payload).pipe(
+      switchMap((action) => {
+        return this.fileService.doUploadFile('group', action.file).pipe(
+          map((response) => {
+            const group: CreateGroupPayload = {
+              ...action.payload,
+              cover: response.filename
+            };
+            return group;
+          }),
+          switchMap((payload: EditGroupPayload) => {
+            return this.groupService.doEdit(action.groupId, payload).pipe(
+              map(
+                () => getUserGroups(),
+                catchError((error) => of(groupError({ message: error.error.message })))
+              )
+            );
+          }),
+          catchError((error) => of(groupError({ message: error.error.message })))
+        );
+      })
+    )
+  );
+
+
+  addUserToGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addUserToGroup),
+      switchMap((action) => {
+        return this.groupService.doAdd(action.groupId, action.payload).pipe(
           map(
             () => getUserGroups(),
             catchError((error) => of(groupError({ message: error.error.message })))
           )
-        )
-      )
+        );
+      })
     )
   );
+
+  leaveGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(leaveGroup),
+      switchMap((action) => {
+        return this.groupService.doLeave(action.groupId).pipe(
+          map(
+            () => getUserGroups(),
+            catchError((error) => of(groupError({ message: error.error.message })))
+          )
+        );
+      })
+    )
+  );
+
 }
+
+

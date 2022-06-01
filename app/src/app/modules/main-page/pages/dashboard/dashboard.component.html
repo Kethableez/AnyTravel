@@ -1,10 +1,49 @@
-<div class="column is-12">
+<div class="column is-12 center">
 
   <div class="content" *ngIf="userJourneys$ | async as userJourneys">
     <div class="paragraph-title">
       <h2 class="title is-3"> Najbliższa wycieczka </h2>
     </div>
         <majk-journey-card [journey]="userJourneys[0]"></majk-journey-card>
+<!--   
+    <div *ngIf="userJourneys$ | async as userJourneys">
+      <tr *ngIf="userJourneys[0] as journey">
+
+        <div>
+          <div class="card is-full wrapik">
+
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ journeyCoverFromAttraction }}" alt="Placeholder image">
+              </figure>
+            </div>
+
+            <div class="card-header">
+              <p class="title is-4">
+                {{ journey.name }}
+              </p>
+            </div>
+
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="subtitle is-6">{{ journey.destination.country }}</p>
+                </div>
+              </div>
+
+              <div class="content">
+                <div>{{ journey.description }}</div>
+                <br>
+                  <time type="datetime-local">{{ journey.startDate | date: 'dd.MM.yyyy' }}</time>
+                  <time type="datetime-local"> - {{ journey.endDate | date: 'dd.MM.yyyy' }}</time>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </tr>
+    </div> -->
   </div>
 
   <div class="content" *ngIf="futureJourneys$ | async as futureJourneys">
@@ -14,7 +53,37 @@
 
       <tr *ngFor="let journey of futureJourneys">
           <majk-journey-card [journey]="journey"></majk-journey-card>
-      </tr>
+<!--         <div>
+          <div class="card is-full wrapik">
+
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ journeyCoverFromAttraction }}" alt="Placeholder image">
+              </figure>
+            </div>
+
+            <div class="card-header">
+              <p class="title is-4">
+                {{ journey.name }}
+              </p>
+            </div>
+
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-6">{{ journey.destination.country }}</p>
+                </div>
+              </div>
+
+              <div class="content">
+                <div>{{ journey.description }}</div>
+                <br>
+                  <time type="datetime-local">{{ journey.startDate | date: 'dd.MM.yyyy' }}</time>
+                  <time type="datetime-local"> - {{ journey.endDate | date: 'dd.MM.yyyy' }}</time>
+              </div>
+            </div>
+          </div>
+        </div> -->
   </div>
 
   <div class="content" *ngIf="pastJourneys$ | async as pastJourneys">
@@ -24,6 +93,21 @@
 
       <tr *ngFor="let journey of pastJourneys">
         <majk-journey-card [journey]="journey"></majk-journey-card>
+<!--       <tr *ngFor="let pastJourney of pastJourneys">
+        <div>
+          <div class="card is-full wrapik">
+
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ journeyCoverFromAttraction }}" alt="Placeholder image">
+              </figure>
+            </div>
+
+            <div class="card-header">
+              <p class="title is-4">
+                {{ pastJourney.name }}
+              </p>
+            </div> -->
 
 
       </tr>

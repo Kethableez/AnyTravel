@@ -1,21 +1,43 @@
 <nav class="navbar is-primary">
-  <div class="container">
+  <ng-container *ngIf="isDesktop(); else mobile">
+  <div class="container doPrawej ">
     <div class="navbar-brand">
       <div class="navbar-item"></div>
     </div>
-    <div class="navbar-menu">
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <div class="button" [ngClass]="isActive('dashboard')" (click)="navigate('dashboard')">Dashboard</div>
-            <div class="button" [ngClass]="isActive('group')" (click)="navigate('groups')">Twoje grupy</div>
-            <div class="button" [ngClass]="isActive('journey')" (click)="navigate('journey/all')">Twoje wycieczki</div>
-            <div class="button" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>
-            <div class="button" [ngClass]="isActive('profile')" (click)="navigate('profile')">Profil</div>
-            <div class="button is-white" (click)="logout()">Wyloguj się</div>
-          </div>
+        <div class="buttons">
+          <div class="button is-small" [ngClass]="isActive('dashboard')" (click)="navigate('dashboard')">Dashboard</div>
+          <div class="button is-small" [ngClass]="isActive('group')" (click)="navigate('groups')">Twoje grupy</div>
+          <div class="button is-small" [ngClass]="isActive('journey')" (click)="navigate('journey/all')">Twoje wycieczki</div>
+          <div class="button is-small" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">Atrakcje</div>
+          <div class="button is-small" [ngClass]="isActive('profile')" (click)="navigate('profile')">Profil</div>
+          <div class="button is-small" (click)="logout()">Wyloguj się</div>
         </div>
       </div>
-    </div>
-  </div>
+    </ng-container>
+    <ng-template #mobile>
+      <div class="container doPrawej ">
+            <div class="buttons">
+              <div class="button is-small" [ngClass]="isActive('dashboard')" (click)="navigate('dashboard')">
+                <i class="fa-solid fa-table-columns"></i>
+              </div>
+              <div class="button is-small" [ngClass]="isActive('group')" (click)="navigate('groups')">
+                <i class="fa-solid fa-user-group"></i>
+              </div>
+              <div class="button is-small" [ngClass]="isActive('journey')" (click)="navigate('journey/all')">
+                <i class="fa-solid fa-plane-departure"></i>
+              </div>
+              <div class="button is-small" [ngClass]="isActive('attraction')" (click)="navigate('attraction')">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="button is-small" [ngClass]="isActive('profile')" (click)="navigate('profile')">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="button is-small" (click)="logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </div>
+            </div>
+          </div>
+    </ng-template>
 </nav>
+
+
