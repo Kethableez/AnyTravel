@@ -52,6 +52,7 @@ class JourneyService {
   public async createJourney(payload: CreateJourneyPayload): Promise<BaseResponse | Error> {
     try {
       payload.attractions.forEach((a: any) => delete (a as any).name);
+      payload.attractions.forEach((a: any) => (a.id = new mongoose.Types.ObjectId(a.id)));
 
       const journey = new this.journeySchema({
         ...payload.information,

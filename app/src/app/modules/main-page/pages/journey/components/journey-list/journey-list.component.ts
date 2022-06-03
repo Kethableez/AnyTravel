@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
 import { JourneysActions } from '@store/journey';
 import { selectDisplayType, selectUserJourneys } from '@store/journey/selectors/journey.selectors';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'majk-journey-list',
@@ -13,7 +14,7 @@ import { selectDisplayType, selectUserJourneys } from '@store/journey/selectors/
 export class JourneyListComponent implements OnInit {
   constructor(private store$: Store<RootState>) {}
 
-  journeys$ = this.store$.select(selectUserJourneys);
+  journeys$ = this.store$.select(selectUserJourneys).pipe(tap(console.log));
 
   get DisplayType() {
     return [DisplayType.ALL, DisplayType.FUTURE, DisplayType.PAST];
