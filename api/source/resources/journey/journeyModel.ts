@@ -3,6 +3,7 @@ import Accomodation from '../../utils/models/accomodationModel';
 import Address from '../../utils/models/addressModel';
 import AttractionInfo from '../../utils/models/attractionInfoModel';
 import Break from '../../utils/models/breakModel';
+import Participant from '../../utils/models/participantModel';
 
 interface JourneyModel extends Document {
   name: string;
@@ -11,6 +12,7 @@ interface JourneyModel extends Document {
   startDate: Date;
   endDate: Date;
   groupId: any;
+  participants: Participant[];
   destination: BaseAddress;
   meetingPlace: {
     place: string;

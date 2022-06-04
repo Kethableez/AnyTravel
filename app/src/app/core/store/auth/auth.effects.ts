@@ -6,7 +6,7 @@ import { AuthService } from '@services/auth/auth.service';
 import { RootState } from '@store/app.states';
 import { getAttractions } from '@store/attraction/attraction.actions';
 import { getUserGroups } from '@store/group/group.actions';
-import { getUserJourneys } from '@store/journey/actions/journeys.actions';
+import { getNotifications, getUserJourneys } from '@store/journey/actions/journeys.actions';
 import { catchError, concatMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { NotificationType, showNotification } from '../notification/notification.actions';
 import { clearData, getData } from '../user/user.actions';
@@ -46,7 +46,7 @@ export class AuthEffects {
       ofType(loginSuccess),
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
-      concatMap(() => [getData(), getAttractions(), getUserGroups(), getUserJourneys()]),
+      concatMap(() => [getData(), getAttractions(), getUserGroups(), getNotifications(), getUserJourneys()]),
       tap(() => this.router.navigateByUrl('/home'))
     )
   );

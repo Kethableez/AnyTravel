@@ -1,4 +1,28 @@
 <ng-container class="tile is-ancestor" *ngIf="journey$ | async as journey; else error">
+  <div class="tile is-parent" *ngIf="userId$ | async as userId">
+    <article class="tile is-child notification is-primary-light">
+      <p class="title">Wyraź chęć uczestnictwa</p>
+      <div class="buttons">
+        <button
+          type="button"
+          class="button is-primary"
+          [disabled]="isParticipating(userId, journey.participants)"
+          (click)="updateParticipation(journey._id, userId, true)"
+        >
+          Będę
+        </button>
+        <button
+          type="button"
+          class="button is-danger"
+          [disabled]="!isParticipating(userId, journey.participants)"
+          (click)="updateParticipation(journey._id, userId, false)"
+        >
+          Nie będę
+        </button>
+      </div>
+    </article>
+  </div>
+
   <div class="tile is-vertical">
     <div class="tile">
       <div class="tile is-parent is-vertical">
@@ -11,14 +35,17 @@
           <p class="title">Grupa: {{ journey.group.name }}</p>
           <div class="flexy">
             <div class="member-box">
-              <div class="avatar">
+              <div
+                class="avatar"
+                [ngClass]="{ participation: isParticipating(journey.group.founder._id, journey.participants) }"
+              >
                 <img [src]="getAvatar(journey.group.founder.avatar)" alt="" />
               </div>
               <p class="subtitle">{{ journey.group.founder.firstName }} {{ journey.group.founder.lastName }}</p>
             </div>
 
             <div class="member-box" *ngFor="let user of journey.group.members">
-              <div class="avatar">
+              <div class="avatar" [ngClass]="{ participation: isParticipating(user._id, journey.participants) }">
                 <img [src]="getAvatar(user.avatar)" alt="" />
               </div>
               <p class="subtitle">{{ user.firstName }} {{ user.lastName }}</p>
@@ -38,13 +65,13 @@
           </p>
         </article>
         <article class="tile is-child notification is-primary-light">
-          <p class="subtitle"><strong>Miejsce zbiórki: </strong> {{ journey.meetingPlace.place }}</p>
+          <p class="subtitle"><strong>Miejsce zbiórki: </strong> {{ journey.meetingPlace.placeName }}</p>
           <p class="subtitle">
             <strong>Adres:</strong> {{ journey.meetingPlace.address.street }}
             {{ journey.meetingPlace.address.apartment }}, {{ journey.meetingPlace.address.city }}
             {{ journey.meetingPlace.address.country }}
           </p>
-          <p class="subtitle"><strong>Data:</strong> {{ journey.meetingPlace.date | date: 'dd.MM.yyyy' }}</p>
+          <p class="subtitle"><strong>Data:</strong> {{ journey.meetingPlace.meetingDate | date: 'dd.MM.yyyy' }}</p>
         </article>
       </div>
     </div>

@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RootState } from '@store/app.states';
 import { selectGroupById } from '@store/group';
-import { selectJourneyById } from '@store/journey';
+import { JourneysActions, selectJourneyById } from '@store/journey';
+import { selectUserId } from '@store/user';
 import { tap, map, switchMap } from 'rxjs';
 
 @Component({
@@ -13,6 +14,8 @@ import { tap, map, switchMap } from 'rxjs';
 })
 export class JourneyProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute, private store$: Store<RootState>) {}
+
+  userId$ = this.store$.select(selectUserId);
 
   journey$ = this.route.params.pipe(
     map((params) => params['journeyId']),
@@ -54,5 +57,18 @@ export class JourneyProfileComponent implements OnInit {
           .sort((a1, a2) => new Date(a1.date).getTime() - new Date(a2.date).getTime())
       };
     });
+  }
+
+  isParticipating(memberId: string, participants: any[]) {
+    return participants.find((p) => p.memberId === memberId).isParticipating;
+  }
+
+  updateParticipation(journeyId: string, memberId: string, value: boolean) {
+    const payload = {
+      journeyId: journeyId,
+      memberId: memberId,
+      value: value
+    };
+    this.store$.dispatch(JourneysActions.updateParticipation({ payload: payload }));
   }
 }

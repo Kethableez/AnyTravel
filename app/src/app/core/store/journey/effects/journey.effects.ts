@@ -5,7 +5,16 @@ import { JourneyService } from '@services/journey/journey.service';
 import { RootState } from '@store/app.states';
 import { NotificationType, showNotification } from '@store/notification/notification.actions';
 import { catchError, concatMap, filter, map, of, switchMap } from 'rxjs';
-import { getUserJourneys, getUserJourneySuccess, journeyError } from '../actions/journeys.actions';
+import {
+  getNotifications,
+  getNotificationsSuccess,
+  getUserJourneys,
+  getUserJourneySuccess,
+  journeyError,
+  markAsRead,
+  updateParticipation,
+  updateParticipationSuccess
+} from '../actions/journeys.actions';
 import { createJourney, createJourneySuccess, wizardError } from '../actions/wizard.actions';
 
 @Injectable({
@@ -20,12 +29,54 @@ export class JourneyEffects {
       switchMap((action) =>
         this.journeyService.doCreate(action.journeyPayload).pipe(
           concatMap((response) => [
+            getUserJourneys(),
             showNotification({ message: response.message, notificationType: NotificationType.SUCCESS }),
             createJourneySuccess()
           ]),
           catchError((error) => of(wizardError({ message: error.error.message, dispatchNotification: true })))
         )
       )
+    )
+  );
+
+  getNotifications$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getNotifications),
+      switchMap(() =>
+        this.journeyService.doGetNotifications().pipe(
+          map((response) => getNotificationsSuccess({ notifications: response })),
+          catchError((error) => of(journeyError({ message: error.error.message, dispatchNotification: false })))
+        )
+      )
+    )
+  );
+
+  markAsRead$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(markAsRead),
+      switchMap((action) =>
+        this.journeyService.doMarkAsRead(action.notificationId).pipe(
+          map(() => getNotifications()),
+          catchError((error) => of(journeyError({ message: error.error.message, dispatchNotification: false })))
+        )
+      )
+    )
+  );
+
+  updateParticipation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateParticipation),
+      switchMap((action) =>
+        this.journeyService
+          .doUpdateParticipation(action.payload)
+          .pipe(
+            concatMap((response) => [
+              showNotification({ message: response.message, notificationType: NotificationType.SUCCESS }),
+              getUserJourneys()
+            ])
+          )
+      ),
+      catchError((error) => of(wizardError({ message: error.error.message, dispatchNotification: true })))
     )
   );
 
