@@ -102,7 +102,7 @@ class GeneratorService {
     const data = {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
-      role: 'User',
+      role: faker.helpers.arrayElement(['RegularUser', 'Moderator']),
       birthdate: faker.date.past(),
       isActive: true,
       isSubscribed: faker.datatype.boolean()

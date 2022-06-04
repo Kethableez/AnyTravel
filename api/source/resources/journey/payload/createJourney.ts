@@ -8,9 +8,11 @@ interface CreateJourneyPayload {
     startDate: Date;
     endDate: Date;
   };
+  participants: string[];
   destination: BaseAddress;
   group: {
     id: string;
+    participants: string[];
   };
   attractions: AttractionInfo[];
   accomodation: Accomodation;

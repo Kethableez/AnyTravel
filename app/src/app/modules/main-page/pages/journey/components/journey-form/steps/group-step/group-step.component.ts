@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Group } from '@models/journey/group.model';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
 import { RootState } from '@store/app.states';
@@ -26,6 +27,7 @@ export class GroupStepComponent extends CleanableDirective implements OnInit {
         if (group) {
           this.selectedGroupId = group.id;
           this.selectedGroupName = group.name;
+          this.participants = group.participants;
         }
       })
     );
@@ -33,6 +35,7 @@ export class GroupStepComponent extends CleanableDirective implements OnInit {
 
   selectedGroupId = '';
   selectedGroupName = '';
+  participants: string[] = [];
 
   ngOnInit(): void {}
 
@@ -44,13 +47,14 @@ export class GroupStepComponent extends CleanableDirective implements OnInit {
     return this.selectedGroupId === groupId ? 'selected' : '';
   }
 
-  selectGroup(groupId: string, groupName: string) {
-    this.selectedGroupId = groupId;
-    this.selectedGroupName = groupName;
+  selectGroup(group: any) {
+    this.selectedGroupId = group._id;
+    this.selectedGroupName = group.name;
+    this.participants = [...group.members, group.founder].map((u) => u._id);
   }
 
   nextStep() {
-    const formData = { id: this.selectedGroupId, name: this.selectedGroupName };
+    const formData = { id: this.selectedGroupId, name: this.selectedGroupName, participants: this.participants };
     this.store$.dispatch(WizardActions.updateWizard({ key: 'group', object: formData }));
     this.submitStep.emit(formData);
   }

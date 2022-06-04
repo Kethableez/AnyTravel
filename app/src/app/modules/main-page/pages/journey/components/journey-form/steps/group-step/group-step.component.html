@@ -1,6 +1,6 @@
 <div class="content-scroll group-box" *ngIf="userGroups$ | async as groups">
   <div *ngFor="let group of groups">
-    <div class="box horizontal" [ngClass]="isGroupSelected(group._id)" (click)="selectGroup(group._id, group.name)">
+    <div class="box horizontal" [ngClass]="isGroupSelected(group._id)" (click)="selectGroup(group)">
       <figure class="image is-64x64">
         <img [src]="cover(group.cover)" />
       </figure>

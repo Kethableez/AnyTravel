@@ -13,6 +13,14 @@ export const getJourneyState = createFeatureSelector<JourneyState>('journey');
 
 export const selectJourneys = createSelector(getJourneyState, (state) => state.journeys.journeys);
 
+export const selectNotifications = createSelector(getJourneyState, (state) => state.journeys.notifications);
+
+export const selectUnreadNotifications = createSelector(selectNotifications, (notifications) =>
+  notifications.filter((n) => !n.isRead)
+);
+
+export const selectUnreadCount = createSelector(selectUnreadNotifications, (notifications) => notifications.length);
+
 export const selectDisplayType = createSelector(getJourneyState, (state) => state.journeys.displayType);
 
 export const selectSearchQuery = createSelector(getJourneyState, (state) => state.journeys.searchQuery);

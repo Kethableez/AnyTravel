@@ -9,6 +9,7 @@ const JourneySchema = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   groupId: { type: mongoose.Types.ObjectId, required: true },
+  participants: { type: [Object], required: true },
   destination: { type: Object, required: true },
   attractions: { type: [Object], required: true },
   meetingPlace: { type: Object, required: true },

@@ -1,9 +1,16 @@
 import { DisplayType } from '@models/journey/display-type.model';
 import { createReducer, on } from '@ngrx/store';
-import { displayTypeChange, getUserJourneySuccess, journeyError, searchQueryChange } from '../actions/journeys.actions';
+import {
+  displayTypeChange,
+  getNotificationsSuccess,
+  getUserJourneySuccess,
+  journeyError,
+  searchQueryChange
+} from '../actions/journeys.actions';
 
 export interface State {
   journeys: any[];
+  notifications: any[];
   displayType: DisplayType;
   searchQuery: string | null;
   errorMessage: string;
@@ -11,6 +18,7 @@ export interface State {
 
 export const initialState: State = {
   journeys: [],
+  notifications: [],
   displayType: DisplayType.ALL,
   searchQuery: null,
   errorMessage: ''
@@ -25,6 +33,10 @@ export const journeysReducer = createReducer(
   on(displayTypeChange, (state, action) => ({
     ...state,
     displayType: action.option
+  })),
+  on(getNotificationsSuccess, (state, action) => ({
+    ...state,
+    notifications: action.notifications
   })),
   on(searchQueryChange, (state, action) => ({
     ...state,
