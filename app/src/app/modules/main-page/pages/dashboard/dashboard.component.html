@@ -1,8 +1,8 @@
 <div class="column is-12 center">
 
-  <div class="content" *ngIf="notifications$ | async as notifications">
+  <div class="content" *ngIf="notificationsUnread$ | async as notifications">
     <div class="title">
-    Powiadomienia
+      Powiadomienia
     </div>
     <tr *ngFor="let notification of notifications">
       <div class="notification is-success is-light">
