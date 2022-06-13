@@ -1,9 +1,9 @@
 <div class="column is-12 center">
-
-  <div class="content" *ngIf="notificationsUnread$ | async as notifications">
+  <div class="content" *ngIf="notificationsUnread$ | async as notifications; then noNotificationsTemplate">
     <div class="title">
       Powiadomienia
     </div>
+
     <tr *ngFor="let notification of notifications">
       <div class="notification is-success is-light">
         <button class="delete" (click)="markNotificationAsRead(notification['_id'])"></button>
@@ -13,7 +13,22 @@
       </div>
     </tr>
   </div>
+</div>
 
+<ng-template #noNotificationsTemplate>
+  <div class="content">
+    <div class="title">
+        Powiadomienia
+    </div>
+    <tr>
+      <div class="notification is-grey is-light">
+        Brak aktualnych powiadomień
+      </div>
+    </tr>
+  </div>
+</ng-template>
+
+<div class="column is-12 center">
   <div class="content" *ngIf="userJourneys$ | async as userJourneys">
     <div class="paragraph-title">
       <h2 class="title is-3"> Najbliższa wycieczka </h2>
