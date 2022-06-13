@@ -1,5 +1,19 @@
 <div class="column is-12 center">
 
+  <div class="content" *ngIf="notifications$ | async as notifications">
+    <div class="title">
+    Powiadomienia
+    </div>
+    <tr *ngFor="let notification of notifications">
+      <div class="notification is-success is-light">
+        <button class="delete" (click)="markNotificationAsRead(notification['_id'])"></button>
+          Zostałeś dodany do wycieczki o ID
+        {{notification["journeyId"]}}
+        {{notification | json}}
+      </div>
+    </tr>
+  </div>
+
   <div class="content" *ngIf="userJourneys$ | async as userJourneys">
     <div class="paragraph-title">
       <h2 class="title is-3"> Najbliższa wycieczka </h2>
@@ -30,4 +44,3 @@
   </div>
 
 </div>
-

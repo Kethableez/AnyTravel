@@ -74,7 +74,7 @@ class JourneyService {
 
       const notification = new this.journeyNotificationSchema({
         journeyId: journey._id,
-        recievers: group.members.map((id) => {
+        recievers: [...group.members, group.founder].map((id) => {
           return { recieverId: id, isRead: false };
         })
       });
@@ -153,7 +153,11 @@ class JourneyService {
   public async getJourneyNotifications(userId: string): Promise<any[] | Error> {
     try {
       const query = {
-        'recievers.recieverId': userId
+        recievers: {
+          $elemMatch: {
+            recieverId: userId
+          }
+        }
       };
 
       const journeyNotifications = await this.journeyNotificationSchema.find(query);
