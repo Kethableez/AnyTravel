@@ -40,7 +40,7 @@ export class GroupStepComponent extends CleanableDirective implements OnInit {
   ngOnInit(): void {}
 
   cover(coverRef: string) {
-    return coverRef.startsWith('attraction/') ? `http://localhost:9000/api/file/download/${coverRef}` : coverRef;
+    return coverRef.startsWith('group/') ? `http://localhost:9000/api/file/download/${coverRef}` : coverRef;
   }
 
   isGroupSelected(groupId: string) {

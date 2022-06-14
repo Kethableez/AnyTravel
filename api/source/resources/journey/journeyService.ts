@@ -126,7 +126,21 @@ class JourneyService {
 
   public async getUserJourneys(userId: string): Promise<JourneyModel[] | Error> {
     try {
-      const groups = await this.groupSchema.find(byUserId(userId));
+      const groups = await this.groupSchema.aggregate([
+        {
+          $match: {
+            $or: [
+              {
+                founder: userId
+              },
+              {
+                members: userId
+              }
+            ]
+          }
+        }
+      ]);
+      console.log(groups);
       const groupIds = groups.map((group) => group._id);
       const journeys = await this.journeySchema.aggregate(this.query(groupIds));
       return journeys;

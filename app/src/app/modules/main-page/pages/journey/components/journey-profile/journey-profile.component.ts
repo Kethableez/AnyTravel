@@ -44,7 +44,7 @@ export class JourneyProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   getAvatar(avatarRef: string) {
-    return avatarRef.startsWith('attraction/') ? `http://localhost:9000/api/file/download/${avatarRef}` : avatarRef;
+    return avatarRef.startsWith('avatar/') ? `http://localhost:9000/api/file/download/${avatarRef}` : avatarRef;
   }
 
   mapAttractions(attractions: any[]) {
