@@ -1,6 +1,6 @@
 <div class="column is-12 center">
   <div class="content" *ngIf="notificationsUnread$ | async as notifications">
-    <div class="title">Powiadomienia</div>
+    <div class="title left">Powiadomienia</div>
 
     <ng-container *ngIf="notifications.length !== 0; else noNotificationsTemplate">
       <tr *ngFor="let notification of notifications">

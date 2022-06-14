@@ -2,6 +2,7 @@
 majk-journey-card {
   width: 30rem;
   margin: 1rem;
+
   .image img {
     width: 100%;
     object-fit: cover;
@@ -51,10 +52,34 @@ majk-journey-card {
   }
 }
 
+.paragraph-title {
+  padding: 20px;
+}
+
+.notification {
+  margin: 5px;
+  transition: 0.25s ease;
+  border-radius: 5px;
+}
+
+.notification:hover {
+  background-color: #d3f3e7;
+}
+
 .column {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+}
+
+.content{
+  border-radius: 5px;
+  transition: 0.25s ease;
+}
+
+
+.content:hover {
+  background-color: #f9faf9;
 }
 
 .flex {
@@ -71,6 +96,7 @@ majk-journey-card {
 }
 
 .title {
+  margin-top: 20px;
   font-weight: bold;
   text-decoration: solid underline transparent;
 }
