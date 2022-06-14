@@ -32,7 +32,7 @@ export class LandingPageComponent extends CleanableDirective implements OnInit {
 
   ngOnInit(): void {
     this.store$.select(selectIsLoggedIn).subscribe((isLoggedIn) => {
-      if (isLoggedIn) this.router.navigateByUrl('/home');
+      if (isLoggedIn) this.router.navigateByUrl('/home/dashboard');
     });
   }
 
