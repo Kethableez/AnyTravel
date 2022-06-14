@@ -1,18 +1,16 @@
 <div class="column is-12 center">
-  <div class="content" *ngIf="notificationsUnread$ | async as notifications">
+  <div class="content" *ngIf="notifs$ | async as notifications">
     <div class="title left">Powiadomienia</div>
 
     <ng-container *ngIf="notifications.length !== 0; else noNotificationsTemplate">
       <tr *ngFor="let notification of notifications">
-        <div class="notification is-success is-light">
+        <div class="notification is-success is-light link" (click)="navigate(notification.journeyId)">
           <button class="delete" (click)="markNotificationAsRead(notification['_id'])"></button>
-          Zostałeś dodany do wycieczki o ID
-          {{ notification['journeyId'] }}
-          {{ notification | json }}
+          <span>Zostałeś dodany do wycieczki: '{{ notification.journeyName }}'</span>
         </div>
       </tr>
     </ng-container>
-    
+
     <ng-template #noNotificationsTemplate>
       <div class="notification is-grey is-light">Brak aktualnych powiadomień</div>
     </ng-template>

@@ -47,7 +47,7 @@ export class AuthEffects {
       withLatestFrom(this.store$.select(selectIsLoggedIn)),
       filter(([, isLoggedIn]) => isLoggedIn),
       concatMap(() => [getData(), getAttractions(), getUserGroups(), getNotifications(), getUserJourneys()]),
-      tap(() => this.router.navigateByUrl('/home'))
+      tap(() => this.router.navigateByUrl('/home/dashboard'))
     )
   );
 

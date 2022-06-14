@@ -117,3 +117,13 @@ majk-journey-card {
     width: 300px;
   }
 }
+
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
